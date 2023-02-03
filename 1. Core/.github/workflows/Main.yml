@@ -1,0 +1,20 @@
+name: MainJob
+on:
+  push:
+    branches: [ '**' ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['6.0.x' ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: Build
+        run: dotnet build SeleniumTestXUnit/
+      - name: Check format issues
+        run: dotnet format --verify-no-changes -v d SeleniumTestXUnit/
