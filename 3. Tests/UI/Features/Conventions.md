@@ -3,20 +3,31 @@
 ```
 Given THE USER IS logged in
 ```
+<br>
 
 # TAGS
-- @Smoke
-- @Regression
-- @Negative
+- `@Smoke`
+- `@Regression`
+- `@Negative`
+<br>
+
+# HOOKS
+- Use all lowercase letters separated by dots(.)
+- Start the hook name with an action verb followed by an object e.g.
+  - `@create.project`
+  - `@delete.project`
+  - `@go.to.login.page`
+<br>
 
 # BACKGROUND
-Use Background for repetead steps for different scenarios in the same feature:
+Use Background for repeated steps for different scenarios in the same feature:
 
 ```
     Background:
         Given the user is logged in
             And has an existing project
 ```
+<br>
 
 # COMMON STEPS EXAMPLES
 ```
@@ -28,12 +39,12 @@ Use Background for repetead steps for different scenarios in the same feature:
     Given the user is logged in
         And has an existing item
 ```
+<br>
 
 # SCENARIOS
 - Titles: start the title with an action verb e.g. 
 ```
-    Scenario: Create a new project succesfully
+    Scenario: Create a new project successfully
 ```
 - Use "Scenario" and Unique ID generator method for @Acceptance test cases
 - Use "Scenario Outline" and Examples for @Negative test cases
-
