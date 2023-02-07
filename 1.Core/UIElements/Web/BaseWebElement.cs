@@ -9,6 +9,7 @@ namespace UIElements.Web
     public class BaseWebElement : IElement
     {
         private readonly IGenericWebDriver _driver;
+
         public BaseWebElement(string name, Locator locator, IGenericWebDriver driver)
         {
             Name = name;
@@ -20,7 +21,7 @@ namespace UIElements.Web
 
         public Locator Locator { get; set; }
 
-        private IWebElement _webElement;
+        private IWebElement? _webElement;
 
         public IWebElement WebElement
         {

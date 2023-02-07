@@ -11,21 +11,22 @@ namespace SeleniumTest.Tests;
 [TestFixture]
 public class LoginChromeTests : CommonSteps
 {
-    private LoginPage? _loginPage;
-    private IGenericWebDriver? _driver;
+    private readonly LoginPage _loginPage;
+    private readonly IGenericWebDriver _driver;
     private readonly ScenarioContext _scenarioContext;
 
-    public LoginChromeTests(ScenarioContext scenarioContext, ChromeWebDriver driver) : base(scenarioContext, driver)
+    public LoginChromeTests(ScenarioContext scenarioContext, ChromeWebDriver driver)
+        : base(scenarioContext, driver)
     {
         _scenarioContext = scenarioContext;
         _driver = driver;
+        _loginPage = new LoginPage(_driver);
     }
 
-    [SetUp]
-    public void SetUp()
+    [TearDown]
+    public void TearDown()
     {
-        _driver = new ChromeWebDriver();
-        _loginPage = new LoginPage(_driver);
+        _driver.Dispose();
     }
 
     [Given(@"the user navigates to the URL")]
@@ -51,11 +52,4 @@ public class LoginChromeTests : CommonSteps
     {
         _scenarioContext.Pending();
     }
-
-    [TearDown]
-    public void TearDown()
-    {
-        _driver!.Dispose();
-    }
 }
-
