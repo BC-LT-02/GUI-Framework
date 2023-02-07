@@ -12,10 +12,12 @@ Feature: Password update
         And clicks on the New Password input
         And inputs a new valid password "newpassword"
         And clicks on the OK button
-        Then the password is updated and the settings view is closed
+        Then the password is updated
+            And the settings view is closed
 
     @Negative
     Scenario: Fail to update password with empty input
         And clicks on the OK button
-        Then an alert should appear with the message "Invalid Password" and a button to accept it
+        Then an alert should appear with the message "Invalid Password"
+            And an accept button is displayed
 

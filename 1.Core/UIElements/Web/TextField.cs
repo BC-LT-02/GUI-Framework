@@ -12,5 +12,10 @@ namespace UIElements.Web
         {
             WebElement.SendKeys(keys);
         }
+
+        public void Clear()
+        {
+            WebElement.Clear();
+        }
     }
 }

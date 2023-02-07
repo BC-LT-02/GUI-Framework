@@ -16,5 +16,5 @@ jobs:
           dotnet-version: '6.0.x'
       - name: Build
         run: dotnet build TodoFramework.sln
-      # - name: Check format issues
-      #   run: dotnet format --verify-no-changes -v d SeleniumTestXUnit/
+      - name: Check format issues
+        run: dotnet format --verify-no-changes -v d TodoFramework.sln

@@ -9,7 +9,7 @@ namespace Views.WebAppPages;
 
 public class LoginPage
 {
-    private readonly IGenericWebDriver _driver;
+    public readonly IGenericWebDriver _driver;
     public readonly string HostUrl = ConfigModel.HostUrl;
     public readonly string EmailCredentials = ConfigModel.TODO_LY_EMAIL;
     public readonly string PassCredentials = ConfigModel.TODO_LY_PASS;

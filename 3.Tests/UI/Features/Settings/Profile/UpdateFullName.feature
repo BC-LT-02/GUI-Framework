@@ -8,13 +8,15 @@ Feature: Full name update
 
     @Acceptance
     Scenario: Update full name succesfully
-        And inputs a new valid full name "New Valid Name"
+        And inputs a new valid full name "New Name"
         And clicks on the OK button
-        Then the full name is updated and the settings view is closed
+        Then the full name is updated 
+            And the settings view is closed
 
     @Negative
     Scenario: Fail to update email with empty input
-        And leaves the input empty
+        And inputs an email ""
         And clicks on the OK button
-        Then an alert should appear with the message "Full Name cannot be empty" and a button to accept it
+        Then an alert should appear with the message "Full Name cannot be empty" 
+            And an accept button is displayed
 
