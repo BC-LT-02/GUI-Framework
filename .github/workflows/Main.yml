@@ -17,4 +17,4 @@ jobs:
       - name: Build
         run: dotnet build TodoFramework.sln
       - name: Check format issues
-        # run: dotnet format --verify-no-changes -v d TodoFramework.sln
+        run: dotnet format --verify-no-changes -v d TodoFramework.sln

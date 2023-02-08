@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
+using SeleniumTest.Core;
 using SeleniumTest.Core.Drivers;
-using SeleniumTest.Core.Interfaces;
 using TechTalk.SpecFlow;
 using Views.WebAppPages;
 
@@ -12,20 +12,19 @@ namespace SeleniumTest.Tests;
 public class LoginChromeTests
 {
     private readonly LoginPage _loginPage;
-    private readonly IGenericWebDriver _driver;
     private readonly ScenarioContext _scenarioContext;
 
-    public LoginChromeTests(ScenarioContext scenarioContext, ChromeWebDriver driver)
+    public LoginChromeTests(ScenarioContext scenarioContext)
     {
+        _loginPage = new LoginPage();
         _scenarioContext = scenarioContext;
-        _driver = driver;
-        _loginPage = new LoginPage(_driver);
     }
 
     [Given(@"the user navigates to the URL")]
     public void GivenTheUserNavigatesToTheURL()
     {
-        IWebElement panelNotAuthDiv = _driver.Instance().FindElement(By.Id("ctl00_MainContent_PanelNotAuth"));
+        GenericWebDriver.Instance.Navigate().GoToUrl(ConfigModel.HostUrl);
+        IWebElement panelNotAuthDiv = GenericWebDriver.Instance.FindElement(By.Id("ctl00_MainContent_PanelNotAuth"));
         Assert.True(panelNotAuthDiv.Displayed);
     }
 
@@ -33,7 +32,7 @@ public class LoginChromeTests
     public void WhenTheUserClicksOnLogin()
     {
         _loginPage.LoginButton.Click();
-        IWebElement loginDiv = _driver.Instance().FindElement(By.Id("HPloginDiv"));
+        IWebElement loginDiv = GenericWebDriver.Instance.FindElement(By.Id("HPloginDiv"));
         Assert.True(loginDiv.Displayed);
     }
 
@@ -55,14 +54,14 @@ public class LoginChromeTests
     [Then(@"the user should be able to see the main page")]
     public void ThenTheUserShouldBeAbleToSeeTheMainPage()
     {
-        IWebElement panelAuthDiv = _driver.Instance().FindElement(By.Id("ctl00_MainContent_PanelAuth"));
+        IWebElement panelAuthDiv = GenericWebDriver.Instance.FindElement(By.Id("ctl00_MainContent_PanelAuth"));
         Assert.True(panelAuthDiv.Displayed);
     }
 
-    [TearDown]
+    [AfterScenario]
     public void TearDown()
     {
-        _driver!.Dispose();
+        GenericWebDriver.Dispose();
     }
 }
 

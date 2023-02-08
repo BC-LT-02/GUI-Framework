@@ -1,5 +1,4 @@
-﻿using SeleniumTest.Core.Interfaces;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 using Views.WebAppPages;
 
 namespace SeleniumTest.Tests.Steps.Commons;
@@ -7,19 +6,17 @@ namespace SeleniumTest.Tests.Steps.Commons;
 [TestFixture]
 public class CommonSteps
 {
-    private readonly IGenericWebDriver _driver;
     private readonly ScenarioContext _scenarioContext;
 
-    public CommonSteps(ScenarioContext scenarioContext, IGenericWebDriver driver)
+    public CommonSteps(ScenarioContext scenarioContext)
     {
         _scenarioContext = scenarioContext;
-        _driver = driver;
     }
 
     [Given(@"the user is logged in")]
     public void Login()
     {
-        LoginPage loginPage = new LoginPage(_driver);
+        LoginPage loginPage = new LoginPage();
         loginPage!.LoginIntoApplication();
     }
 
