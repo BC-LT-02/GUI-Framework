@@ -30,22 +30,19 @@ public class UpdateItemNameStepDefinitions : CommonSteps
     [When(@"the user clicks on ""(.*)"" item in the main items section")]
     public void Whentheuserclicksonaniteminthemainitemssection(string oldItemName)
     {
-        string _oldItemName = oldItemName;
-        _homePage.ClickListItem(_oldItemName);
+        _homePage.ClickListItem(oldItemName);
     }
 
     [When(@"the user types ""(.*)"" as item name")]
     public void GiventheusertypesItemNameasitemname(string itemName)
     {
-        string _itemName = itemName;
-        _homePage.TypeNewItemName(_itemName);
+        _homePage.TypeNewItemName(itemName);
     }
 
     [Then(@"the item should be updated to be ""(.*)""")]
     public void ThentheitemshouldbeupdatedtobeItemName(string itemName)
     {
-        string _itemName = itemName;
-        var xpath = "//div[@class='ItemContentDiv' and text()='" + _itemName + "']";
+        var xpath = "//div[@class='ItemContentDiv' and text()='" + itemName + "']";
         var newItem = GenericWebDriver.Instance.FindElement(By.XPath(xpath));
         Assert.True(newItem.Displayed);
     }
