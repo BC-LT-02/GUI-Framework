@@ -1,12 +1,11 @@
-﻿using SeleniumTest.Core.Interfaces;
-using UIElements.Commons;
+﻿using UIElements.Commons;
 using UIElements.Interfaces;
 
 namespace UIElements.Web
 {
     public class Button : BaseWebElement, IClickable
     {
-        public Button(string name, Locator locator, IGenericWebDriver driver) : base(name, locator, driver) { }
+        public Button(string name, Locator locator) : base(name, locator) { }
 
         public void Click()
         {
