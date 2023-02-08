@@ -1,5 +1,5 @@
 ﻿using SeleniumTest.Core;
-using SeleniumTest.Core.Interfaces;
+using SeleniumTest.Core.Drivers;
 using UIElements.Commons;
 using UIElements.Enums;
 using UIElements.Interfaces;
@@ -9,24 +9,13 @@ namespace Views.WebAppPages;
 
 public class HomePage
 {
-    private readonly IGenericWebDriver _driver;
     public readonly string HostUrl = ConfigModel.HostUrl;
 
     public IClickable LogoutButton =>
-        new Button(
-            "",
-            new Locator(LocatorType.Id, "ctl00_HeaderTopControl1_LinkButtonLogout"),
-            _driver
-        );
+        new Button("", new Locator(LocatorType.Id, "ctl00_HeaderTopControl1_LinkButtonLogout"));
 
-    public HomePage(IGenericWebDriver driver)
+    public HomePage()
     {
-        _driver = driver;
-        _driver.Instance().Navigate().GoToUrl(HostUrl);
-    }
-
-    public void LogoutOffTheApplication()
-    {
-        LogoutButton.Click();
+        //GenericWebDriver.Instance.Navigate().GoToUrl(HostUrl);
     }
 }
