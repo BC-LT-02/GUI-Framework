@@ -1,4 +1,4 @@
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SeleniumTest.Tests.Steps.Commons;
 using TechTalk.SpecFlow;
 using Views.WebAppPages;
