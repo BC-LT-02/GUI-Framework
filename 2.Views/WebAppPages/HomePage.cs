@@ -1,4 +1,5 @@
-﻿using SeleniumTest.Core;
+﻿using OpenQA.Selenium;
+using SeleniumTest.Core;
 using SeleniumTest.Core.Drivers;
 using UIElements.Commons;
 using UIElements.Enums;
@@ -17,5 +18,30 @@ public class HomePage
     public HomePage()
     {
         //GenericWebDriver.Instance.Navigate().GoToUrl(HostUrl);
+    }
+
+    //UpdateItemName
+    public IClickable ItemButton(string oldItemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//div[@class='ItemContentDiv' and text()='" + oldItemName + "']"
+            )
+        );
+
+    public void ClickListItem(string oldItemName)
+    {
+        ItemButton(oldItemName).Click();
+    }
+
+    public ITypeable EditItemTextField =>
+        new TextField("", new Locator(LocatorType.Id, "ItemEditTextbox"));
+
+    public void TypeNewItemName(string itemName)
+    {
+        EditItemTextField.Clear();
+        EditItemTextField.Type(itemName);
+        EditItemTextField.Type(Keys.Enter);
     }
 }
