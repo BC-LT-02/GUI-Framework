@@ -26,10 +26,22 @@ Feature: Create an Item in a Project
         Then an error message "Name is required" should be displayed 
 =======
 
+<<<<<<< HEAD
     #@Draft
     #@Negative
     #Scenario: Failed to Create an Item Due to Empty Name
         #Given the user has selected a project
         #When the user tries to create an item with an empty string
         #Then an error message indicating that the item name is required should be displayed
+<<<<<<< HEAD
 >>>>>>> c321402 (Create item with the new actualizations)
+=======
+=======
+    @Draft
+    @Negative
+    Scenario: Failed to Create an Item Due to Empty Name
+        Given the user has selected a project
+        When the user tries to create an item with an empty string
+        Then an error message indicating that the item name is required should be displayed
+>>>>>>> d90e92f (step definitions for Create Item feature added)
+>>>>>>> f59457d (step definitions for Create Item feature added)
