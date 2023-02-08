@@ -1,8 +1,8 @@
 ﻿using OpenQA.Selenium;
+using SeleniumTest.Core.Drivers;
 using SeleniumTest.Tests.Steps.Commons;
 using TechTalk.SpecFlow;
 using Views.WebAppPages;
-using SeleniumTest.Core.Drivers;
 
 namespace SeleniumTest.Tests.Steps.Items;
 
