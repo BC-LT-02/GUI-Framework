@@ -1,6 +1,6 @@
-﻿using SeleniumTest.Core.Drivers;
+﻿using OpenQA.Selenium;
+using SeleniumTest.Core.Drivers;
 using SeleniumTest.Core.Interfaces;
-using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using Views.WebAppPages;
 
@@ -11,8 +11,8 @@ namespace SeleniumTest.Tests;
 [TestFixture]
 public class LoginChromeTests
 {
-    private LoginPage _loginPage;
-    private IGenericWebDriver _driver;
+    private readonly LoginPage _loginPage;
+    private readonly IGenericWebDriver _driver;
     private readonly ScenarioContext _scenarioContext;
 
     public LoginChromeTests(ScenarioContext scenarioContext, ChromeWebDriver driver)
@@ -21,7 +21,7 @@ public class LoginChromeTests
         _driver = driver;
         _loginPage = new LoginPage(_driver);
     }
-			
+
     [Given(@"the user navigates to the URL")]
     public void GivenTheUserNavigatesToTheURL()
     {

@@ -1,10 +1,10 @@
+﻿using OpenQA.Selenium;
 using SeleniumTest.Core.Drivers;
 using SeleniumTest.Core.Interfaces;
 using SeleniumTest.Tests.Steps.Commons;
 using TechTalk.SpecFlow;
 using Views.WebAppPages;
-using OpenQA.Selenium;
-	
+
 namespace SeleniumTest.Tests;
 
 [Binding]
@@ -12,8 +12,8 @@ namespace SeleniumTest.Tests;
 [TestFixture]
 public class UpdateFullNameStepDefinition : CommonSteps
 {
-    private ProfilePage _profile;
-    private IGenericWebDriver _driver;
+    private readonly ProfilePage _profile;
+    private readonly IGenericWebDriver _driver;
     private readonly ScenarioContext _scenarioContext;
 
     public UpdateFullNameStepDefinition(ScenarioContext scenarioContext, ChromeWebDriver driver) : base(scenarioContext, driver)
@@ -22,7 +22,6 @@ public class UpdateFullNameStepDefinition : CommonSteps
         _driver = driver;
         _profile = new ProfilePage(driver);
     }
-
 
     [Given(@"the user clicks on the Settings option on the Nav Bar")]
     public void GiventheuserclicksontheSettingsoptionontheNavBar()

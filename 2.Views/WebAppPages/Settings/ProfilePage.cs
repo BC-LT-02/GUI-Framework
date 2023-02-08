@@ -1,4 +1,4 @@
-using SeleniumTest.Core;
+﻿using SeleniumTest.Core;
 using SeleniumTest.Core.Interfaces;
 using UIElements.Commons;
 using UIElements.Enums;
