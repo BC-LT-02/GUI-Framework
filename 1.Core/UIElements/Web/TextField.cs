@@ -14,6 +14,7 @@ namespace Todoly.Core.UIElements.Web
         {
             try
             {
+                GenericWebDriver.Wait.Until(ExpectedConditions.ElementIsVisible(Locator.GetBy()));
                 GenericWebDriver.Wait.Until(ExpectedConditions.ElementToBeClickable(WebElement));
                 WebElement.Clear();
                 GenericWebDriver.Wait.Until(
