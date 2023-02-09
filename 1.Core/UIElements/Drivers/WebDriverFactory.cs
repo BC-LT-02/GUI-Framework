@@ -33,7 +33,7 @@ public class WebDriverFactory
     public static IWebDriver BasicConfigs(IWebDriver driver)
     {
         driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(
-            ConfigModel.DriverExplicitTimeout
+            ConfigModel.DriverImplicitTimeout
         );
         driver.Manage().Window.Maximize();
         return driver;
