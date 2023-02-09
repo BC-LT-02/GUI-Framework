@@ -1,5 +1,4 @@
-﻿using SeleniumTest.Core;
-using UIElements.Commons;
+﻿using UIElements.Commons;
 using UIElements.Enums;
 using UIElements.Interfaces;
 using UIElements.Web;
@@ -10,11 +9,11 @@ public class ProfilePage
 {
     public ITypeable FullNameTextField => new TextField("", new Locator(LocatorType.Id, "FullNameInput"));
     public ITypeable EmailTextField => new TextField("", new Locator(LocatorType.Id, "EmailInput"));
-    public IClickable OkButton => new Button("", new Locator(LocatorType.XPath, "c//div[@class='ui-dialog-buttonset']//span[text()='Ok']"));
-    public IClickable Settings => new Button("", new Locator(LocatorType.XPath, "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"));
+    public IClickable OkButton => new Button("", new Locator(LocatorType.XPath, "//div[@class='ui-dialog-buttonset']//span[text()='Ok']"));
+    public IClickable CloseButton => new Button("", new Locator(LocatorType.XPath, "//div[@aria-labelledby='ui-dialog-title-settingsDialog'][contains(@style, 'block')]//ul[@id='settings_tabs']//span[text()='close']"));
+    public IClickable NonDisplayedCloseButton => new Button("", new Locator(LocatorType.XPath, "//div[@aria-labelledby='ui-dialog-title-settingsDialog'][contains(@style, 'none')]//ul[@id='settings_tabs']//span[text()='close']"));
 
     public ProfilePage()
     {
-        // _driver = driver;
     }
 }
