@@ -18,3 +18,5 @@ jobs:
         run: dotnet build TodoFramework.sln
       - name: Check format issues
         run: dotnet format --verify-no-changes -v d TodoFramework.sln
+      - name: Selenium docker grid setup
+        run: docker-compose -f "docker-compose.yml" up -d --build
