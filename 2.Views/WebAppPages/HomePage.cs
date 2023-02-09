@@ -15,7 +15,6 @@ public class HomePage
         new Button("", new Locator(LocatorType.Id, "ctl00_HeaderTopControl1_LinkButtonLogout"));
     public IClickable SettingsButton => new Button("", new Locator(LocatorType.XPath, "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"));
 
-
     public HomePage()
     {
         //GenericWebDriver.Instance.Navigate().GoToUrl(HostUrl);
