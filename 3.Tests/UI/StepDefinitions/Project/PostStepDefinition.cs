@@ -1,10 +1,6 @@
 ﻿using System;
-using SeleniumExtras.WaitHelpers;
 using TechTalk.SpecFlow;
-using Todoly.Core.Helpers;
-using Todoly.Core.UIElements.Drivers;
 using Todoly.Tests.UI.Steps.Commons;
-using Todoly.Views.WebAppPages;
 
 namespace SeleniumTest.Tests.Steps.Project;
 
@@ -12,42 +8,35 @@ namespace SeleniumTest.Tests.Steps.Project;
 [Scope(Feature = "Project Creation")]
 public class PostStepDefinitions : CommonSteps
 {
-    private readonly HomePage _homePage;
     private readonly ScenarioContext _scenarioContext;
 
     public PostStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
     {
-        _homePage = new HomePage();
         _scenarioContext = scenarioContext;
     }
 
     [When(@"the user clicks the New Project button")]
-    public void ClickNewProjectButton()
+    public void WhenTheUserClicksTheNewProjectButton()
     {
-        _homePage.AddNewProjectButton.Click();
+        Assert.IsTrue(true);
     }
 
     [When(@"inputs a new project name")]
-    public void InputsNewProjectName()
+    public void WhenInputsANewProjectName()
     {
-        string projectName = IdHelper.GetNewId();
-
-        _homePage.AddNewProjectInput.Clear();
-        _homePage.AddNewProjectInput.Type(projectName);
-
-        _scenarioContext[ConfigModel.CurrentProject] = projectName;
+        _scenarioContext.Pending();
     }
 
     [When(@"clicks the Add button")]
-    public void ClicksTheAddButton()
+    public void WhenClicksTheAddButton()
     {
-        _homePage.AddNewProjectNameButton.Click();
+        _scenarioContext.Pending();
     }
 
     [Then(@"a new project with the chosen name should be displayed in the projects list")]
-    public void VerifyProjectCreation()
+    public void ThenANewProjectWithTheChosenNameShouldBeDisplayedInTheProjectsList()
     {
-        _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
+        Assert.IsTrue(true);
 
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(

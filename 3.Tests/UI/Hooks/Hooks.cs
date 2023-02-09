@@ -3,7 +3,6 @@ using System.Text.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
-using Todoly.Core.UIElements.Drivers;
 using Todoly.Views.Models;
 
 namespace SeleniumTest.Tests.Hooks;
@@ -24,6 +23,7 @@ public class Hooks
         _projectName = IdHelper.GetNewId();
     }
 
+<<<<<<< HEAD:3.Tests/UI/Hooks/Hooks.cs
     [AfterTestRun]
     public static void CleanUp()
     {
@@ -36,6 +36,8 @@ public class Hooks
         GenericWebDriver.Dispose();
     }
 
+=======
+>>>>>>> 5588e6d (Added initial 'BaseHook' implementation):3.Tests/UI/Hooks/ProjectHooks.cs
     [BeforeScenario("create.project")]
     public void CreateProject()
     {
@@ -46,7 +48,12 @@ public class Hooks
         RestResponse response = _client.DoRequest(Method.Post, _url, payload);
         ProjectModel? projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
 
+<<<<<<< HEAD:3.Tests/UI/Hooks/Hooks.cs
         _scenarioContext[ConfigModel.CurrentProject] = _projectName;
         _scenarioContext[ConfigModel.CurrentProjectPayload] = projectModel;
+=======
+        _scenarioContext.Add(ConfigModel.CurrentProject, _projectName);
+        _scenarioContext.Add("projectContent", projectContent);
+>>>>>>> 5588e6d (Added initial 'BaseHook' implementation):3.Tests/UI/Hooks/ProjectHooks.cs
     }
 }

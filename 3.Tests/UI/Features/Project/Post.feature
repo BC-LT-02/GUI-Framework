@@ -10,3 +10,4 @@
             And inputs a new project name
             And clicks the Add button
         Then a new project with the chosen name should be displayed in the projects list
+
