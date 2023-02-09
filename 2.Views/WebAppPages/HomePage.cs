@@ -1,4 +1,5 @@
-﻿using Todoly.Core.Helpers;
+﻿using OpenQA.Selenium;
+using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Enums;
 using Todoly.Core.UIElements.Interfaces;
