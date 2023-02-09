@@ -39,8 +39,8 @@ namespace Todoly.Tests.API.Steps.Project
             Assert.True(response.IsSuccessful);
             Assert.Equal(statusCode, response.StatusCode.ToString());
 
-            var user = JsonSerializer.Deserialize<ProjectPayloadModel>(response.Content!);
-            Assert.IsType<ProjectPayloadModel>(user);
+            var user = JsonSerializer.Deserialize<ProjectPayload>(response.Content!);
+            Assert.IsType<ProjectPayload>(user);
         }
 
         [When(

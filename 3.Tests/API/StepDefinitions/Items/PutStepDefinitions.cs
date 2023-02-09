@@ -23,7 +23,7 @@ namespace Todoly.Tests.API.Steps.Item
         )]
         public void WhentheusermakesaPUTrequesttotheAPIendpointwithavalidJSONorXMLpayloadandIDproject()
         {
-            ItemsPayloadModel body = new ItemsPayloadModel(
+            ItemsPayload body = new ItemsPayload(
                 null,
                 null,
                 null,
@@ -51,7 +51,7 @@ namespace Todoly.Tests.API.Steps.Item
                 null,
                 null
             );
-            _scenarioContext["Response"] = Client.Put<ItemsPayloadModel>(url, body);
+            _scenarioContext["Response"] = Client.Put<ItemsPayload>(url, body);
         }
 
         [Then(@"the API should return an (.*) status code and the item should be updated")]

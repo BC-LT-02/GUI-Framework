@@ -23,7 +23,7 @@ namespace Todoly.Tests.API.Steps.Item
         )]
         public void WhentheusermakesaPOSTrequesttotheAPIendpointwithavalidJSONorXMLpayloadandIDproject()
         {
-            ItemsPayloadModel body = new ItemsPayloadModel(
+            ItemsPayload body = new ItemsPayload(
                 null,
                 content: "This is a new item",
                 null,
@@ -51,7 +51,7 @@ namespace Todoly.Tests.API.Steps.Item
                 null,
                 null
             );
-            _scenarioContext["Response"] = Client.Post<ItemsPayloadModel>(url, body);
+            _scenarioContext["Response"] = Client.Post<ItemsPayload>(url, body);
         }
 
         [Then(
