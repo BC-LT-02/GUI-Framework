@@ -9,7 +9,7 @@ public class GenericWebDriver
     public static IWebDriver Instance =>
         _driver = _driver == null ? WebDriverFactory.GetDriver(ConfigModel.DriverType) : _driver;
 
-    public static WebDriverWait Wait => new WebDriverWait(Instance, TimeSpan.FromSeconds(30));
+    public static WebDriverWait Wait => new WebDriverWait(Instance, TimeSpan.FromSeconds(ConfigModel.DriverExplicitTimeout));
 
     public static void Dispose()
     {
