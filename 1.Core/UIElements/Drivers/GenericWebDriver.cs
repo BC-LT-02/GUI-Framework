@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
+using Todoly.Core.Helpers;
 
-namespace SeleniumTest.Core.Drivers;
-
+namespace Todoly.Core.UIElements.Drivers;
 public class GenericWebDriver
 {
     private static IWebDriver? _driver = null;

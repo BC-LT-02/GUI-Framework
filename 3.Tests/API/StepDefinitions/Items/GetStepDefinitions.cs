@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
-using RestSharp;
-using RestSharp.Authenticators;
+﻿using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
 
-namespace Features.Item.Get
+namespace Todoly.Tests.API.Steps.Item
 {
     [Binding]
     [Scope(Feature = "Retrieve all items")]

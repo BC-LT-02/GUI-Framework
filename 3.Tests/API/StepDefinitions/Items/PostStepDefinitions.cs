@@ -1,11 +1,9 @@
-﻿using System;
-using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
-using RestSharp;
+﻿using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.Items.Post
+namespace Todoly.Tests.API.Steps.Item
 {
     [Binding]
     [Scope(Feature = "Create a new item in a project")]

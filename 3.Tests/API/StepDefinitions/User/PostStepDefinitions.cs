@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
 using RestSharp;
 using RestSharp.Authenticators;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.User.Post
+namespace Todoly.Tests.API.Steps.User
 {
     [Binding]
     [Scope(Feature = "User Creation")]

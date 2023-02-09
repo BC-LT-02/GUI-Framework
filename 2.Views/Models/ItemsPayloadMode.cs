@@ -1,4 +1,4 @@
-﻿namespace Models;
+﻿namespace Todoly.Views.Models;
 
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,9 @@
 ﻿using System;
-using Core;
 using DotNetEnv;
 using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
 
-namespace Features.GeneralSteps
+namespace Todoly.Tests.API.Steps.Commons
 {
     public class CommonSteps
     {

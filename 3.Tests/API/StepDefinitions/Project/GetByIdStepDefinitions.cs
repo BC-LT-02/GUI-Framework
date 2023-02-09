@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
 using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.Project.GetById
+namespace Todoly.Tests.API.Steps.Project
 {
     [Binding]
     [Scope(Feature = "Retrieve an existing project")]

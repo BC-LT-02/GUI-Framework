@@ -1,17 +1,12 @@
 ﻿using OpenQA.Selenium;
-using UIElements.Commons;
-using UIElements.Enums;
+using Todoly.Core.UIElements.Commons;
 
-namespace UIElements.Interfaces
+namespace Todoly.Core.UIElements.Interfaces
 {
     public interface IElement
     {
         IWebElement WebElement { get; set; }
-
         public string Name { get; set; }
-
-        //public ElementType ElementType { get; set; }
-
         public Locator Locator { get; set; }
     }
 }

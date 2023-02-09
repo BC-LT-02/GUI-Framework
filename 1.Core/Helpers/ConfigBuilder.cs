@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 
-namespace SeleniumTest.Core;
+namespace Todoly.Core.Helpers;
 
 public class ConfigBuilder
 {

@@ -1,5 +1,4 @@
-﻿namespace SeleniumTest.Core;
-
+﻿namespace Todoly.Core.Helpers;
 public class ConfigModel
 {
     public static readonly int DriverImplicitTimeout = ConfigBuilder.Instance.GetInt(

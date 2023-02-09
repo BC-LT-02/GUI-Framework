@@ -1,4 +1,4 @@
-﻿namespace Models;
+﻿namespace Todoly.Views.Models;
 
 public record ErrorResponseModel
 {

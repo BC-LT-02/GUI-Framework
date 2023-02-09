@@ -1,10 +1,10 @@
 ﻿using NUnit.Framework.Constraints;
-using SeleniumTest.Core.Drivers;
-using SeleniumTest.Tests.Steps.Commons;
 using TechTalk.SpecFlow;
-using Views.WebAppPages;
+using Todoly.Core.UIElements.Drivers;
+using Todoly.Tests.UI.Steps.Commons;
+using Todoly.Views.WebAppPages;
 
-namespace SeleniumTest.Tests.Steps.User;
+namespace Todoly.Tests.UI.Steps.User;
 
 [Binding]
 [Scope(Feature = "User Logout")]

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Text.Json;
-using Core;
-using Features.GeneralSteps;
-using Models;
-using RestSharp;
+﻿using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.Items.Put
+namespace Todoly.Tests.API.Steps.Item
 {
     [Binding]
     [Scope(Feature = "Update an existing item to be done")]
