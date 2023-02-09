@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
-using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.Commons;
+using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.Interfaces;
 
 namespace Todoly.Core.UIElements.Web

@@ -1,7 +1,7 @@
 ﻿using System;
-using Todoly.Core.Helpers;
 using DotNetEnv;
 using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
 
 namespace Todoly.Tests.API.Steps.Commons
 {

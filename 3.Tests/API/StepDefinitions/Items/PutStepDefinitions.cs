@@ -1,7 +1,7 @@
-﻿using Todoly.Tests.API.Steps.Commons;
-using Todoly.Views.Models;
-using RestSharp;
+﻿using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
 namespace Todoly.Tests.API.Steps.Item
 {
