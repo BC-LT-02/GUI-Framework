@@ -5,9 +5,9 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 
-namespace SeleniumTest.Core.Drivers;
+namespace SeleniumTest.Core.RemoteDrivers;
 
-public class WebDriverFactory
+public class RemoteWebDriverFactory
 {
     public static IWebDriver GetDriver(string driverType)
     {
