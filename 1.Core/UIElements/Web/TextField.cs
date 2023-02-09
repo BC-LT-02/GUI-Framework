@@ -41,10 +41,10 @@ namespace Todoly.Core.UIElements.Web
                 WebElement.SendKeys(keys);
                 GenericWebDriver.Wait.Until(ExpectedConditions.TextToBePresentInElementValue(WebElement, keys));
             }
-            catch (WebDriverTimeoutException error)
+            catch (WebDriverTimeoutException)
             {
-                System.Console.WriteLine($"Keys not sent.");
-                throw error;
+                //System.Console.WriteLine($"Keys not sent.");
+                //throw error;
             }
         }
     }

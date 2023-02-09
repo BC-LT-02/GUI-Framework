@@ -1,4 +1,5 @@
-﻿using Todoly.Core.Helpers;
+﻿using OpenQA.Selenium;
+using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Enums;
 using Todoly.Core.UIElements.Interfaces;
@@ -21,6 +22,17 @@ public class HomePage
         new Button("", new Locator(LocatorType.XPath, "//ul[@id='recycleContextMenu']/li/a"));
 
     public IElement NoItemsDiv => new Button("", new Locator(LocatorType.ClassName, "NoItems"));
+    public ITypeable AddToDoInput =>
+        new TextField("", new Locator(LocatorType.Id, "NewItemContentInput"));
+
+    public IClickable ProjectButton(string projectName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//*[@id='MainTable']//tr/td[contains(@class, 'ProjItemContent')][contains(., '{projectName}')]"
+            )
+        );
 
     public HomePage() { }
 }
