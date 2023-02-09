@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 using RestSharp;
 using TechTalk.SpecFlow;
 
-namespace Features.User.Get
+namespace Todoly.Tests.API.Steps.User
 {
     [Binding]
     [Scope(Feature = "Retrieve an existing user")]

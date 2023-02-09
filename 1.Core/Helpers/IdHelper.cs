@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SeleniumTest.Helpers;
+namespace Todoly.Core.Helpers;
 
 public class IdHelper
 {

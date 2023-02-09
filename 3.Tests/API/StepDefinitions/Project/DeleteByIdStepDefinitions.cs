@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
+﻿using System.Text.Json;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 using RestSharp;
-using RestSharp.Authenticators;
 using TechTalk.SpecFlow;
 
-namespace Features.Project.Delete
+namespace Todoly.Tests.API.Steps.Project
 {
     [Binding]
     [Scope(Feature = "Delete a project by ID")]

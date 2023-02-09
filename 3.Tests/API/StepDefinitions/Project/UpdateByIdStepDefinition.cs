@@ -1,13 +1,10 @@
-﻿using System;
-using System.Text.Json;
-using Core;
-using Features.GeneralSteps;
-// using Features.GeneralSteps;
-using Models;
+﻿using System.Text.Json;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 using RestSharp;
 using TechTalk.SpecFlow;
 
-namespace StepDefinitions.Project.Update
+namespace Todoly.Tests.API.Steps.Project.Project.Update
 {
     [Binding]
     [Scope(Feature = "Update a Project by ID")]

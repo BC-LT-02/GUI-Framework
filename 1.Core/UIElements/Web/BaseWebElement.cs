@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium;
-using SeleniumTest.Core.Drivers;
-using UIElements.Commons;
-using UIElements.Interfaces;
+using Todoly.Core.UIElements.Drivers;
+using Todoly.Core.UIElements.Commons;
+using Todoly.Core.UIElements.Interfaces;
 
-namespace UIElements.Web
+namespace Todoly.Core.UIElements.Web
 {
     public class BaseWebElement : IElement
     {

@@ -2,8 +2,7 @@
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Core;
-
+namespace Todoly.Core.Helpers;
 public class RestHelper
 {
     private readonly RestClient client;

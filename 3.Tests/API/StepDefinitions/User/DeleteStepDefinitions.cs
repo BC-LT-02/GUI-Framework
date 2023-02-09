@@ -1,13 +1,10 @@
-﻿using System;
-using System.Text.Json;
-using Core;
-using Features.GeneralSteps;
-using Models;
+﻿using System.Text.Json;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 using RestSharp;
-using RestSharp.Authenticators;
 using TechTalk.SpecFlow;
 
-namespace Features.User.Delete
+namespace Todoly.Tests.API.Steps.User
 {
     [Binding]
     [Scope(Feature = "User Deletion")]
