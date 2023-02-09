@@ -54,10 +54,10 @@ namespace Todoly.Core.UIElements.Web
                     );
                 }
             }
-            catch (WebDriverTimeoutException error)
+            catch (WebDriverTimeoutException)
             {
-                System.Console.WriteLine($"Keys not sent.");
-                throw error;
+                //System.Console.WriteLine($"Keys not sent.");
+                //throw error;
             }
         }
     }
