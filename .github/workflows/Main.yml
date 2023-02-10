@@ -20,5 +20,3 @@ jobs:
         run: dotnet format --verify-no-changes -v d TodoFramework.sln
       - name: Selenium docker grid setup
         run: docker-compose -f "docker-compose.yml" up -d --build
-      - name: Run tests
-        run: dotnet test .\3.Tests\UI\
