@@ -11,4 +11,9 @@ public class WebActions
         Actions actions = new Actions(GenericWebDriver.Instance);
         actions.MoveToElement(element).Perform();
     }
+
+    public static void NavigateTo(string url)
+    {
+        GenericWebDriver.Instance.Navigate().GoToUrl(url);
+    }
 }
