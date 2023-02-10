@@ -1,7 +1,7 @@
 ﻿using TechTalk.SpecFlow;
-using Views.WebAppPages;
+using Todoly.Views.WebAppPages;
 
-namespace SeleniumTest.Tests.Steps.Commons;
+namespace Todoly.Tests.UI.Steps.Commons;
 
 [TestFixture]
 public class CommonSteps

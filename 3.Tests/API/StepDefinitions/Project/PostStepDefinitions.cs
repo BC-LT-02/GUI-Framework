@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
 using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.Project.Post
+namespace Todoly.Tests.API.Steps.Project
 {
     [Binding]
     [Scope(Feature = "Project Creation")]
@@ -21,27 +21,8 @@ namespace Features.Project.Post
         [When(@"the user sends a POST request to the API endpoint with a valid JSON or XML payload")]
         public void WhentheusersendsaPOSTrequesttotheAPIendpointwithavalidJSONorXMLpayload()
         {
-            ProjectPayloadModel body = new ProjectPayloadModel(
-                null,
-                content: "My New Project",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            );
-            _scenarioContext["Response"] = Client.Post<ProjectPayloadModel>(url, body);
+            ProjectPayload body = new ProjectPayload("My New Project");
+            _scenarioContext["Response"] = Client.Post<ProjectPayload>(url, body);
         }
 
         [Then(@"the response should have a status code of ""(.*)"" and the new project should be added to the database and the response should contain the details of the newly created project")]
@@ -50,14 +31,14 @@ namespace Features.Project.Post
             RestResponse response = (RestResponse)_scenarioContext["Response"];
             Assert.True(response.IsSuccessful);
             Assert.Equal(statusCode, response.StatusCode.ToString());
-            var project = JsonSerializer.Deserialize<ProjectPayloadModel>(response.Content!);
-            Assert.IsType<ProjectPayloadModel>(project);
+            var project = JsonSerializer.Deserialize<ProjectPayload>(response.Content!);
+            Assert.IsType<ProjectPayload>(project);
         }
 
         [When(@"the user sends a POST request to the API endpoint with a JSON or XML payload that is missing required fields")]
         public void WhentheusersendsaPOSTrequesttotheAPIendpointwithaJSONorXMLpayloadthatismissingrequiredfields()
         {
-            ProjectPayloadModel body = new ProjectPayloadModel(
+            ProjectPayload body = new ProjectPayload(
                 null,
                 null,
                 null,
@@ -77,7 +58,7 @@ namespace Features.Project.Post
                 null,
                 null
             );
-            _scenarioContext["Response"] = Client.Post<ProjectPayloadModel>(url, body);
+            _scenarioContext["Response"] = Client.Post<ProjectPayload>(url, body);
         }
 
         [Then(@"the response should have a status code of ""(.*)"" and a error message indicating missing fields")]

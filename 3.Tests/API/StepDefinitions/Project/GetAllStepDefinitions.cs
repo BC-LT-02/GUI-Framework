@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
 using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.Project.GetAll
+namespace Todoly.Tests.API.Steps.Project
 {
     [Binding]
     [Scope(Feature = "Retrieve all existing project")]
@@ -33,8 +33,8 @@ namespace Features.Project.GetAll
             RestResponse response = (RestResponse)_scenarioContext["Response"];
             Assert.Equal(statusCode, response.StatusCode.ToString());
 
-            var user = JsonSerializer.Deserialize<ProjectPayloadModel>(response.Content!);
-            Assert.IsType<ProjectPayloadModel>(user);
+            var user = JsonSerializer.Deserialize<ProjectPayload>(response.Content!);
+            Assert.IsType<ProjectPayload>(user);
         }
 
         [When(@"the user sends a GET request to the api endpoint")]

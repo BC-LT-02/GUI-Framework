@@ -1,13 +1,10 @@
-﻿using System;
-using System.Text.Json;
-using Core;
-using Features.GeneralSteps;
-using Models;
+﻿using System.Text.Json;
 using RestSharp;
-using RestSharp.Authenticators;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.User.Delete
+namespace Todoly.Tests.API.Steps.User
 {
     [Binding]
     [Scope(Feature = "User Deletion")]
@@ -23,8 +20,8 @@ namespace Features.User.Delete
         [When(@"the user submits a POST request to ""(.*)"" with a valid JSON body")]
         public void WhentheusersubmitsaPOSTrequesttowithavalidJSONbody(string url, string body)
         {
-            UserPayloadModel? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayloadModel>(body);
-            _scenarioContext["Response"] = Client.Post<UserPayloadModel>(url, user);
+            UserPayload? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayload>(body);
+            _scenarioContext["Response"] = Client.Post<UserPayload>(url, user);
         }
 
         [When(@"the user submits a DELETE request to ""(.*)"" to delete his account")]
@@ -41,8 +38,8 @@ namespace Features.User.Delete
 
             Assert.True(response.IsSuccessful);
             Assert.Equal(statusCode, response.StatusCode.ToString());
-            var user = JsonSerializer.Deserialize<UserPayloadModel>(response.Content!);
-            Assert.IsType<UserPayloadModel>(user);
+            var user = JsonSerializer.Deserialize<UserPayload>(response.Content!);
+            Assert.IsType<UserPayload>(user);
             Assert.Equal("deleteUser@email.com", user.Email);
         }
 

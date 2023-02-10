@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
 using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.User.Put
+namespace Todoly.Tests.API.Steps.User
 {
     [Binding]
     [Scope(Feature = "User Update")]
@@ -23,8 +23,8 @@ namespace Features.User.Put
             Client.AddDefaultHeader("Authorization", _scenarioContext["Authorization"].ToString()!);
             Client.AddDefaultHeader("Accept", "*/*");
 
-            UserPayloadModel? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayloadModel>(body);
-            _scenarioContext["Response"] = Client.Put<UserPayloadModel>(url, user);
+            UserPayload? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayload>(body);
+            _scenarioContext["Response"] = Client.Put<UserPayload>(url, user);
         }
 
         [Then(@"the API should return a ""(.*)"" status code and the updated user information in JSON format")]
@@ -33,8 +33,8 @@ namespace Features.User.Put
             RestResponse response = (RestResponse)_scenarioContext["Response"];
             Assert.True(response.IsSuccessful);
             Assert.Equal(statusCode, response.StatusCode.ToString());
-            var user = JsonSerializer.Deserialize<UserPayloadModel>(response.Content!);
-            Assert.IsType<UserPayloadModel>(user);
+            var user = JsonSerializer.Deserialize<UserPayload>(response.Content!);
+            Assert.IsType<UserPayload>(user);
             Assert.Equal("New Name", user.FullName);
         }
 
@@ -44,7 +44,7 @@ namespace Features.User.Put
             Client.AddDefaultHeader("Authorization", "Basic aW52YWxpZEBlbWFpbC5jb206UGFzc3dvcmQ=");
             Client.AddDefaultHeader("Accept", "*/*");
 
-            UserPayloadModel body = new UserPayloadModel(
+            UserPayload body = new UserPayload(
                 email,
                 "newPassword",
                 null,
@@ -59,7 +59,7 @@ namespace Features.User.Put
                 null,
                 null
             );
-            _scenarioContext["Response"] = Client.Put<UserPayloadModel>(url, body);
+            _scenarioContext["Response"] = Client.Put<UserPayload>(url, body);
         }
 
         [Then(@"the API should return a ""(.*)"" response with a (.*) status code and a ""(.*)"" error message indicating that the user was not found")]
@@ -79,7 +79,7 @@ namespace Features.User.Put
         [When(@"the user submits a PUT request to ""(.*)""")]
         public void WhentheusersubmitsaPUTrequestto(string url)
         {
-            _scenarioContext["Response"] = Client.Put<UserPayloadModel>(url, body: null!);
+            _scenarioContext["Response"] = Client.Put<UserPayload>(url, body: null!);
         }
 
         [Then(@"the API should return a ""(.*)"" response with a (.*) status code and a ""(.*)"" error message indicating that the user is not authorized to access the resource.")]

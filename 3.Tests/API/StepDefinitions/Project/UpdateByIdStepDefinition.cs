@@ -1,13 +1,10 @@
-﻿using System;
-using System.Text.Json;
-using Core;
-using Features.GeneralSteps;
-// using Features.GeneralSteps;
-using Models;
+﻿using System.Text.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace StepDefinitions.Project.Update
+namespace Todoly.Tests.API.Steps.Project.Project.Update
 {
     [Binding]
     [Scope(Feature = "Update a Project by ID")]
@@ -30,13 +27,13 @@ namespace StepDefinitions.Project.Update
             Client.AddDefaultHeader("Accept", "*/*");
             Client.AddAuthenticator(username: username!, password: password!);
 
-            ProjectPayloadModel body = new ProjectPayloadModel(
+            ProjectPayload body = new ProjectPayload(
                 id: expectedId,
                 content: "New Content Name",
                 itemOrder: 4
             );
 
-            _scenarioContext["Response"] = Client.Put<ProjectPayloadModel>(ApiUrl, body);
+            _scenarioContext["Response"] = Client.Put<ProjectPayload>(ApiUrl, body);
         }
 
         [Then(
@@ -47,8 +44,8 @@ namespace StepDefinitions.Project.Update
             RestResponse response = (RestResponse)_scenarioContext["Response"];
             Assert.True(response.IsSuccessful);
             Assert.Equal(expectedCode, response.StatusCode.ToString());
-            var project = JsonSerializer.Deserialize<ProjectPayloadModel>(response.Content!);
-            Assert.IsType<ProjectPayloadModel>(project);
+            var project = JsonSerializer.Deserialize<ProjectPayload>(response.Content!);
+            Assert.IsType<ProjectPayload>(project);
 
         }
 
@@ -63,12 +60,12 @@ namespace StepDefinitions.Project.Update
             Client.AddDefaultHeader("Accept", "*/*");
             Client.AddAuthenticator(username: username!, password: password!);
 
-            ProjectPayloadModel body = new ProjectPayloadModel(
+            ProjectPayload body = new ProjectPayload(
                 id: expectedID,
                 content: "New Content",
                 itemOrder: 4
             );
-            _scenarioContext["Response"] = Client.Put<ProjectPayloadModel>(ApiUrl, body);
+            _scenarioContext["Response"] = Client.Put<ProjectPayload>(ApiUrl, body);
         }
 
         [Then(

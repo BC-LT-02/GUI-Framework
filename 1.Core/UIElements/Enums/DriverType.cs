@@ -1,4 +1,4 @@
-﻿namespace UIElements.Enums
+﻿namespace Todoly.Core.UIElements.Enums
 {
     public enum DriverType
     {

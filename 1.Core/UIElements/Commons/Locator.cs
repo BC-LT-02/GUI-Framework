@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
-using UIElements.Enums;
+using Todoly.Core.UIElements.Enums;
 
-namespace UIElements.Commons
+namespace Todoly.Core.UIElements.Commons
 {
     public class Locator
     {

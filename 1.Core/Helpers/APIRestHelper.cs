@@ -2,8 +2,7 @@
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace Core;
-
+namespace Todoly.Core.Helpers;
 public class RestHelper
 {
     private readonly RestClient client;
@@ -25,6 +24,16 @@ public class RestHelper
         RestRequest request = new RestRequest(url, Method.Get);
         RestResponse res = client.Execute(request);
         return res!;
+    }
+
+    public RestResponse Post(string url, string body)
+    {
+        RestRequest request = new RestRequest(url, Method.Post);
+
+        request.AddParameter("application/json", body, ParameterType.RequestBody);
+
+        RestResponse res = client.Execute(request);
+        return res;
     }
 
     public RestResponse Post<T>(string url, T body)

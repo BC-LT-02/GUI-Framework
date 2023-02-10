@@ -1,11 +1,9 @@
-﻿using System;
-using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
-using RestSharp;
+﻿using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.Items.Post
+namespace Todoly.Tests.API.Steps.Item
 {
     [Binding]
     [Scope(Feature = "Create a new item in a project")]
@@ -25,7 +23,7 @@ namespace Features.Items.Post
         )]
         public void WhentheusermakesaPOSTrequesttotheAPIendpointwithavalidJSONorXMLpayloadandIDproject()
         {
-            ItemsPayloadModel body = new ItemsPayloadModel(
+            ItemsPayload body = new ItemsPayload(
                 null,
                 content: "This is a new item",
                 null,
@@ -53,7 +51,7 @@ namespace Features.Items.Post
                 null,
                 null
             );
-            _scenarioContext["Response"] = Client.Post<ItemsPayloadModel>(url, body);
+            _scenarioContext["Response"] = Client.Post<ItemsPayload>(url, body);
         }
 
         [Then(
