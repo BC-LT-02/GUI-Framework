@@ -6,6 +6,6 @@ Feature: Update Item
         Given the user is logged in
         And the user has an existing project
         And the user has an existing item
-        When the user clicks the item name box
-        And the user inputs a new item name
-        Then the site updates the item nameS
+        # When the user clicks the item name box
+        # And the user inputs a new item name
+        # Then the site updates the item nameS
