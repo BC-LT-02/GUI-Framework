@@ -31,7 +31,7 @@ namespace Todoly.Tests.API.Steps.Project
             var response = (RestResponse)_scenarioContext["Response"];
 
             Assert.True(response.IsSuccessful);
-            var project = JsonSerializer.Deserialize<ProjectPayloadModel>(
+            var project = JsonSerializer.Deserialize<ProjectPayload>(
                 response.Content!.ToString()
             );
             Assert.Equal(project!.Id, expectedId);

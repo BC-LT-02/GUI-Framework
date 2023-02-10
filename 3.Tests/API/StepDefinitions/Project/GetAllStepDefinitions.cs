@@ -33,8 +33,8 @@ namespace Todoly.Tests.API.Steps.Project
             RestResponse response = (RestResponse)_scenarioContext["Response"];
             Assert.Equal(statusCode, response.StatusCode.ToString());
 
-            var user = JsonSerializer.Deserialize<ProjectPayloadModel>(response.Content!);
-            Assert.IsType<ProjectPayloadModel>(user);
+            var user = JsonSerializer.Deserialize<ProjectPayload>(response.Content!);
+            Assert.IsType<ProjectPayload>(user);
         }
 
         [When(@"the user sends a GET request to the api endpoint")]

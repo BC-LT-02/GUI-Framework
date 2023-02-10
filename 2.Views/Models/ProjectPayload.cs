@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-public record ProjectPayloadModel
+public record ProjectPayload
 {
     public int? Id { get; set; }
     public string? Content { get; set; }
@@ -13,7 +13,7 @@ public record ProjectPayloadModel
     public int? ParentId { get; set; }
     public bool? Collapsed { get; set; }
     public int? ItemOrder { get; set; }
-    public List<ProjectPayloadModel>? Children { get; set; }
+    public List<ProjectPayload>? Children { get; set; }
     public bool? IsProjectShared { get; set; }
     public string? ProjectShareOwnerName { get; set; }
     public string? ProjectShareOwnerEmail { get; set; }
@@ -24,16 +24,16 @@ public record ProjectPayloadModel
     public bool? Deleted { get; set; }
     public int? SyncClientCreationId { get; set; }
 
-    public ProjectPayloadModel(
-        int? id,
+    public ProjectPayload(
         string? content,
+        int? id = 0,
         int? itemsCount = 0,
         int? icon = 0,
         int? itemType = 2,
         int? parentId = null,
         bool? collapsed = false,
         int? itemOrder = null,
-        List<ProjectPayloadModel>? children = null,
+        List<ProjectPayload>? children = null,
         bool? isProjectShared = false,
         string? projectShareOwnerName = null,
         string? projectShareOwnerEmail = null,
@@ -65,7 +65,7 @@ public record ProjectPayloadModel
 
         if (children == null)
         {
-            Children = new List<ProjectPayloadModel>();
+            Children = new List<ProjectPayload>();
         }
         else
         {

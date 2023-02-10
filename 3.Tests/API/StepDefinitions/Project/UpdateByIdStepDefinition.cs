@@ -27,13 +27,13 @@ namespace Todoly.Tests.API.Steps.Project.Project.Update
             Client.AddDefaultHeader("Accept", "*/*");
             Client.AddAuthenticator(username: username!, password: password!);
 
-            ProjectPayloadModel body = new ProjectPayloadModel(
+            ProjectPayload body = new ProjectPayload(
                 id: expectedId,
                 content: "New Content Name",
                 itemOrder: 4
             );
 
-            _scenarioContext["Response"] = Client.Put<ProjectPayloadModel>(ApiUrl, body);
+            _scenarioContext["Response"] = Client.Put<ProjectPayload>(ApiUrl, body);
         }
 
         [Then(
@@ -44,8 +44,8 @@ namespace Todoly.Tests.API.Steps.Project.Project.Update
             RestResponse response = (RestResponse)_scenarioContext["Response"];
             Assert.True(response.IsSuccessful);
             Assert.Equal(expectedCode, response.StatusCode.ToString());
-            var project = JsonSerializer.Deserialize<ProjectPayloadModel>(response.Content!);
-            Assert.IsType<ProjectPayloadModel>(project);
+            var project = JsonSerializer.Deserialize<ProjectPayload>(response.Content!);
+            Assert.IsType<ProjectPayload>(project);
 
         }
 
@@ -60,12 +60,12 @@ namespace Todoly.Tests.API.Steps.Project.Project.Update
             Client.AddDefaultHeader("Accept", "*/*");
             Client.AddAuthenticator(username: username!, password: password!);
 
-            ProjectPayloadModel body = new ProjectPayloadModel(
+            ProjectPayload body = new ProjectPayload(
                 id: expectedID,
                 content: "New Content",
                 itemOrder: 4
             );
-            _scenarioContext["Response"] = Client.Put<ProjectPayloadModel>(ApiUrl, body);
+            _scenarioContext["Response"] = Client.Put<ProjectPayload>(ApiUrl, body);
         }
 
         [Then(
