@@ -36,7 +36,7 @@ public class ItemHooks
         string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectId} }}";
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
-        RestResponse response = _client.DoRequest(Method.Post,_url, payload);
+        RestResponse response = _client.DoRequest(Method.Post, _url, payload);
         if (!response.IsSuccessful)
         {
             throw new Exception("Error: Bad Request");

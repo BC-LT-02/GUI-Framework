@@ -89,6 +89,6 @@ public class HomePage
             $"//td[text()='{projectName}']/ancestor::table[@class='ProjItemTable']//img[@title='Options']"
         )
     );
-    
+
     public HomePage() { }
 }

@@ -48,7 +48,7 @@ public class PostStepDefinitions : CommonSteps
     public void VerifyProjectCreation()
     {
         _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
-        
+
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
                 _homePage.ProjectTitleDiv.WebElement,

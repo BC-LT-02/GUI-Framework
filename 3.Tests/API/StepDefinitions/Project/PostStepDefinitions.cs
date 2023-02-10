@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
 using Todoly.Tests.API.Steps.Commons;
