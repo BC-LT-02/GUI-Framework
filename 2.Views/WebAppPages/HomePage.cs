@@ -22,8 +22,5 @@ public class HomePage
 
     public IElement NoItemsDiv => new Button("", new Locator(LocatorType.ClassName, "NoItems"));
 
-    public HomePage()
-    {
-        //GenericWebDriver.Instance.Navigate().GoToUrl(HostUrl);
-    }
+    public HomePage() { }
 }
