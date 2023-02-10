@@ -1,9 +1,9 @@
-﻿using UIElements.Commons;
-using UIElements.Enums;
-using UIElements.Interfaces;
-using UIElements.Web;
+﻿using Todoly.Core.UIElements.Commons;
+using Todoly.Core.UIElements.Enums;
+using Todoly.Core.UIElements.Interfaces;
+using Todoly.Core.UIElements.Web;
 
-namespace Views.WebAppPages;
+namespace Todoly.Views.WebAppPages;
 
 public class ProfilePage
 {

@@ -1,9 +1,9 @@
-﻿using SeleniumTest.Core;
-using SeleniumTest.Core.Drivers;
-using TechTalk.SpecFlow;
-using UIElements.Interfaces;
-using UIElements.Web;
-using Views.WebAppPages;
+﻿using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
+using Todoly.Core.UIElements.Drivers;
+using Todoly.Core.UIElements.Interfaces;
+using Todoly.Core.UIElements.Web;
+using Todoly.Views.WebAppPages;
 
 namespace SeleniumTest.Tests;
 

@@ -47,10 +47,5 @@ namespace Todoly.Core.UIElements.Web
                 throw error;
             }
         }
-
-        public void Clear()
-        {
-            WebElement.Clear();
-        }
     }
 }
