@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Todoly.Core.Helpers;
 
@@ -20,16 +19,21 @@ public class ConfigBuilder
     {
         string res = DotNetEnv.Env.GetString(key);
 
-        return res != null ? res :
-            throw new Exception("Key not found");
+        return res != null ? res : throw new Exception("Key not found");
     }
 
     public string GetString(string framework, string key)
     {
-        string res = Config.GetSection(framework)[key]!;
+        var res = DotNetEnv.Env.GetString(key);
 
-        return res != null ? res :
-            throw new Exception("Framework or Key not found");
+        if (res != null)
+        {
+            return res;
+        }
+
+        res = Config.GetSection(framework)[key]!;
+
+        return res != null ? res : throw new Exception("Framework or Key not found");
     }
 
     public int GetInt(string key)
@@ -39,7 +43,21 @@ public class ConfigBuilder
 
     public int GetInt(string framework, string key)
     {
-        return Convert.ToInt32(Config.GetSection(framework)[key]);
+        var res = DotNetEnv.Env.GetInt(key);
+
+        if (res != 0)
+        {
+            return res;
+        }
+
+        try
+        {
+            return Convert.ToInt32(Config.GetSection(framework)[key]);
+        }
+        catch (Exception)
+        {
+            throw new Exception("Framework or Key not found");
+        }
     }
 
     public static ConfigBuilder Instance => _instance;
