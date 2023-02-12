@@ -6,7 +6,7 @@ using Todoly.Core.UIElements.Interfaces;
 
 namespace Todoly.Core.UIElements.Web
 {
-    public class TextField : BaseWebElement, ITypeable
+    public class TextField : BaseWebElement, ITextField
     {
         public TextField(string name, Locator locator) : base(name, locator) { }
 

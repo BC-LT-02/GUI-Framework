@@ -52,7 +52,6 @@ public class ProjectHooks
             throw new Exception("Error: Response field 'Content' does not match input payload");
         }
 
-        _scenarioContext.Add(ConfigModel.CurrentProject, _projectName);
-        _scenarioContext.Add("projectContent", projectContent);
+        _scenarioContext[ConfigModel.CurrentProject] = _projectName;
     }
 }
