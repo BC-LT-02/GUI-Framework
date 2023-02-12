@@ -1,6 +1,6 @@
 ﻿namespace Todoly.Core.UIElements.Interfaces
 {
-    public interface ITypeable
+    public interface ITypeable : IElement
     {
         public void Type(string keys);
 
