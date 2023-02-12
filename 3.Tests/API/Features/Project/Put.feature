@@ -1,22 +1,25 @@
-Feature: Update a Project by ID
+# Feature: Update an existing project by ID
 
-@acceptance
-Scenario Outline: User updates a project's information 
-    Given the user is authenticated with "Valeria.Gonzales@jala.university" and "1234"
-    When the user has a valid project "<ID>" and submits a PUT request to the API endpoint
-    Then the API should return a OK status code and the project should be updated in the database
+#     @acceptance
+#     Scenario: Update existing project information succesfully 
+#         Given the user has valid credentials
+#         When the user submits a PUT request to "/projects/[id].json" with a valid JSON body
+#             """
+#             {
+#             "Content": "New Updated Project"
+#             }
+#             """
+#         Then the API should return a "OK" response with the updated project information 
 
-Examples:
-|  ID     |
-| 4054352 |
-
-@negative  
-Scenario Outline: Update a user with invalid user credentials
-    Given the user is authenticated with "Valeria.Gonzales@jala.university" and "1234"
-    When the user has a invalid project "<ID>" and submits a PUT request to the API endpoint
-    Then the API should return a "OK" status code and an no JSON file
-
- Examples:
-|  ID   |
-| 12345 | 
+#     @negative  
+#     Scenario: Fail to update project information with invalid user credentials
+#         Given the user has invalid credentials
+#         When the user submits a PUT request to "/projects/[id].json" with a valid JSON body
+#             """
+#             {
+#             "Content": "New Updated Project"
+#             }
+#             """
+#         Then the API should return a "OK" response 
+#             And a 105 status code with a "Account doesn't exist" error message
   

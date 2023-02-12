@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using RestSharp;
 using RestSharp.Authenticators;
+using Todoly.Views.Models;
 
 namespace Todoly.Core.Helpers;
 public class RestHelper
@@ -19,54 +20,16 @@ public class RestHelper
     {
         client.Authenticator = new HttpBasicAuthenticator(username, password);
     }
-    public RestResponse Get(string url)
+
+    public RestResponse DoRequest(Method method, string endpoint, string? body)
     {
-        RestRequest request = new RestRequest(url, Method.Get);
-        RestResponse res = client.Execute(request);
-        return res!;
-    }
+        RestRequest request = new RestRequest(endpoint, method);
+        if (body != null)
+        {
+            request.AddParameter("application/json", body, ParameterType.RequestBody);
+        }
 
-    public RestResponse Post(string url, string body)
-    {
-        RestRequest request = new RestRequest(url, Method.Post);
-
-        request.AddParameter("application/json", body, ParameterType.RequestBody);
-
-        RestResponse res = client.Execute(request);
-        return res;
-    }
-
-    public RestResponse Post<T>(string url, T body)
-    {
-        RestRequest request = new RestRequest(url, Method.Post);
-
-        string bodyString = JsonSerializer.Serialize<T>(body);
-        request.AddParameter("application/json", bodyString, ParameterType.RequestBody);
-
-        RestResponse res = client.Execute(request);
-        return res;
-    }
-
-    public RestResponse Delete(string url)
-    {
-        RestRequest request = new RestRequest(url, Method.Delete);
-        RestResponse res = client.Execute(request);
-        return res!;
-    }
-
-    public RestResponse Put<T>(string url, T body)
-    {
-        RestRequest request = new RestRequest(url, Method.Put);
-
-        string bodyString = JsonSerializer.Serialize<T>(body);
-        request.AddParameter("application/json", bodyString, ParameterType.RequestBody);
-
-        RestResponse res = client.Execute(request);
-        return res;
-    }
-
-    public void Authenticate(string username, string password)
-    {
-        client.Authenticator = new HttpBasicAuthenticator(username, password);
+        RestResponse response = client.Execute(request);
+        return response;
     }
 }

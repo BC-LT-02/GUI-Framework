@@ -1,7 +1,8 @@
-﻿using System;
-using DotNetEnv;
+﻿using System.Text.Json;
+using RestSharp;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
+using Todoly.Views.Models;
 
 namespace Todoly.Tests.API.Steps.Commons
 {
@@ -9,39 +10,44 @@ namespace Todoly.Tests.API.Steps.Commons
     {
         private readonly ScenarioContext _scenarioContext;
         public readonly RestHelper Client = new RestHelper("https://todo.ly/api");
+        // public readonly RestHelper Client = new RestHelper(ConfigModel.ApiHostUrl);
 
         public CommonSteps(ScenarioContext scenarioContext)
         {
-            DotNetEnv.Env.TraversePath().Load();
             _scenarioContext = scenarioContext;
         }
 
-        [Given(@"the user has a valid authentication")]
-        public void Giventheuserhasavalidauthentication()
+        [Given(@"the user has (valid|invalid) credentials")]
+        public void SetCredentials(string credentials)
         {
-            _scenarioContext["Authorization"] = System.Environment.GetEnvironmentVariable(
-                "VALID_AUTHORIZATION"
-            );
+            if (credentials == "valid")
+            {
+                Client.AddAuthenticator("joaquingioffre@email.com", "newpassword");
+                // Client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+            }
+            else
+            {
+                Client.AddAuthenticator("invalidemail@email.com", "");
+            }
         }
 
-        [Given(@"the user is authenticated")]
-        public void Giventheuserisauthenticated()
+        [Then(@"the API should return a ""(.*)"" response")]
+        public void APIShouldReturnOkResponse(string response)
         {
-            _scenarioContext["Authorization"] = System.Environment.GetEnvironmentVariable(
-                "AUTHORIZATION"
-            );
-        }
-        [Given(@"the user is authenticated with ""(.*)"" and ""(.*)""")]
-        public void Giventheuserisauthenticatedwithusernameandpassword(string username, string password)
-        {
-            _scenarioContext["username"] = username;
-            _scenarioContext["password"] = password;
+            RestResponse res = (RestResponse)_scenarioContext["Response"];
+            Assert.True(res.IsSuccessful);
+            Assert.Equal(response, res.StatusCode.ToString());
         }
 
-        [Given(@"the user is not authenticated")]
-        public void Giventheuserinotsauthenticated()
+        [Then(@"a (.*) status code with a ""(.*)"" error message")]
+        public void APIShouldReturnStatusCodeAndUserNotFoundErrorMessage(int statusCode, string message)
         {
-            _scenarioContext["Authorization"] = "";
+            RestResponse res = (RestResponse)_scenarioContext["Response"];
+
+            var error = JsonSerializer.Deserialize<ErrorModel>(res.Content!);
+            Assert.IsType<ErrorModel>(error);
+            Assert.Equal(message, error!.ErrorMessage);
+            Assert.Equal(statusCode, error!.ErrorCode);
         }
     }
 }
