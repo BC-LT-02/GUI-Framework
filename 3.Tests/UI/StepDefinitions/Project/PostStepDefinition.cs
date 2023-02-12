@@ -12,36 +12,43 @@ namespace SeleniumTest.Tests.Steps.Project;
 [Scope(Feature = "Project Creation")]
 public class PostStepDefinitions : CommonSteps
 {
+    private readonly HomePage _homePage;
     private readonly ScenarioContext _scenarioContext;
 
     public PostStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
     {
+        _homePage = new HomePage();
         _scenarioContext = scenarioContext;
     }
 
     [When(@"the user clicks the New Project button")]
-    public void WhenTheUserClicksTheNewProjectButton()
+    public void ClickNewProjectButton()
     {
-        Assert.IsTrue(true);
+        _homePage.AddNewProjectButton.Click();
     }
 
     [When(@"inputs a new project name")]
-    public void WhenInputsANewProjectName()
+    public void InputsNewProjectName()
     {
-        _scenarioContext.Pending();
+        string projectName = IdHelper.GetNewId();
+
+        _homePage.AddNewProjectInput.Clear();
+        _homePage.AddNewProjectInput.Type(projectName);
+
+        _scenarioContext[ConfigModel.CurrentProject] = projectName;
     }
 
     [When(@"clicks the Add button")]
-    public void WhenClicksTheAddButton()
+    public void ClicksTheAddButton()
     {
-        _scenarioContext.Pending();
+        _homePage.AddNewProjectNameButton.Click();
     }
 
     [Then(@"a new project with the chosen name should be displayed in the projects list")]
-    public void ThenANewProjectWithTheChosenNameShouldBeDisplayedInTheProjectsList()
+    public void VerifyProjectCreation()
     {
-        Assert.IsTrue(true);
-
+        _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
+        
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
                 _homePage.ProjectTitleDiv.WebElement,
