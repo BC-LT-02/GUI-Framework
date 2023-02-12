@@ -14,7 +14,7 @@ public class WebDriverFactory
         switch (driverType)
         {
             case "Chrome":
-                var chrome = new ChromeDriver();
+                var chrome = new ChromeDriver(AddChromeOptions());
                 return BasicConfigs(chrome);
             case "Edge":
                 var edge = new EdgeDriver();
@@ -37,5 +37,16 @@ public class WebDriverFactory
         );
         driver.Manage().Window.Maximize();
         return driver;
+    }
+
+    public static ChromeOptions AddChromeOptions()
+    {
+        var chromeOptions = new ChromeOptions();
+        if (ConfigModel.DriverMode == "Headless")
+        {
+            chromeOptions.AddArgument("headless");
+        }
+
+        return chromeOptions;
     }
 }
