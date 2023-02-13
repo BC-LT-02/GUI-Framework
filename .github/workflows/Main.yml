@@ -30,7 +30,7 @@ jobs:
       - name: Selenium docker grid setup
         run: |
           docker-compose -f 1.Core/Docker/hub.yml up -d
-          docker-compose -f 1.Core/Docker/$BROWSER_NAME up -d
+          docker-compose -f 1.Core/Docker/$BROWSER_NAME.yml up -d
       - name: Run Tests
         run: dotnet test 3.Tests/UI
       - name: End docker sessions
