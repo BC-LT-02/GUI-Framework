@@ -4,6 +4,7 @@ using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.Enums;
 using Todoly.Core.UIElements.Interfaces;
 using Todoly.Core.UIElements.Web;
+using Todoly.Core.UIElements.WebActions;
 
 namespace Todoly.Views.WebAppPages;
 
@@ -31,19 +32,11 @@ public class LoginPage
     public IClickable ConfirmLoginButton =>
         new Button("", new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_ButtonLogin"));
 
-    public LoginPage()
-    {
-        /*GenericWebDriver.Instance.Navigate().GoToUrl(HostUrl);
-        if (GenericWebDriver.Instance.Title != "Todo.ly Simple Todo List")
-        {
-            throw new Exception("You're not in the login page");
-        }
-        */
-    }
+    public LoginPage() { }
 
     public void LoginIntoApplication()
     {
-        GenericWebDriver.Instance.Navigate().GoToUrl(HostUrl);
+        WebActions.NavigateTo(ConfigModel.HostUrl);
         LoginButton.Click();
         EmailTextField.Type(EmailCredentials);
         PasswordTextField.Type(PassCredentials);

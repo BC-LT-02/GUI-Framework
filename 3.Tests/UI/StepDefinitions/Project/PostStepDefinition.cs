@@ -18,7 +18,7 @@ public class PostStepDefinitions : CommonSteps
     [When(@"the user clicks the New Project button")]
     public void WhenTheUserClicksTheNewProjectButton()
     {
-        Assert.IsTrue(true);
+        _scenarioContext.Pending();
     }
 
     [When(@"inputs a new project name")]
@@ -36,7 +36,6 @@ public class PostStepDefinitions : CommonSteps
     [Then(@"a new project with the chosen name should be displayed in the projects list")]
     public void ThenANewProjectWithTheChosenNameShouldBeDisplayedInTheProjectsList()
     {
-        Assert.IsTrue(true);
-
+        _scenarioContext.Pending();
     }
 }

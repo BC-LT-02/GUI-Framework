@@ -3,6 +3,7 @@ using System.Text.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
+using Todoly.Core.UIElements.Drivers;
 using Todoly.Views.Models;
 
 namespace SeleniumTest.Tests.Hooks;
@@ -23,6 +24,12 @@ public class ProjectHooks
         _projectName = IdHelper.GetNewId();
     }
 
+    [AfterScenario]
+    public void SessionDisposal()
+    {
+        GenericWebDriver.Dispose();
+    }
+
     [BeforeScenario("create.project")]
     public void CreateProject()
     {
@@ -36,7 +43,9 @@ public class ProjectHooks
             throw new Exception("Error: Bad Request");
         }
 
-        ProjectPayload? projectContent = JsonSerializer.Deserialize<ProjectPayload>(response.Content!);
+        ProjectPayload? projectContent = JsonSerializer.Deserialize<ProjectPayload>(
+            response.Content!
+        );
         if (projectContent!.Content != _projectName)
         {
             throw new Exception("Error: Response field 'Content' does not match input payload");
