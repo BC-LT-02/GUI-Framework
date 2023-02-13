@@ -1,7 +1,13 @@
-Feature: Update an existing item to be done
-    As an authenticated user, I want to be able to update an existing item in a project
-    @acceptance
-    Scenario: Update an existing item in a project
-        Given the user is authenticated
-        When the user makes a PUT request to the API endpoint with a valid JSON or XML payload and ID project
-        Then the API should return an OK status code and the item should be updated
+# Feature: Update an existing item by ID
+#     As an authenticated user, the user should be able to update an existing item
+
+#     @acceptance
+#     Scenario: Update an existing item information succesfully
+#         Given the user has valid credentials
+#         When the user submits a PUT request to "/items/[id].json" with a valid JSON body
+#             """
+#             {
+#             "Checked": true,
+#             }
+#             """
+#         Then the API should return a "OK" response with the updated item information

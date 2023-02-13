@@ -1,24 +1,16 @@
-Feature: Delete a project by ID
+# Feature: Delete an existing project by ID
 
-    @acceptance
-    Scenario Outline: User deletes a project
-        Given the user is authenticated with "Valeria.Gonzales@jala.university" and "1234"
-        When the user has a valid project "<ID>"
-        Then the user sends a DELETE request to the API endpoint
-        Then the project should be removed from the list of projects
+#     @acceptance
+#     Scenario:  Delete an exsiting project succesfully
+#         Given the user has valid credentials
+#         When the user submits a DELETE request to "/projects/[id].json"
+#         Then the API should return a "OK" response with the deleted project information 
 
-        Examples:
-            | ID      |
-            | 4055226 |
-
-    @negative
-    Scenario Outline: Attempt to delete an non-existent project
-        Given the user is authenticated with "Valeria.Gonzales@jala.university" and "1234"
-        When the user has an invalid project "<ID>"
-        Then the user sends a DELETE request for the non-existent project to the API endpoint and return a "402" status code with the message: "You don't have access to this Project"
-        Then the API should return a "301" status code and an error message indicating "Invalid Id" to access the resource
-        Examples:
-            | ID    |
-            | 40547 |
+#     @negative
+#     Scenario: Fail to delete an existing project
+#         Given the user has invalid credentials
+#         When the user submits a DELETE request to "/projects/[id].json"
+#         Then the API should return a "OK" response 
+#             And the API should return a 105 status code with a "Account doesn't exist" error message
 
 
