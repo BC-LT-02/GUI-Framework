@@ -3,7 +3,6 @@ Feature: Empty recycle bin
     Background:
         Given the user is logged in
 
-    @Draft
     @Smoke
     Scenario: Empty the recycle bin succesfully
         When the user clicks the recycle bin context menu and clicks the empty recycle bin button
