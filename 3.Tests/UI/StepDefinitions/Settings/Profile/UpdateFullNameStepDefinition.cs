@@ -31,7 +31,6 @@ public class UpdateFullNameStepDefinition : CommonSteps
     [When(@"the user inputs a new full name ""(.*)"" on the Full Name input")]
     public void WhentheuserinputsanewfullnameontheFullNameinput(string newFullName)
     {
-        _profilePage!.FullNameTextField.Clear();
         _profilePage!.FullNameTextField.Type(newFullName);
     }
 

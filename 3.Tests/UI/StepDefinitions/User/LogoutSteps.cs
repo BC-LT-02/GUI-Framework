@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework.Constraints;
 using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Tests.UI.Steps.Commons;
 using Todoly.Views.WebAppPages;
@@ -19,12 +20,6 @@ public class LogoutStepDefinitions : CommonSteps
         _homePage = new HomePage();
     }
 
-    [AfterScenario]
-    public void TearDown()
-    {
-        GenericWebDriver.Dispose();
-    }
-
     [When(@"the user clicks the logout button")]
     public void Whentheuserclicksthelogoutbutton()
     {
@@ -37,7 +32,7 @@ public class LogoutStepDefinitions : CommonSteps
         var currentUrl = GenericWebDriver.Instance.Url;
         var currentTitle = GenericWebDriver.Instance.Title;
 
-        Assert.That(currentUrl, new EqualConstraint("https://todo.ly/"));
+        Assert.That(currentUrl, new EqualConstraint(ConfigModel.HostUrl));
         Assert.That(currentTitle, new EqualConstraint("Todo.ly Simple Todo List"));
     }
 }
