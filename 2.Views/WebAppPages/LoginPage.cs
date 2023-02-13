@@ -45,10 +45,8 @@ public class LoginPage
     {
         GenericWebDriver.Instance.Navigate().GoToUrl(HostUrl);
         LoginButton.Click();
-        // EmailTextField.Type(EmailCredentials);
-        // PasswordTextField.Type(PassCredentials);
-        EmailTextField.Type("ljorchavez@gmail.com");
-        PasswordTextField.Type("123qwe");
+        EmailTextField.Type(EmailCredentials);
+        PasswordTextField.Type(PassCredentials);
         ConfirmLoginButton.Click();
     }
 }

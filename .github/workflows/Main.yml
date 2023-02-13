@@ -19,6 +19,7 @@ jobs:
       - name: Check format issues
         run: dotnet format --verify-no-changes -v d TodoFramework.sln
       - name: Selenium docker grid setup
-        run: docker-compose -f "docker-compose.yml" up -d --build
+        run: docker-compose -f Docker/hub.yml up -d
+        run: docker-compose -f Docker/chrome.yml up -d
       - name: Run Tests
         run: dotnet test 3.Tests/UI

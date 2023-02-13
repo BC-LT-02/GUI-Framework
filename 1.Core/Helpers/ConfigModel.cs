@@ -15,4 +15,7 @@ public class ConfigModel
     public static readonly string TODO_LY_EMAIL = ConfigBuilder.Instance.GetString("TODO-LY-EMAIL");
     public static readonly string TODO_LY_PASS = ConfigBuilder.Instance.GetString("TODO-LY-PASS");
     public static readonly string DriverType = ConfigBuilder.Instance.GetString("DriverType");
+    public static readonly string DriverLocation = ConfigBuilder.Instance.GetString(
+        "DriverLocation"
+    );
 }
