@@ -1,42 +1,61 @@
 name: MainJob
 on:
   push:
-    branches: [ '**' ]
+    branches: ['**']
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ['6.0.x' ]
+        dotnet-version: ['6.0.x']
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
-      - name: Build
-        run: dotnet build TodoFramework.sln
-      - name: Check format issues
-        run: dotnet format --verify-no-changes -v d TodoFramework.sln
+    - uses: actions/checkout@v3
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+    - name: Install tools
+      run: dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
+    - name: Build
+      run: dotnet build TodoFramework.sln
+    - name: Check format issues
+      run: dotnet format --verify-no-changes -v d TodoFramework.sln
 
-      - name: Setup Secrets
-        run: |
-          echo "TODO-LY-EMAIL=${{secrets.TODO_LY_EMAIL}}" >> $GITHUB_ENV
-          echo "TODO-LY-PASS=${{secrets.TODO_LY_PASS}}" >> $GITHUB_ENV
-          echo "DriverType=Chrome" >> $GITHUB_ENV
-          echo "DriverLocation=Remote" >> $GITHUB_ENV
-          echo "DriverMode=Headless" >> $GITHUB_ENV
-      - name: Selenium docker grid setup
-        run: |
-          docker-compose -f 1.Core/Docker/hub.yml up -d
-          docker-compose -f 1.Core/Docker/${DriverType}.yml up -d
-      - name: Run UI Tests
-        run: dotnet test 3.Tests/UI --no-build --no-restore --filter "Category=Smoke | Category=Regression"
-      - name: Run API Tests
-        run: dotnet test 3.Tests/API --no-build --no-restore --filter "Category=Acceptance | Category=Negative"
-      - name: End docker sessions
-        run: |
-          docker-compose -f 1.Core/Docker/hub.yml stop
-          docker-compose -f 1.Core/Docker/${DriverType}.yml down --remove-orphans
-          docker container prune -f
-
+    - name: Setup Secrets
+      run: |
+        echo "TODO-LY-EMAIL=${{secrets.TODO_LY_EMAIL}}" >> $GITHUB_ENV
+        echo "TODO-LY-PASS=${{secrets.TODO_LY_PASS}}" >> $GITHUB_ENV
+        echo "DriverType=Chrome" >> $GITHUB_ENV
+        echo "DriverLocation=Remote" >> $GITHUB_ENV
+        echo "DriverMode=Headless" >> $GITHUB_ENV
+    - name: Selenium docker grid setup
+      run: |
+        docker-compose -f 1.Core/Docker/hub.yml up -d
+        docker-compose -f 1.Core/Docker/${DriverType}.yml up -d
+    - name: Run UI Tests
+      run: dotnet test 3.Tests/UI --no-build --no-restore --filter "Category=Smoke | Category=Regression"
+    - name: Run API Tests
+      run: dotnet test 3.Tests/API --no-build --no-restore --filter "Category=Acceptance | Category=Negative"
+    - name: End docker sessions
+      run: |
+        docker-compose -f 1.Core/Docker/hub.yml stop
+        docker-compose -f 1.Core/Docker/${DriverType}.yml down --remove-orphans
+        docker container prune -f
+    - name: Create Livingdoc reports
+      if: always()
+      run: livingdoc feature-folder 3.Tests/UI --output 3.Tests/UI/ReportOutputs/LivingDoc.html
+    - name: Upload LivingDoc report file
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: Run#${{ github.run_number }}_LivingDoc.html
+        path: 3.Tests/UI/ReportOutputs/LivingDoc.html
+    
+    - name: Screenshots of failed tests
+      run: cd 3.Tests/UI/bin/Debug
+    - name: Upload LivingDoc report file
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: Screenshots
+        path: 3.Tests/UI/Assets
