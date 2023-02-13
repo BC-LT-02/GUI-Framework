@@ -12,4 +12,8 @@
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
   </ItemGroup>
 
+  <Reference Include="RemoteWebDriver">
+    <HintPath>..\UIElements\Drivers\RemoteWebDriver.cs</HintPath>
+  </Reference>
+
 </Project>

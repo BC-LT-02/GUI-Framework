@@ -5,7 +5,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Safari;
 
-namespace SeleniumTest.Core.RemoteDrivers;
+namespace SeleniumTest.Core.Drivers;
 
 public class RemoteWebDriverFactory
 {
