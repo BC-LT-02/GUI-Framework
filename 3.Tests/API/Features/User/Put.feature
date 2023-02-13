@@ -17,4 +17,4 @@
 #         Given the user has invalid credentials
 #         When the user submits a PUT request to "/user/0.json"
 #         Then the API should return a "OK" response
-#             And a 105 status code with a "Account doesn't exist" error message
+#             And the API should return a 105 status code with a "Account doesn't exist" error message

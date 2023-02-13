@@ -18,4 +18,4 @@
 #     Scenario: Fail to create a new project with invalid data
 #         When the user submits a POST request to "/projects.json" with an empty body
 #         Then the API should return a "OK" response 
-#             And a 302 status code with a "Invalid input Data" error message
+#             And the API should return a 302 status code with a "Invalid input Data" error message

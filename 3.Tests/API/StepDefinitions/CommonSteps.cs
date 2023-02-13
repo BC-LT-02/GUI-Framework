@@ -38,7 +38,7 @@ namespace Todoly.Tests.API.Steps.Commons
             Assert.Equal(response, res.StatusCode.ToString());
         }
 
-        [Then(@"a (.*) status code with a ""(.*)"" error message")]
+        [Then(@"the API should return a (.*) status code with a ""(.*)"" error message")]
         public void APIShouldReturnStatusCodeAndUserNotFoundErrorMessage(int statusCode, string message)
         {
             RestResponse res = (RestResponse)_scenarioContext["Response"];

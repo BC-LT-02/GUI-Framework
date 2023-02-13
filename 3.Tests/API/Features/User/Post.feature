@@ -25,7 +25,7 @@ Feature: User Creation
             }
             """
         Then the API should return a "OK" response 
-            And a 307 status code with a "Invalid Email Address" error message
+            And the API should return a 307 status code with a "Invalid Email Address" error message
 
     @negative
     Scenario: Failt to create user account with an existing email account
@@ -39,4 +39,4 @@ Feature: User Creation
             }
             """
         Then the API should return a "OK" response 
-            And a 201 status code with a "Account with this email address already exists" error message
+            And the API should return a 201 status code with a "Account with this email address already exists" error message

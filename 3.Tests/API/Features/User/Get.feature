@@ -17,4 +17,4 @@ Feature: Retrieve user information
         Given the user has invalid credentials
         When the user submits a GET request to "/user.json"
         Then the API should return a "OK" response 
-            And a 105 status code with a "Account doesn't exist" error message
+            And the API should return a 105 status code with a "Account doesn't exist" error message
