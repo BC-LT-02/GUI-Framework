@@ -16,7 +16,9 @@ namespace Todoly.Core.UIElements.Web
             {
                 GenericWebDriver.Wait.Until(ExpectedConditions.ElementToBeClickable(WebElement));
                 WebElement.Clear();
-                GenericWebDriver.Wait.Until(ExpectedConditions.TextToBePresentInElementValue(WebElement, ""));
+                GenericWebDriver.Wait.Until(
+                    ExpectedConditions.TextToBePresentInElementValue(WebElement, "")
+                );
             }
             catch (ElementNotVisibleException error)
             {
@@ -34,18 +36,28 @@ namespace Todoly.Core.UIElements.Web
                 throw error;
             }
         }
+
         public void Type(string keys)
         {
             try
             {
-                Clear();
-                WebElement.SendKeys(keys);
-                GenericWebDriver.Wait.Until(ExpectedConditions.TextToBePresentInElementValue(WebElement, keys));
+                if (keys == Keys.Enter)
+                {
+                    WebElement.SendKeys(Keys.Enter);
+                }
+                else
+                {
+                    Clear();
+                    WebElement.SendKeys(keys);
+                    GenericWebDriver.Wait.Until(
+                        ExpectedConditions.TextToBePresentInElementValue(WebElement, keys)
+                    );
+                }
             }
-            catch (WebDriverTimeoutException)
+            catch (WebDriverTimeoutException error)
             {
-                //System.Console.WriteLine($"Keys not sent.");
-                //throw error;
+                System.Console.WriteLine($"Keys not sent.");
+                throw error;
             }
         }
     }

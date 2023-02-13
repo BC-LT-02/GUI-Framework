@@ -16,4 +16,4 @@ Feature: Create an Item in a Project
     Scenario: Failed to Create an Item Due to Empty Name
         Given the user has selected a project
         When the user tries to create an item with an empty string
-        Then an error message indicating that the item name is required should be displayed
+        Then an error message "Name is required" should be displayed 
