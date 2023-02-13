@@ -36,6 +36,4 @@ jobs:
         run: |
           docker-compose -f 1.Core/Docker/hub.yml stop --remove-orphans
           docker-compose -f 1.Core/Docker/chrome.yml down --remove-orphans
-          docker stop selenium-hub
-          docker rm selenium-hub
           docker rm -f $(docker ps -a -q)
