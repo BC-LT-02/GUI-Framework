@@ -6,5 +6,8 @@ Feature: Profile settings view
         Given the user is logged in
         When the user clicks on the Settings option on the Nav Bar
         Then the Profile Settings view should be opened
-            And the Full Name, Email, Time Zone, Old Password and New Password labels and inputs should appear
+            And the Full Name label and input should be displayed
+            And the Email label and input should be displayed
+            And the Old Password label and input should be displayed
+            And the New Password label and input should be displayed
 

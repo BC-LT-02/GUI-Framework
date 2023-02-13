@@ -18,6 +18,7 @@ jobs:
         run: dotnet build TodoFramework.sln
       - name: Check format issues
         run: dotnet format --verify-no-changes -v d TodoFramework.sln
+
       - name: Setup Secrets
         run: |
           echo "TODO-LY-EMAIL=${{secrets.TODO_LY_EMAIL}}" >> $GITHUB_ENV
