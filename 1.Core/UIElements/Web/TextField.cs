@@ -38,6 +38,7 @@ namespace Todoly.Core.UIElements.Web
         {
             try
             {
+                Clear();
                 WebElement.SendKeys(keys);
                 GenericWebDriver.Wait.Until(ExpectedConditions.TextToBePresentInElementValue(WebElement, keys));
             }

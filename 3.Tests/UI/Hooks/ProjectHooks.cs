@@ -35,15 +35,16 @@ public class ProjectHooks
     {
         string payload = $"{{ \"Content\": \"{_projectName}\" }}";
 
-        _client.Authenticate(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
-        RestResponse response = _client.Post(_url, payload);
+        // RestResponse response = _client.Post(_url, payload);
+        RestResponse response = _client.DoRequest(Method.Post, _url, payload);
         if (!response.IsSuccessful)
         {
             throw new Exception("Error: Bad Request");
         }
 
-        ProjectPayload? projectContent = JsonSerializer.Deserialize<ProjectPayload>(
+        ProjectModel? projectContent = JsonSerializer.Deserialize<ProjectModel>(
             response.Content!
         );
         if (projectContent!.Content != _projectName)

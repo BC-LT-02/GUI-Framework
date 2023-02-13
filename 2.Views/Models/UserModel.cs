@@ -1,6 +1,6 @@
 ﻿namespace Todoly.Views.Models;
 
-public record UserPayload
+public record UserModel
 {
     public long? Id { get; set; } = null;
     public string? Email { get; set; }
@@ -16,7 +16,7 @@ public record UserPayload
     public int? NewTaskDueDate { get; set; } = null;
     public string? TimeZoneId { get; set; } = null;
 
-    public UserPayload(
+    public UserModel(
         string? email,
         string? password,
         string? fullName,

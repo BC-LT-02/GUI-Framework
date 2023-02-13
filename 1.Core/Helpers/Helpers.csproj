@@ -12,4 +12,8 @@
     <PackageReference Include="DotNetEnv" Version="2.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\2.Views\Models\Models.csproj" />
+  </ItemGroup>
+
 </Project>

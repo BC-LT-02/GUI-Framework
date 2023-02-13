@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-public record ItemsPayload
+public record ItemModel
 {
     public long? Id { get; set; } = null;
     public string? Content { get; set; } = null;
@@ -20,7 +20,7 @@ public record ItemsPayload
     public int? ItemOrder { get; set; } = null;
     public int? Priority { get; set; } = null;
     public string? LastSyncedDateTime { get; set; } = null;
-    public List<ItemsPayload>? Children { get; set; } = null;
+    public List<ItemModel>? Children { get; set; } = null;
     public string? DueDateTime { get; set; } = null;
     public string? CreatedDate { get; set; } = null;
     public string? LastCheckedDate { get; set; } = null;
@@ -32,7 +32,7 @@ public record ItemsPayload
     public bool? DueTimeSpecified { get; set; } = null;
     public long? OwnerId { get; set; } = null;
 
-    public ItemsPayload(
+    public ItemModel(
         long? id,
         string? content,
         long? itemType,
@@ -48,7 +48,7 @@ public record ItemsPayload
         int? itemOrder,
         int? priority,
         string? lastSyncedDateTime,
-        List<ItemsPayload>? children,
+        List<ItemModel>? children,
         string? dueDateTime,
         string? createdDate,
         string? lastCheckedDate,

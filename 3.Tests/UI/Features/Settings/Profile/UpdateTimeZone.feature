@@ -8,5 +8,6 @@ Feature: Time Zone update
         When the user clicks on the Time Zone dropdown list
             And selects a new option of the list
             And clicks on the OK button
-        Then the time zone is updated and the Settings view is closed
+        Then the time zone is updated 
+            And the Settings view is closed
 

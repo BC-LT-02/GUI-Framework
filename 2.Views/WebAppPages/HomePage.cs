@@ -12,6 +12,9 @@ public class HomePage
     public readonly string HostUrl = ConfigModel.HostUrl;
     public IClickable LogoutButton =>
         new Button("", new Locator(LocatorType.Id, "ctl00_HeaderTopControl1_LinkButtonLogout"));
+
+    public IClickable SettingsButton => new Button("", new Locator(LocatorType.XPath, "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"));
+
     public IElement ProjectTitleDiv =>
         new Button("", new Locator(LocatorType.Id, "CurrentProjectTitle"));
     public IElement RecycleBinDiv => new Button("", new Locator(LocatorType.Id, "ItemId_-3"));
