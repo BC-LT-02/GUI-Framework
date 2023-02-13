@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
 using RestSharp;
 using RestSharp.Authenticators;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.User.Post
+namespace Todoly.Tests.API.Steps.User
 {
     [Binding]
     [Scope(Feature = "User Creation")]
@@ -21,8 +21,8 @@ namespace Features.User.Post
         [When(@"the user submits a POST request to ""(.*)"" with a valid JSON body")]
         public void WhentheusersubmitsaPOSTrequesttowithavalidJSONbody(string url, string body)
         {
-            UserPayloadModel? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayloadModel>(body);
-            _scenarioContext["Response"] = Client.Post<UserPayloadModel>(url, user);
+            UserPayload? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayload>(body);
+            _scenarioContext["Response"] = Client.Post<UserPayload>(url, user);
         }
 
         [Then(@"the API should return a ""(.*)"" status code and the new user information in JSON format")]
@@ -31,8 +31,8 @@ namespace Features.User.Post
             RestResponse response = (RestResponse)_scenarioContext["Response"];
             Assert.True(response.IsSuccessful);
             Assert.Equal(statusCode, response.StatusCode.ToString());
-            var user = JsonSerializer.Deserialize<UserPayloadModel>(response.Content!);
-            Assert.IsType<UserPayloadModel>(user);
+            var user = JsonSerializer.Deserialize<UserPayload>(response.Content!);
+            Assert.IsType<UserPayload>(user);
             Assert.Equal("newUser@email.com", user.Email);
         }
 
@@ -49,8 +49,8 @@ namespace Features.User.Post
         [When(@"the user submits a POST request to ""(.*)"" with a JSON body that is missing email required fields")]
         public void WhentheusersubmitsaPOSTrequesttowithaJSONbodythatismissingemailrequiredfields(string url, string body)
         {
-            UserPayloadModel? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayloadModel>(body);
-            _scenarioContext["Response"] = Client.Post<UserPayloadModel>(url, user);
+            UserPayload? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayload>(body);
+            _scenarioContext["Response"] = Client.Post<UserPayload>(url, user);
         }
 
         [Then(@"the API should return a ""(.*)"" response with a (.*) status code and a ""(.*)"" error message indicating missing fields")]
@@ -69,8 +69,8 @@ namespace Features.User.Post
         [When(@"the user submits a POST request to ""(.*)"" with a JSON body that has an invalid email")]
         public void WhentheusersubmitsaPOSTrequesttowithaJSONbodythathasaninvalidemail(string url, string body)
         {
-            UserPayloadModel? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayloadModel>(body);
-            _scenarioContext["Response"] = Client.Post<UserPayloadModel>(url, user);
+            UserPayload? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayload>(body);
+            _scenarioContext["Response"] = Client.Post<UserPayload>(url, user);
         }
 
         [Then(@"the API should return a ""(.*)"" response with a (.*) status code and a ""(.*)"" error message indicating invalid data")]
@@ -89,8 +89,8 @@ namespace Features.User.Post
         [When(@"the user submits a POST request to ""(.*)"" with a JSON body that has an email previously used to create an account")]
         public void WhentheusersubmitsaPOSTrequesttowithaJSONbodythathasanemailpreviouslyusedtocreateanaccount(string url, string body)
         {
-            UserPayloadModel? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayloadModel>(body);
-            _scenarioContext["Response"] = Client.Post<UserPayloadModel>(url, user);
+            UserPayload? user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserPayload>(body);
+            _scenarioContext["Response"] = Client.Post<UserPayload>(url, user);
         }
 
         [Then(@"the API should return a ""(.*)"" response with a (.*) status code and a ""(.*)"" error message indicating the email already exists")]

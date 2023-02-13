@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
 using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.User.Get
+namespace Todoly.Tests.API.Steps.User
 {
     [Binding]
     [Scope(Feature = "Retrieve an existing user")]
@@ -36,8 +36,8 @@ namespace Features.User.Get
             Assert.True(response.IsSuccessful);
             Assert.Equal(statusCode, response.StatusCode.ToString());
 
-            var user = JsonSerializer.Deserialize<UserPayloadModel>(response.Content!);
-            Assert.IsType<UserPayloadModel>(user);
+            var user = JsonSerializer.Deserialize<UserPayload>(response.Content!);
+            Assert.IsType<UserPayload>(user);
             Assert.Contains(user.Email!, body);
         }
 

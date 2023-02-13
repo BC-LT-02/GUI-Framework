@@ -1,4 +1,4 @@
-﻿namespace UIElements.Interfaces
+﻿namespace Todoly.Core.UIElements.Interfaces
 {
     public interface ITypeable
     {

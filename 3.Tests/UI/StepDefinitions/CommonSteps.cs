@@ -1,9 +1,9 @@
 ﻿using TechTalk.SpecFlow;
-using Views.WebAppPages;
+using Todoly.Core.UIElements.Drivers;
+using Todoly.Views.WebAppPages;
 
-namespace SeleniumTest.Tests.Steps.Commons;
+namespace Todoly.Tests.UI.Steps.Commons;
 
-[TestFixture]
 public class CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;

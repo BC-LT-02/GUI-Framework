@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Text.Json;
-using Features.GeneralSteps;
-using Models;
+﻿using System.Text.Json;
 using RestSharp;
-using RestSharp.Authenticators;
 using TechTalk.SpecFlow;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-namespace Features.Project.Delete
+namespace Todoly.Tests.API.Steps.Project
 {
     [Binding]
     [Scope(Feature = "Delete a project by ID")]
@@ -33,7 +31,7 @@ namespace Features.Project.Delete
             var response = (RestResponse)_scenarioContext["Response"];
 
             Assert.True(response.IsSuccessful);
-            var project = JsonSerializer.Deserialize<ProjectPayloadModel>(
+            var project = JsonSerializer.Deserialize<ProjectPayload>(
                 response.Content!.ToString()
             );
             Assert.Equal(project!.Id, expectedId);

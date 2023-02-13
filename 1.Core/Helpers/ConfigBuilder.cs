@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
-namespace SeleniumTest.Core;
+namespace Todoly.Core.Helpers;
 
 public class ConfigBuilder
 {
@@ -18,15 +17,47 @@ public class ConfigBuilder
 
     public string GetString(string key)
     {
-        string envVar = DotNetEnv.Env.GetString(key);
+        string res = DotNetEnv.Env.GetString(key);
 
-        return !string.IsNullOrEmpty(envVar) ? envVar : Config[key]!;
+        return res != null ? res : throw new Exception("Key not found");
+    }
+
+    public string GetString(string framework, string key)
+    {
+        var res = DotNetEnv.Env.GetString(key);
+
+        if (res != null)
+        {
+            return res;
+        }
+
+        res = Config.GetSection(framework)[key]!;
+
+        return res != null ? res : throw new Exception("Framework or Key not found");
     }
 
     public int GetInt(string key)
     {
-        int envVar = DotNetEnv.Env.GetInt(key);
-        return envVar != 0 ? envVar : Convert.ToInt32(Config[key]);
+        return Convert.ToInt32(DotNetEnv.Env.GetInt(key));
+    }
+
+    public int GetInt(string framework, string key)
+    {
+        var res = DotNetEnv.Env.GetInt(key);
+
+        if (res != 0)
+        {
+            return res;
+        }
+
+        try
+        {
+            return Convert.ToInt32(Config.GetSection(framework)[key]);
+        }
+        catch (Exception)
+        {
+            throw new Exception("Framework or Key not found");
+        }
     }
 
     public static ConfigBuilder Instance => _instance;
