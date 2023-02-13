@@ -38,5 +38,4 @@ jobs:
           docker-compose -f 1.Core/Docker/chrome.yml down --remove-orphans
           docker stop selenium-hub
           docker rm selenium-hub
-          docker network rm docker_default
           docker rm -f $(docker ps -a -q)
