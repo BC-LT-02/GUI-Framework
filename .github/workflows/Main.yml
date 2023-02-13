@@ -37,4 +37,4 @@ jobs:
           docker-compose -f 1.Core/Docker/chrome.yml down
           docker-compose -f 1.Core/Docker/hub.yml down
           docker-compose up --remove-orphans
-          docker rm `docker ps -aq`
+          docker rm -f $(docker ps -a -q)
