@@ -1,6 +1,6 @@
 Feature: Update Item
     As a logged in user, the user should be able to edit an existing item.
-    @Draft
+
     @Acceptance
     Scenario: Update an item
         Given the user is logged in
