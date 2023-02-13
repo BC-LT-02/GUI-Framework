@@ -1,16 +1,17 @@
-﻿// using RestSharp;
+﻿// using System.Text.Json;
+// using RestSharp;
 // using TechTalk.SpecFlow;
 // using Todoly.Tests.API.Steps.Commons;
 // using Todoly.Views.Models;
+// using Todoly.Core.Helpers;
 
 // namespace Todoly.Tests.API.Steps.Item
 // {
 //     [Binding]
-//     [Scope(Feature = "Create a new item in a project")]
+//     [Scope(Feature = "Create a new item")]
 //     public class PostStepDefinitions : CommonSteps
 //     {
 //         private readonly ScenarioContext _scenarioContext;
-//         private readonly string url = "items.json";
 
 //         public PostStepDefinitions(ScenarioContext scenarioContext)
 //             : base(scenarioContext)
@@ -18,52 +19,31 @@
 //             _scenarioContext = scenarioContext;
 //         }
 
-//         [When(
-//             @"the user makes a POST request to the API endpoint with a valid JSON or XML payload and ID project"
-//         )]
-//         public void WhentheusermakesaPOSTrequesttotheAPIendpointwithavalidJSONorXMLpayloadandIDproject()
+//         [When(@"the user submits a POST request to ""(.*)"" with a valid JSON body")]
+//         public void WhentheusersubmitsaPOSTrequesttowithavalidJSONbody(string endpoint, string body)
 //         {
-//             ItemModel body = new ItemModel(
-//                 null,
-//                 content: "This is a new item",
-//                 null,
-//                 null,
-//                 projectId: 4053023,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null,
-//                 null
-//             );
-//             _scenarioContext["Response"] = Client.Post<ItemModel>(url, body);
+//             _scenarioContext["Response"] = Client.DoRequest(Method.Post, endpoint, body);
 //         }
 
-//         [Then(
-//             @"the API should return an (.*) status code and the new item should be added to the project"
-//         )]
-//         public void ThentheAPIshouldreturnanstatuscodeandthenewitemshouldbeaddedtotheproject(
-//             string statusCode
-//         )
+//         [Then(@"the API should return a ""(.*)"" response with the new item information")]
+//         public void ThentheAPIshouldreturnaresponsewiththenewiteminformation(string statusCode)
 //         {
 //             RestResponse response = (RestResponse)_scenarioContext["Response"];
 //             Assert.True(response.IsSuccessful);
 //             Assert.Equal(statusCode, response.StatusCode.ToString());
+//             var item = JsonSerializer.Deserialize<ItemModel>(response.Content!);
+//             Assert.IsType<ItemModel>(item);
+//             Assert.Equal("New Item", item.Content);
+//         }
+        
+//         [AfterScenario]
+//         public void DeleteItem()
+//         {
+//             RestResponse response = (RestResponse)_scenarioContext["Response"];
+//             var item = JsonSerializer.Deserialize<ItemModel>(response.Content!);
+//             string itemId = item!.Id.ToString()!;
+//             Client.AddAuthenticator(ConfigBuilder.Instance.GetString("TODO-LY-EMAIL"), ConfigBuilder.Instance.GetString("TODO-LY-PASS"));
+//             Client.DoRequest(Method.Delete, $"items/{itemId}.json", null);
 //         }
 //     }
 // }

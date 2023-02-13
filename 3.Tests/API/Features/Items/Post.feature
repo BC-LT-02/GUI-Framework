@@ -1,13 +1,13 @@
-# Feature: Create a new item in a project
+# Feature: Create a new item
 #     As an authenticated user, the user should be able to create a new item
 
 #     @acceptance
-#     Scenario: Create a new item in a project
+#     Scenario: Create a new item succesfully
 #         Given the user has valid credentials
 #         When the user submits a POST request to "/items.json" with a valid JSON body
 #             """
 #             {
-#             "Content": "New Items",
+#             "Content": "New Item",
 #             }
 #             """
 #         Then the API should return a "OK" response with the new item information

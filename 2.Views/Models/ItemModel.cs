@@ -7,7 +7,7 @@ public record ItemModel
 {
     public long? Id { get; set; } = null;
     public string? Content { get; set; } = null;
-    public long? ItemType { get; set; } = null;
+    public int? ItemType { get; set; } = null;
     public bool? Checked { get; set; } = null;
     public long? ProjectId { get; set; } = null;
     public object? ParentId { get; set; } = null;
@@ -35,7 +35,7 @@ public record ItemModel
     public ItemModel(
         long? id,
         string? content,
-        long? itemType,
+        int? itemType,
         bool? checkeds,
         long? projectId,
         object? parentId,
