@@ -26,7 +26,6 @@ public class DragAndDropStepDefinitions : CommonSteps
     public void DragAndDropOnTop()
     {
         _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
-
         var source = _homePage.GetProjectHandle(projectName);
         var target = _homePage.GetProjectHandle("Work");
         WebActions.DragAndDrop(source.WebElement, target.WebElement);

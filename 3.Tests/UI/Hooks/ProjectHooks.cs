@@ -37,20 +37,13 @@ public class ProjectHooks
 
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
-        // RestResponse response = _client.Post(_url, payload);
         RestResponse response = _client.DoRequest(Method.Post, _url, payload);
-        if (!response.IsSuccessful)
-        {
-            throw new Exception("Error: Bad Request");
-        }
+        Assert.True(response.IsSuccessful);
 
         ProjectModel? projectContent = JsonSerializer.Deserialize<ProjectModel>(
             response.Content!
         );
-        if (projectContent!.Content != _projectName)
-        {
-            throw new Exception("Error: Response field 'Content' does not match input payload");
-        }
+        Assert.That(_projectName, Is.EqualTo(projectContent!.Content));
 
         _scenarioContext[ConfigModel.CurrentProject] = _projectName;
     }
