@@ -9,14 +9,14 @@ using Todoly.Views.Models;
 namespace SeleniumTest.Tests.Hooks;
 
 [Binding]
-public class ProjectHooks
+public class Hooks
 {
     private readonly ScenarioContext _scenarioContext;
     private readonly RestHelper _client;
     private readonly string _url;
     private readonly string _projectName;
 
-    public ProjectHooks(ScenarioContext scenarioContext)
+    public Hooks(ScenarioContext scenarioContext)
     {
         _scenarioContext = scenarioContext;
         _client = new RestHelper(ConfigModel.ApiHostUrl);
@@ -44,23 +44,9 @@ public class ProjectHooks
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _url, payload);
-        _ = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+        ProjectModel? projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
 
         _scenarioContext[ConfigModel.CurrentProject] = _projectName;
+        _scenarioContext[ConfigModel.CurrentProjectPayload] = projectModel;
     }
-
-    // [AfterScenario("delete.project")]
-    // public void DeleteProject()
-    // {
-    //     _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
-
-    //     RestResponse getResponse = _client.DoRequest(Method.Get, _url, null);
-
-    //     ProjectModel[]? projectContent = JsonSerializer.Deserialize<ProjectModel[]>(getResponse.Content!);
-
-    //     Console.WriteLine("Was the request successful " + projectContent.);
-
-    //     // RestResponse response = _client.DoRequest(Method.Delete, _url, null);
-    //     // Console.WriteLine("Was the request successful " + response.Content);
-    // }
 }

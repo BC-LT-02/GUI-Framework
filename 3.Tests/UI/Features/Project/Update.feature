@@ -4,7 +4,7 @@ Feature: Project Update
     Background:
         Given the user is logged in
 
-    @Regression @create.project #@delete.project
+    @Regression @create.project
     Scenario: Edit a project
         When the user clicks the edit button on a Project
             And inputs a new Project name
