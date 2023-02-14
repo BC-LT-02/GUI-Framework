@@ -27,22 +27,17 @@ jobs:
           echo "DriverMode=Headless" >> $GITHUB_ENV
       # - name: Run UI tests
       #   run: dotnet test 3.Tests/UI --no-build --no-restore --filter "Category=Smoke | Category=Regression"
-      - name: Load environment variables
-        run: |
-          echo "Loading environment variables"
-          npm install dotenv --global
-          dotenv -e $GITHUB_ENV env
       - name: Selenium docker grid setup
         env:
-          BROWSER_NAME: ${{ env.DriverType }}
+          BROWSER_NAME: chrome
         run: |
           docker-compose -f 1.Core/Docker/hub.yml up -d
-          docker-compose -f 1.Core/Docker/$BROWSER_NAME.yml up -d
+          docker-compose -f 1.Core/Docker/${BROWSER_NAME}.yml up -d
       - name: Run Tests
         run: dotnet test 3.Tests/UI
       - name: End docker sessions
         run: |
           docker-compose -f 1.Core/Docker/hub.yml stop
-          docker-compose -f 1.Core/Docker/chrome.yml down --remove-orphans
+          docker-compose -f 1.Core/Docker/${BROWSER_NAME}.yml down --remove-orphans
           docker container prune -f
 
