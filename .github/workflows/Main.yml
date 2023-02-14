@@ -23,7 +23,7 @@ jobs:
         run: |
           echo "TODO-LY-EMAIL=${{secrets.TODO_LY_EMAIL}}" >> $GITHUB_ENV
           echo "TODO-LY-PASS=${{secrets.TODO_LY_PASS}}" >> $GITHUB_ENV
-          echo "DriverType=chrome" >> $GITHUB_ENV
+          echo "DriverType=firefox" >> $GITHUB_ENV
           echo "DriverMode=Headless" >> $GITHUB_ENV
       # - name: Run UI tests
       #   run: dotnet test 3.Tests/UI --no-build --no-restore --filter "Category=Smoke | Category=Regression"
