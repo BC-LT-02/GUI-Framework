@@ -1,100 +1,48 @@
-﻿// using System.Text.Json;
-// using RestSharp;
-// using TechTalk.SpecFlow;
-// using Todoly.Tests.API.Steps.Commons;
-// using Todoly.Views.Models;
+﻿using System.Text.Json;
+using RestSharp;
+using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-// namespace Todoly.Tests.API.Steps.Project
-// {
-//     [Binding]
-//     [Scope(Feature = "Delete a project by ID")]
-//     public class DeleteProjectStepDefinitions : CommonSteps
-//     {
-//         private readonly ScenarioContext _scenarioContext;
-//         private string ApiUrl = "";
+namespace Todoly.Tests.API.Steps.Project
+{
+    [Binding]
+    [Scope(Feature = "Delete an existing project by ID")]
+    public class DeleteProjectStepDefinitions : CommonSteps
+    {
+        private readonly ScenarioContext _scenarioContext;
 
-//         public DeleteProjectStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
-//         {
-//             _scenarioContext = scenarioContext;
-//         }
+        public DeleteProjectStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
 
-//         [When(@"the user has a valid project ""(.*)""")]
-//         public void Thentheusershouldre(int expectedId)
-//         {
-//             ApiUrl = $"projects/{expectedId}.json";
-//             var username = _scenarioContext["username"].ToString();
-//             var password = _scenarioContext["password"].ToString();
-//             Client.AddDefaultHeader("Accept", "*/*");
-//             Client.AddAuthenticator(username: username!, password: password!);
+        [When(@"the user submits a DELETE request to ""(.*)""")]
+        public void WhentheusersubmitsaDELETErequestto(string endpoint)
+        {
+            var newProject = _scenarioContext.Get<RestResponse>(ConfigBuilder.Instance.GetString("api", "CurrentProject"));
+            string projectId = JsonSerializer.Deserialize<ProjectModel>(newProject!.Content!)!.Id.ToString()!;
+            endpoint = endpoint.Replace("[id]", projectId);
+            _scenarioContext["Response"] = Client.DoRequest(Method.Delete, endpoint, null);
+        }
 
-//             _scenarioContext["Response"] = Client.Get(ApiUrl);
-//             var response = (RestResponse)_scenarioContext["Response"];
+        [When(@"the user submits a DELETE request to ""(.*)"" with invalid email")]
+        public void WhentheusersubmitsaDELETErequesttowithinvalidemail(string endpoint)
+        {
+            endpoint = endpoint.Replace("[id]", "12345");
+            _scenarioContext["Response"] = Client.DoRequest(Method.Delete, endpoint, null);
+        }
 
-//             Assert.True(response.IsSuccessful);
-//             var project = JsonSerializer.Deserialize<ProjectModel>(
-//                 response.Content!.ToString()
-//             );
-//             Assert.Equal(project!.Id, expectedId);
-//         }
-
-//         [Then(@"the user sends a DELETE request to the API endpoint")]
-//         public void WhentheusersendsaDELETErequesttotheendpoint()
-//         {
-//             //_scenarioContext["Response"] = Client.Delete(ApiUrl);
-//             //var response = (RestResponse)_scenarioContext["Response"];
-//         }
-
-//         [Then(@"the project should be removed from the list of projects")]
-//         public void Thentheprojectshouldberemovedfromthelistofprojects()
-//         {
-//             _scenarioContext["Response"] = Client.Get(ApiUrl);
-//             var response = (RestResponse)_scenarioContext["Response"];
-//             Assert.NotEmpty(response.Content!);
-//         }
-
-//         [When(@"the user has an invalid project ""(.*)""")]
-//         public void GiventheuserhasaninvalidprojectID(long id)
-//         {
-//             ApiUrl = $"projects/{id}.json";
-//             Client.AddDefaultHeader(
-//                 "Authorization",
-//                 "Basic VmFsZXJpYS5Hb256YWxlc0BqYWxhLnVuaXZlcnNpdHk6MTIzNA=="
-//             );
-//             Client.AddDefaultHeader("Accept", "*/*");
-//         }
-
-//         [Then(
-//             @"the user sends a DELETE request for the non-existent project to the API endpoint and return a ""(.*)"" status code with the message: ""(.*)"""
-//         )]
-//         public void WhentheusersendsaDELETErequestforthenonexistentprojecttotheAPIendpoint(
-//             int expectedErrorCode,
-//             string expectedErrorMessage
-//         )
-//         {
-//             _scenarioContext["Response"] = Client.Get(ApiUrl);
-//             var response = (RestResponse)_scenarioContext["Response"];
-//             ErrorModel? project = JsonSerializer.Deserialize<ErrorModel>(
-//                 response.Content!
-//             );
-//             Assert.Equal(project!.ErrorCode, expectedErrorCode);
-//             Assert.Equal(project!.ErrorMessage, expectedErrorMessage);
-//         }
-
-//         [Then(
-//             @"the API should return a ""(.*)"" status code and an error message indicating ""(.*)"" to access the resource"
-//         )]
-//         public void ThentheAPIshouldreturna401statuscodeandanerrormessageindicatingthattheuserisnotauthorizedtoaccesstheresource(
-//             int expectedErrorCode,
-//             string expectedErrorMessage
-//         )
-//         {
-//             _scenarioContext["Response"] = Client.Delete(ApiUrl);
-//             var response = (RestResponse)_scenarioContext["Response"];
-//             ErrorModel? project = JsonSerializer.Deserialize<ErrorModel>(
-//                 response.Content!
-//             );
-//             Assert.Equal(project!.ErrorCode, expectedErrorCode);
-//             Assert.Equal(project!.ErrorMessage, expectedErrorMessage);
-//         }
-//     }
-// }
+        [Then(@"the API should return a ""(.*)"" response with the deleted project information")]
+        public void ThentheAPIshouldreturnaresponsewiththedeletedprojectinformation(string statusCode)
+        {
+            RestResponse response = (RestResponse)_scenarioContext["Response"];
+            Assert.True(response.IsSuccessful);
+            Assert.Equal(statusCode, response.StatusCode.ToString());
+            var project = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+            Assert.IsType<ProjectModel>(project);
+            Assert.Equal("New Project", project.Content);
+        }
+    }
+}
