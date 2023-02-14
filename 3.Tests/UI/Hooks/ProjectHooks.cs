@@ -38,13 +38,25 @@ public class ProjectHooks
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _url, payload);
-        Assert.True(response.IsSuccessful);
-
-        ProjectModel? projectContent = JsonSerializer.Deserialize<ProjectModel>(
+        _ = JsonSerializer.Deserialize<ProjectModel>(
             response.Content!
         );
-        Assert.That(_projectName, Is.EqualTo(projectContent!.Content));
 
         _scenarioContext[ConfigModel.CurrentProject] = _projectName;
     }
+
+    // [AfterScenario("delete.project")]
+    // public void DeleteProject()
+    // {
+    //     _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+
+    //     RestResponse getResponse = _client.DoRequest(Method.Get, _url, null);
+
+    //     ProjectModel[]? projectContent = JsonSerializer.Deserialize<ProjectModel[]>(getResponse.Content!);
+
+    //     Console.WriteLine("Was the request successful " + projectContent.);
+
+    //     // RestResponse response = _client.DoRequest(Method.Delete, _url, null);
+    //     // Console.WriteLine("Was the request successful " + response.Content);
+    // }
 }

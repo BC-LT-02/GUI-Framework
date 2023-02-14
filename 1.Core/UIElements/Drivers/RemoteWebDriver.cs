@@ -14,16 +14,16 @@ public class RemoteWebDriverFactory
     {
         switch (driverType)
         {
-            case "Chrome":
+            case "chrome":
                 var chrome = new ChromeOptions();
                 return RemoteConfigs(chrome);
-            case "Edge":
+            case "edge":
                 var edge = new EdgeOptions();
                 return RemoteConfigs(edge);
-            case "Safari":
+            case "safari":
                 var safari = new SafariOptions();
                 return RemoteConfigs(safari);
-            case "Firefox":
+            case "firefox":
                 var firefox = new FirefoxOptions();
                 return RemoteConfigs(firefox);
             default:

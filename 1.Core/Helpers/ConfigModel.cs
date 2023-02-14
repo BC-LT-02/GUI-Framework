@@ -30,5 +30,9 @@ public class ConfigModel
         "api",
         "CurrentProject"
     );
+    public static readonly string CurrentProjectPayload = ConfigBuilder.Instance.GetString(
+        "api",
+        "CurrentProjectPayload"
+    );
     public static readonly string DriverMode = ConfigBuilder.Instance.GetString("ui", "DriverMode");
 }
