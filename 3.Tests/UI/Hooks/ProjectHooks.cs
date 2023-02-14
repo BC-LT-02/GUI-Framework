@@ -24,6 +24,12 @@ public class ProjectHooks
         _projectName = IdHelper.GetNewId();
     }
 
+    [AfterTestRun]
+    public static void CleanUp()
+    {
+        APIScrits.RemoveAllProjects();
+    }
+
     [AfterScenario]
     public void SessionDisposal()
     {
@@ -38,9 +44,7 @@ public class ProjectHooks
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _url, payload);
-        _ = JsonSerializer.Deserialize<ProjectModel>(
-            response.Content!
-        );
+        _ = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
 
         _scenarioContext[ConfigModel.CurrentProject] = _projectName;
     }
