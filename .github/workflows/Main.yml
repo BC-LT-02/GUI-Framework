@@ -31,7 +31,7 @@ jobs:
         run: |
           echo "Loading environment variables"
           npm install dotenv --global
-          dotenv --path .env env
+          dotenv -e $GITHUB_ENV env
       - name: Selenium docker grid setup
         env:
           BROWSER_NAME: ${{ env.DriverType }}
