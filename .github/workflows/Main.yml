@@ -30,11 +30,11 @@ jobs:
       - name: Selenium docker grid setup
         run: |
           docker-compose -f 1.Core/Docker/hub.yml up -d
-          docker-compose -f 1.Core/Docker/${{ secrets.BROWSER_NAME }}.yml up -d
+          docker-compose -f 1.Core/Docker/Chrome.yml up -d
       - name: Run Tests
         run: dotnet test 3.Tests/UI
       - name: End docker sessions
         run: |
           docker-compose -f 1.Core/Docker/hub.yml stop
-          docker-compose -f 1.Core/Docker/${{ secrets.BROWSER_NAME }}.yml down --remove-orphans
+          docker-compose -f 1.Core/Docker/Chrome.yml down --remove-orphans
           docker container prune -f
