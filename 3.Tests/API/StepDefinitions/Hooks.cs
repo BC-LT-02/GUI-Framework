@@ -51,7 +51,7 @@ namespace Todoly.Tests.API.Steps.Hooks
             RestResponse response = (RestResponse)_scenarioContext["Response"];
             string itemId = JsonSerializer.Deserialize<ItemModel>(response.Content!)!.Id.ToString()!;
             Client.AddAuthenticator(ConfigBuilder.Instance.GetString("TODO-LY-EMAIL"), ConfigBuilder.Instance.GetString("TODO-LY-PASS"));
-            System.Console.WriteLine(Client.DoRequest(Method.Delete, $"items/{itemId}.json", null).Content);
+            Client.DoRequest(Method.Delete, $"items/{itemId}.json", null);
         }
     }
 }

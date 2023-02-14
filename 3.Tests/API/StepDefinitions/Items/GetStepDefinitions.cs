@@ -28,7 +28,6 @@ namespace Todoly.Tests.API.Steps.Item
         public void ThentheAPIshouldreturnaresponsewiththelistofalltheitems(string response)
         {
             RestResponse res = (RestResponse)_scenarioContext["Response"];
-            // System.Console.WriteLine(res.Content);
             Assert.True(res.IsSuccessful);
             Assert.Equal(response, res.StatusCode.ToString());
             var items = JsonSerializer.Deserialize<List<ItemModel>>(res.Content!);
