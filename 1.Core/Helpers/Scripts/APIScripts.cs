@@ -4,7 +4,7 @@ using Todoly.Views.Models;
 
 namespace Todoly.Core.Helpers;
 
-public class APIScrits
+public class APIScripts
 {
     public static void RemoveAllProjects()
     {
