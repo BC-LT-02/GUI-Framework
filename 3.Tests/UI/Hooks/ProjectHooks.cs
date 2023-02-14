@@ -27,7 +27,7 @@ public class ProjectHooks
     [AfterTestRun]
     public static void CleanUp()
     {
-        APIScrits.RemoveAllProjects();
+        APIScripts.RemoveAllProjects();
     }
 
     [AfterScenario]
