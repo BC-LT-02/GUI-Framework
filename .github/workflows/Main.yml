@@ -28,10 +28,8 @@ jobs:
       # - name: Run UI tests
       #   run: dotnet test 3.Tests/UI --no-build --no-restore --filter "Category=Smoke | Category=Regression"
       - name: Load environment variables
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
         run: |
+          echo "Loading environment variables"
           npm install dotenv --global
           dotenv -e .env env
       - name: Selenium docker grid setup
