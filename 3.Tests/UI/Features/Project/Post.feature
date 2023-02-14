@@ -4,7 +4,7 @@
     Background:
         Given the user is logged in
 
-    @Smoke @Regression #@delete.project
+    @Smoke @Regression
     Scenario: Create a new project
         When the user clicks the New Project button
             And inputs a new project name
