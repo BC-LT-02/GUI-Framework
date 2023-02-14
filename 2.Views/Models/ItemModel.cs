@@ -1,70 +1,65 @@
 ﻿namespace Todoly.Views.Models;
-
-using System;
 using System.Collections.Generic;
-
 public record ItemModel
 {
-    public long? Id { get; set; } = null;
-    public string? Content { get; set; } = null;
-    public long? ItemType { get; set; } = null;
-    public bool? Checked { get; set; } = null;
-    public long? ProjectId { get; set; } = null;
-    public object? ParentId { get; set; } = null;
-    public string? Path { get; set; } = null;
-    public bool? Collapsed { get; set; } = null;
-    public string? DateString { get; set; } = null;
-    public int? DateStringPriority { get; set; } = null;
-    public string? DueDate { get; set; } = null;
-    public object? Recurrence { get; set; } = null;
-    public int? ItemOrder { get; set; } = null;
-    public int? Priority { get; set; } = null;
-    public string? LastSyncedDateTime { get; set; } = null;
-    public List<ItemModel>? Children { get; set; } = null;
-    public string? DueDateTime { get; set; } = null;
-    public string? CreatedDate { get; set; } = null;
-    public string? LastCheckedDate { get; set; } = null;
-    public string? LastUpdatedDate { get; set; } = null;
-    public bool? Deleted { get; set; } = null;
-    public string? Notes { get; set; } = null;
-    public bool? InHistory { get; set; } = null;
-    public object? SyncClientCreationId { get; set; } = null;
-    public bool? DueTimeSpecified { get; set; } = null;
-    public long? OwnerId { get; set; } = null;
+    public int? Id { get; set; }
+    public string Content { get; set; }
+    public int? ItemType { get; set; }
+    public bool? Checked { get; set; }
+    public int? ProjectId { get; set; }
+    public int? ParentId { get; set; }
+    public string Path { get; set; }
+    public bool? Collapsed { get; set; }
+    public string? DateString { get; set; }
+    public int? DateStringPriority { get; set; }
+    public string? DueDate { get; set; }
+    public RecurrenceObject? Recurrence { get; set; }
+    public int? ItemOrder { get; set; }
+    public int? Priority { get; set; }
+    public string? LastSyncedDateTime { get; set; }
+    public List<ItemModel>? Children { get; set; }
+    public string? CreatedDate { get; set; }
+    public string? LastCheckedDate { get; set; }
+    public string? LastUpdatedDate { get; set; }
+    public bool? Deleted { get; set; }
+    public string? Notes { get; set; }
+    public bool? InHistory { get; set; }
+    public int? SyncClientCreationId { get; set; }
+    public bool? DueTimeSpecified { get; set; }
+    public int? OwnerId { get; set; }
 
     public ItemModel(
-        long? id,
-        string? content,
-        long? itemType,
-        bool? checkeds,
-        long? projectId,
-        object? parentId,
-        string? path,
-        bool? collapsed,
-        string? dateString,
-        int? dateStringPriority,
-        string? dueDate,
-        object? recurrence,
-        int? itemOrder,
-        int? priority,
-        string? lastSyncedDateTime,
-        List<ItemModel>? children,
-        string? dueDateTime,
-        string? createdDate,
-        string? lastCheckedDate,
-        string? lastUpdatedDate,
-        bool? deleted,
-        string? notes,
-        bool? inHistory,
-        object? syncClientCreationId,
-        bool? dueTimeSpecified,
-        long? ownerId
+    string content,
+    int? id = 0,
+    int? itemType = 1,
+    bool? @checked = false,
+    int? projectId = null,
+    int? parentId = null,
+    string path = "",
+    bool? collapsed = false,
+    string? dateString = null,
+    int? dateStringPriority = 0,
+    string? dueDate = "",
+    RecurrenceObject? recurrence = null,
+    int? itemOrder = 1,
+    int? priority = 4,
+    string? lastSyncedDateTime = null,
+    List<ItemModel>? children = null,
+    string? createdDate = null,
+    string? lastCheckedDate = null,
+    string? lastUpdatedDate = null,
+    bool? deleted = false,
+    string? notes = "",
+    bool? inHistory = false,
+    int? syncClientCreationId = null,
+    bool? dueTimeSpecified = null,
+    int? ownerId = 0
     )
     {
         Id = id;
         Content = content;
         ItemType = itemType;
-        Checked = checkeds;
+        Checked = @checked;
         ProjectId = projectId;
         ParentId = parentId;
         Path = path;
@@ -76,8 +71,6 @@ public record ItemModel
         ItemOrder = itemOrder;
         Priority = priority;
         LastSyncedDateTime = lastSyncedDateTime;
-        Children = children;
-        DueDateTime = dueDateTime;
         CreatedDate = createdDate;
         LastCheckedDate = lastCheckedDate;
         LastUpdatedDate = lastUpdatedDate;
@@ -87,5 +80,14 @@ public record ItemModel
         SyncClientCreationId = syncClientCreationId;
         DueTimeSpecified = dueTimeSpecified;
         OwnerId = ownerId;
+
+        if (children == null)
+        {
+            Children = new List<ItemModel>();
+        }
+        else
+        {
+            Children = children;
+        }
     }
 }

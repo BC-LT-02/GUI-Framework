@@ -8,7 +8,7 @@ Feature: Retrieve user information
         Then the API should return a "OK" response with the requested user information
             """
             {
-                "Email": "joaquingioffre@email.com"
+                "Email": "JalaATBC23@gmail.com"
             }
             """
             
