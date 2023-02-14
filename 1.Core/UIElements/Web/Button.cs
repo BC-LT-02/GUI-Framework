@@ -6,7 +6,7 @@ using Todoly.Core.UIElements.Interfaces;
 
 namespace Todoly.Core.UIElements.Web
 {
-    public class Button : BaseWebElement, IClickable
+    public class Button : BaseWebElement, IButton
     {
         public Button(string name, Locator locator) : base(name, locator) { }
 

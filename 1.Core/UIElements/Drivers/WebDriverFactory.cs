@@ -44,7 +44,7 @@ public class WebDriverFactory
         var chromeOptions = new ChromeOptions();
         if (ConfigModel.DriverMode == "Headless")
         {
-            chromeOptions.AddArgument("headless");
+            chromeOptions.AddArgument("--headless");
         }
 
         return chromeOptions;
