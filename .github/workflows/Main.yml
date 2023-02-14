@@ -32,7 +32,12 @@ jobs:
           docker-compose -f 1.Core/Docker/hub.yml up -d
           docker-compose -f 1.Core/Docker/chrome.yml up -d
       - name: Run Tests
-        run: dotnet test 3.Tests/UI
+        run: dotnet test 3.Tests/UI --logger "LivingDocs;format=LivingDocs"
+      - name: Publish LivingDocs reports
+        uses: actions/upload-artifact@v1
+        with:
+          name: livingdocs-reports
+          path: 3.Tests/UI/TestResults
       - name: End docker sessions
         run: |
           docker-compose -f 1.Core/Docker/hub.yml stop
