@@ -1,106 +1,57 @@
-﻿// using System.Text.Json;
-// using RestSharp;
-// using TechTalk.SpecFlow;
-// using Todoly.Tests.API.Steps.Commons;
-// using Todoly.Views.Models;
+﻿using System.Text.Json;
+using RestSharp;
+using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
+using Todoly.Tests.API.Steps.Commons;
+using Todoly.Views.Models;
 
-// namespace Todoly.Tests.API.Steps.Project
-// {
-//     [Binding]
-//     [Scope(Feature = "Retrieve an existing project")]
-//     public class GetByIdStepDefinitions : CommonSteps
-//     {
-//         private readonly ScenarioContext _scenarioContext;
-//         private readonly string url = "projects.json";
+namespace Todoly.Tests.API.Steps.Project
+{
+    [Binding]
+    [Scope(Feature = "Retrieve an existing project")]
+    public class GetByIdStepDefinitions : CommonSteps
+    {
+        private readonly ScenarioContext _scenarioContext;
 
-//         public GetByIdStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
-//         {
-//             _scenarioContext = scenarioContext;
-//         }
+        public GetByIdStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
 
-//         [When(@"the user sends a GET request to the api endpoint with a valid project ID")]
-//         public void WhentheusersendsaGETrequesttotheapiendpointwithavalidprojectID()
-//         {
-//             Client.AddDefaultHeader("Authorization", _scenarioContext["Authorization"].ToString()!);
-//             Client.AddDefaultHeader("Accept", "*/*");
+        [When(@"the user submits a GET request to ""(.*)""")]
+        public void WhentheusersubmitsaGETrequestto(string endpoint)
+        {
+            string projectId = JsonSerializer.Deserialize<ProjectModel>(newProject!.Content!)!.Id.ToString()!;
+            endpoint = endpoint.Replace("[id]", projectId);
+            _scenarioContext["Response"] = Client.DoRequest(Method.Get, endpoint, null);
+            ;
+        }
 
-//             _scenarioContext["Response"] = Client.Get(url);
-//         }
+        [Then(@"the API should return a ""(.*)"" response with the requested project information")]
+        public void ThentheAPIshouldreturnaresponsewiththerequestedprojectinformation(string statusCode)
+        {
+            RestResponse response = (RestResponse)_scenarioContext["Response"];
+            Assert.True(response.IsSuccessful);
+            Assert.Equal(statusCode, response.StatusCode.ToString());
+            var project = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+            Assert.IsType<ProjectModel>(project);
+            Assert.Equal("New Project", project.Content);
+        }
 
-//         [Then(
-//             @"the response should have a status code of ""(.*)"" and should contain the details of the valid project"
-//         )]
-//         public void Thentheresponseshouldhaveastatuscodeofandshouldcontainthedetailsofthevalidproject(
-//             string statusCode
-//         )
-//         {
-//             RestResponse response = (RestResponse)_scenarioContext["Response"];
+        [AfterScenario("delete.project")]
+        public void DeleteProject()
+        {
+            RestResponse response = (RestResponse)_scenarioContext["Response"];
+            var projectId = JsonSerializer.Deserialize<ProjectModel>(response.Content!)!.Id.ToString();
+            Client.AddAuthenticator(ConfigBuilder.Instance.GetString("TODO-LY-EMAIL"), ConfigBuilder.Instance.GetString("TODO-LY-PASS"));
+            Client.DoRequest(Method.Delete, $"projects/{projectId}.json", null);
+        }
 
-//             Assert.True(response.IsSuccessful);
-//             Assert.Equal(statusCode, response.StatusCode.ToString());
-
-//             var user = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
-//             Assert.IsType<ProjectModel>(user);
-//         }
-
-//         [When(
-//             @"the user sends a GET request to the api endpoint with an invalid project ID ""(.*)"""
-//         )]
-//         public void WhentheusersendsaGETrequesttotheapiendpointwithaninvalidprojectID(string id)
-//         {
-//             Client.AddDefaultHeader(
-//                 "Authorization",
-//                 "Basic YWRyaWVsLmdpbWVuZXNAamFsYS51bml2ZXJzaXR5OlRvZG8ubHkzMjY4MA=="
-//             );
-//             Client.AddDefaultHeader("Accept", "*/*");
-
-//             _scenarioContext["Response"] = Client.Get($"projects/{id}.json");
-//         }
-
-//         [Then(
-//             @"the response should have a status code of ""(.*)"" and the response should contain an error message ""(.*)"""
-//         )]
-//         public void Thentheresponseshouldhaveastatuscodeofandtheresponseshouldcontainanerrormessage(
-//             string statusCode,
-//             string errorMessage
-//         )
-//         {
-//             RestResponse response = (RestResponse)_scenarioContext["Response"];
-
-//             Assert.True(response.IsSuccessful);
-//             Assert.Equal(statusCode, response.StatusCode.ToString());
-
-//             var error = JsonSerializer.Deserialize<ErrorModel>(response.Content!);
-//             Assert.IsType<ErrorModel>(error);
-//             Assert.Equal(errorMessage, error!.ErrorMessage);
-//             Assert.Equal(102, error!.ErrorCode);
-//         }
-
-//         [When(@"the user sends a GET request to the api endpoint with an valid project ID")]
-//         public void WhentheusersendsaGETrequesttotheapiendpointwithanvalidprojectID()
-//         {
-//             Client.AddDefaultHeader("Accept", "*/*");
-
-//             _scenarioContext["Response"] = Client.Get(url);
-//         }
-
-//         [Then(
-//             @"the response should have a status code of ""(.*)"" and a ""(.*)"" error message indicating that the user is not authorized to access the resource."
-//         )]
-//         public void Thentheresponseshouldhaveastatuscodeofandaerrormessageindicatingthattheuserisnotauthorizedtoaccesstheresource(
-//             string statusCode,
-//             string errorMessage
-//         )
-//         {
-//             RestResponse response = (RestResponse)_scenarioContext["Response"];
-
-//             Assert.True(response.IsSuccessful);
-//             Assert.Equal(statusCode, response.StatusCode.ToString());
-
-//             var error = JsonSerializer.Deserialize<ErrorModel>(response.Content!);
-//             Assert.IsType<ErrorModel>(error);
-//             Assert.Equal(errorMessage, error!.ErrorMessage);
-//             Assert.Equal(102, error!.ErrorCode);
-//         }
-//     }
-// }
+        [When(@"the user submits a GET request to ""(.*)"" with invalid ID")]
+        public void WhentheusersubmitsaGETrequesttowithinvalidID(string endpoint)
+        {
+            endpoint = endpoint.Replace("[id]", "1239887766123");
+            _scenarioContext["Response"] = Client.DoRequest(Method.Get, endpoint, null);
+        }
+    }
+}

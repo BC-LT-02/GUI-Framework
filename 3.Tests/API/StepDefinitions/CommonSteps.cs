@@ -10,6 +10,7 @@ namespace Todoly.Tests.API.Steps.Commons
     {
         private readonly ScenarioContext _scenarioContext;
         public readonly RestHelper Client;
+        public RestResponse? newProject;
 
         public CommonSteps(ScenarioContext scenarioContext)
         {
@@ -48,5 +49,22 @@ namespace Todoly.Tests.API.Steps.Commons
             Assert.Equal(message, error!.ErrorMessage);
             Assert.Equal(statusCode, error!.ErrorCode);
         }
+
+        [BeforeScenario("create.project")]
+        public void CreateProject()
+        {
+            Client.AddAuthenticator(ConfigBuilder.Instance.GetString("TODO-LY-EMAIL"), ConfigBuilder.Instance.GetString("TODO-LY-PASS"));
+            string body = "{ \"Content\": \"New Project\" }";
+            newProject = Client.DoRequest(Method.Post, "/projects.json", body);
+        }
+
+        // [AfterScenario("delete.project")]
+        // public void DeleteProject()
+        // {
+        //     RestResponse response = (RestResponse)_scenarioContext["Response"];
+        //     var projectId = JsonSerializer.Deserialize<ProjectModel>(response.Content!)!.Id.ToString();
+        //     Client.AddAuthenticator(ConfigBuilder.Instance.GetString("TODO-LY-EMAIL"), ConfigBuilder.Instance.GetString("TODO-LY-PASS"));
+        //     Client.DoRequest(Method.Delete, $"projects/{projectId}.json", null);
+        // }
     }
 }
