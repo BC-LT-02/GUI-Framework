@@ -1,9 +1,9 @@
-﻿using System.Text.Json;
+﻿using System.Collections.Generic;
+using System.Text.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
 using Todoly.Tests.API.Steps.Commons;
 using Todoly.Views.Models;
-using System.Collections.Generic;
 
 namespace Todoly.Tests.API.Steps.Item
 {
@@ -34,7 +34,7 @@ namespace Todoly.Tests.API.Steps.Item
             var items = JsonSerializer.Deserialize<List<ItemModel>>(res.Content!);
 
             Assert.IsType<List<ItemModel>>(items);
-            foreach(ItemModel item in items)
+            foreach (ItemModel item in items)
             {
                 Assert.NotNull(item.Content);
                 Assert.NotNull(item.Id);
