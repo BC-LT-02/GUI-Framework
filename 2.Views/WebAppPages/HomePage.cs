@@ -10,57 +10,57 @@ namespace Todoly.Views.WebAppPages;
 public class HomePage
 {
     public readonly string HostUrl = ConfigModel.HostUrl;
-    public IClickable LogoutButton =>
+    public Button LogoutButton =>
         new Button("", new Locator(LocatorType.Id, "ctl00_HeaderTopControl1_LinkButtonLogout"));
 
-    public IClickable SettingsButton => new Button("", new Locator(LocatorType.XPath, "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"));
+    public Button SettingsButton => new Button("", new Locator(LocatorType.XPath, "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"));
 
-    public IClickable AddNewProjectButton =>
+    public Button AddNewProjectButton =>
         new Button("", new Locator(LocatorType.XPath, "//td[@class='ProjItemContent' and text()='Add New Project']"));
 
-    public ITypeable AddNewProjectInput =>
+    public TextField AddNewProjectInput =>
         new TextField("", new Locator(LocatorType.Id, "NewProjNameInput"));
 
-    public IClickable AddNewProjectNameButton =>
+    public Button AddNewProjectNameButton =>
         new Button("", new Locator(LocatorType.Id, "NewProjNameButton"));
 
     public IElement CurrentSelectedProject =>
         new BaseWebElement("", new Locator(LocatorType.ClassName, "ProjectSelected"));
 
-    public IClickable ProjectEditButton =>
+    public Button ProjectEditButton =>
         new Button("", new Locator(LocatorType.XPath, "//ul[@id='projectContextMenu']/li[@class='edit']/a"));
 
-    public ITypeable ProjectEditInput =>
+    public TextField ProjectEditInput =>
         new TextField("", new Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/input"));
 
-    public IClickable ProjectEditSaveButton =>
+    public Button ProjectEditSaveButton =>
         new Button("", new Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/img[@id='ItemEditSubmit']"));
 
-    public IClickable ProjectEditCancelButton =>
+    public Button ProjectEditCancelButton =>
         new Button("", new Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/img[@id='ItemEditCancel']"));
 
-    public IClickable ProjectDeleteButton =>
+    public Button ProjectDeleteButton =>
         new Button("", new Locator(LocatorType.Id, "ProjShareMenuDel"));
 
     public IElement ProjectTitleDiv =>
         new Button("", new Locator(LocatorType.Id, "CurrentProjectTitle"));
 
-    public IClickable NewItemAddButton =>
+    public Button NewItemAddButton =>
         new Button("", new Locator(LocatorType.Id, "NewItemAddButton"));
 
     public IElement RecycleBinDiv => new Button("", new Locator(LocatorType.Id, "ItemId_-3"));
 
-    public IClickable RecycleBinContextButton =>
+    public Button RecycleBinContextButton =>
         new Button("", new Locator(LocatorType.XPath, "//div[@itemid='-3']/img"));
 
-    public IClickable RecycleBinEmptyButton =>
+    public Button RecycleBinEmptyButton =>
         new Button("", new Locator(LocatorType.XPath, "//ul[@id='recycleContextMenu']/li/a"));
 
     public IElement NoItemsDiv => new Button("", new Locator(LocatorType.ClassName, "NoItems"));
-    public ITypeable AddToDoInput =>
+    public TextField AddToDoInput =>
         new TextField("", new Locator(LocatorType.Id, "NewItemContentInput"));
 
-    public IClickable ProjectButton(string projectName) =>
+    public Button ProjectButton(string projectName) =>
         new Button(
             "",
             new Locator(
@@ -83,7 +83,7 @@ public class HomePage
         )
     );
 
-    public IClickable GetProjectContextButton(string projectName) =>
+    public Button GetProjectContextButton(string projectName) =>
         new Button("", new Locator(
             LocatorType.XPath,
             $"//td[text()='{projectName}']/ancestor::table[@class='ProjItemTable']//img[@title='Options']"
