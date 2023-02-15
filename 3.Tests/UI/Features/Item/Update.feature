@@ -1,11 +1,12 @@
-Feature: Update Item
-    As a logged in user, the user should be able to edit an existing item.
+Feature: Item Update
+    As a logged in user, the user should be able to update the name to an existing item from a project.
 
-    @Acceptance
-    Scenario: Update an item
+    Background:
         Given the user is logged in
-        And the user has an existing project
-        And the user has an existing item
-        When the user clicks the item name box
-        And the user inputs a new item name
-        Then the site updates the item nameS
+
+    @Smoke @Regression @create.project @create.item
+    Scenario: Update a name of an item succesfully
+        When the user has selected a project
+        And the user clicks on the item
+        And inputs a new item name and press enter
+        Then the item should be displayed with the new name
