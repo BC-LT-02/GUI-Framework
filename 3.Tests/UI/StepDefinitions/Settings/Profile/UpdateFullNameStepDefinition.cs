@@ -1,7 +1,4 @@
 ﻿using TechTalk.SpecFlow;
-using Todoly.Core.UIElements.Drivers;
-using Todoly.Core.UIElements.Interfaces;
-using Todoly.Core.UIElements.Web;
 using Todoly.Tests.UI.Steps.Commons;
 using Todoly.Views.WebAppPages;
 
@@ -9,7 +6,6 @@ namespace SeleniumTest.Tests;
 
 [Binding]
 [Scope(Feature = "Full Name update")]
-[TestFixture]
 public class UpdateFullNameStepDefinition : CommonSteps
 {
     private readonly HomePage _homePage;
@@ -43,20 +39,13 @@ public class UpdateFullNameStepDefinition : CommonSteps
     [Then(@"the settings view is closed")]
     public void Thenthesettingsviewisclosed()
     {
-        IClickable element = _profilePage!.NonDisplayedCloseButton;
-        Button nonDisplayedCloseButton = (Button)element;
-        Assert.False(nonDisplayedCloseButton.WebElement.Displayed);
+        Assert.False(_profilePage!.NonDisplayedCloseButton.WebElement.Displayed);
     }
 
     [Then(@"the full name is updated")]
     public void Thenthefullnameisupdated()
     {
-        _scenarioContext.Pending();
-    }
-
-    [AfterScenario]
-    public void TearDown()
-    {
-        GenericWebDriver.Dispose();
+        _homePage.SettingsButton.Click();
+        Assert.That(_profilePage!.FullNameTextField.WebElement.GetAttribute("value"), Is.EqualTo("New Name"));
     }
 }

@@ -5,7 +5,7 @@ Feature: Full name update
         Given the user is logged in
             And the user clicks on the Settings option on the Nav Bar
 
-    @Acceptance
+    @Smoke @Regression @update.fullname
     Scenario: Update full name succesfully
         When the user inputs a new full name "New Name" on the Full Name input
             And clicks on the OK button

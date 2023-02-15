@@ -15,6 +15,8 @@ public class Hooks
     private readonly RestHelper _client;
     private readonly string _urlProject;
     private readonly string _projectName;
+    private readonly string _userFullName;
+    private readonly string _urlUserPutUri;
     private readonly string _urlItem;
     private readonly string _itemName;
     private ProjectModel? projectModel;
@@ -25,6 +27,8 @@ public class Hooks
         _client = new RestHelper(ConfigModel.ApiHostUrl);
         _urlProject = ConfigModel.ProjectUri;
         _projectName = IdHelper.GetNewId();
+        _urlUserPutUri = ConfigModel.UserPutUri;
+        _userFullName = ConfigModel.UserFullName;
         _urlItem = ConfigModel.ItemUri;
         _itemName = IdHelper.GetNewId();
     }
@@ -53,6 +57,15 @@ public class Hooks
 
         _scenarioContext[ConfigModel.CurrentProject] = _projectName;
         _scenarioContext[ConfigModel.CurrentProjectPayload] = projectModel;
+    }
+
+    [AfterScenario("update.fullname")]
+    public void UpdateFullName()
+    {
+        string payload = $"{{ \"FullName\": \"{_userFullName}\" }}";
+
+        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
     }
 
     [BeforeScenario("create.item", Order = 2)]
