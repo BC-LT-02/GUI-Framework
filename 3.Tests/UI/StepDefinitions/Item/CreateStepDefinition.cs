@@ -2,6 +2,7 @@
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
+using Todoly.Core.UIElements.WebActions;
 using Todoly.Tests.UI.Steps.Commons;
 using Todoly.Views.WebAppPages;
 
@@ -24,7 +25,9 @@ namespace CreateItemTest
         [Given(@"the user has selected a project")]
         public void Giventheuserhasselectedaproject()
         {
-            _homePage.ProjectButton(ConfigModel.CurrentProject).Click();
+            _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
+            WebActions.HoverElement(_homePage.GetProjectTd(projectName).WebElement);
+            _homePage.GetProjectContextButton(projectName).Click();
         }
 
         [When(@"enters the item ""(.*)"" on Add New Todo input")]
