@@ -29,15 +29,26 @@ public class DeleteAllStepDefinitions : CommonSteps
         _homePage.RecycleBinEmptyButton.Click();
     }
 
-    [Then(@"the recycle bin should not contain any item")]
-    public void Thentherecyclebinshouldnotcontainanyitem()
+    [Then(@"the main title text is ""(.*)""")]
+    public void Thenthemaintitletextis(string expectedTitle)
     {
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
                 _homePage.ProjectTitleDiv.WebElement,
-                "Recycle Bin"
+                expectedTitle
             )
         );
+    }
+
+    [Then(@"the snack bar message is ""(.*)""")]
+    public void Giventhesnackbarmessageis(string expectedMessage)
+    {
+        Assert.That(_homePage.InfoMessageText.WebElement.Text, Is.EqualTo(expectedMessage));
+    }
+
+    [Then(@"the recycle bin should should be empty")]
+    public void Giventherecyclebinshouldshouldbeempty()
+    {
         Assert.True(_homePage.NoItemsDiv.WebElement.Displayed, "The recycle bin is not empty");
     }
 }
