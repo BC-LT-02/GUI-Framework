@@ -127,5 +127,26 @@ public class HomePage
             )
         );
 
+    public IClickable ItemButton(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//div[@class='ItemContentDiv' and text()='" + itemName + "']"
+            )
+        );
+
+    public IClickable ProjectTd(string projectName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[@id='ProjectListPlaceHolder']//td[text()='{projectName}']"
+            )
+        );
+
+    public ITypeable ItemTextField =>
+        new TextField("", new Locator(LocatorType.Id, "ItemEditTextbox"));
+
     public HomePage() { }
 }
