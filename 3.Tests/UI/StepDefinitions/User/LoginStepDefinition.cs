@@ -9,7 +9,6 @@ namespace SeleniumTest.Tests;
 
 [Binding]
 [Scope(Feature = "User Login")]
-[TestFixture]
 public class LoginChromeTests
 {
     private readonly LoginPage _loginPage;
@@ -57,12 +56,6 @@ public class LoginChromeTests
         Button logoutButton = (Button)element;
         Assert.True(logoutButton.WebElement.Displayed);
         Assert.That(GenericWebDriver.Instance.Title, Is.EqualTo("Todo.ly"));
-    }
-
-    [AfterScenario]
-    public void TearDown()
-    {
-        GenericWebDriver.Dispose();
     }
 }
 

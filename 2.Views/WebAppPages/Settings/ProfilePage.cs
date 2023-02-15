@@ -12,4 +12,6 @@ public class ProfilePage
     public Button OkButton => new Button("", new Locator(LocatorType.XPath, "//div[@class='ui-dialog-buttonset']//span[text()='Ok']"));
     public Button CloseButton => new Button("", new Locator(LocatorType.XPath, "//div[@aria-labelledby='ui-dialog-title-settingsDialog'][contains(@style, 'block')]//ul[@id='settings_tabs']//span[text()='close']"));
     public Button NonDisplayedCloseButton => new Button("", new Locator(LocatorType.XPath, "//div[@aria-labelledby='ui-dialog-title-settingsDialog'][contains(@style, 'none')]//ul[@id='settings_tabs']//span[text()='close']"));
+    public TextField OldPassTextField => new TextField("", new Locator(LocatorType.Id, "TextPwOld"));
+    public TextField NewPassTextField => new TextField("", new Locator(LocatorType.Id, "TextPwNew"));
 }

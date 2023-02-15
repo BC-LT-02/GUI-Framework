@@ -16,9 +16,11 @@ public class Hooks
     private readonly RestHelper _client;
     private readonly string _urlProject;
     private readonly string _projectName;
+    private readonly string _userFullName;
+    private readonly string _urlUserPutUri;
     private readonly string _urlItem;
-    private readonly int? _projectId;
     private readonly string _itemName;
+    private ProjectModel? _projectModel;
 
     public Hooks(ScenarioContext scenarioContext)
     {
@@ -26,14 +28,10 @@ public class Hooks
         _client = new RestHelper(ConfigModel.ApiHostUrl);
         _urlProject = ConfigModel.ProjectUri;
         _projectName = IdHelper.GetNewId();
+        _urlUserPutUri = ConfigModel.UserPutUri;
+        _userFullName = ConfigModel.UserFullName;
         _urlItem = ConfigModel.ItemUri;
         _itemName = IdHelper.GetNewId();
-
-        if (_scenarioContext.TryGetValue("projectContent", out var projectContentData))
-        {
-            ProjectModel projectContent = (ProjectModel)projectContentData;
-            _projectId = projectContent.Id;
-        }
     }
 
     [AfterTestRun]
@@ -70,17 +68,26 @@ public class Hooks
             _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
             RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
-            ProjectModel? projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+            _projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
 
             _scenarioContext[tag] = tag;
-            _scenarioContext[tag + "Model"] = projectModel;
+            _scenarioContext[tag + "Model"] = _projectModel;
         }
+    }
+
+    [AfterScenario("update.fullname")]
+    public void UpdateFullName()
+    {
+        string payload = $"{{ \"FullName\": \"{_userFullName}\" }}";
+
+        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
     }
 
     [BeforeScenario("create.item", Order = 2)]
     public void CreateAnItem()
     {
-        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectId} }}";
+        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectModel.Id} }}";
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);
