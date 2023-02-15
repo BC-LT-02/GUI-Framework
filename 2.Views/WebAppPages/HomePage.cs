@@ -148,5 +148,14 @@ public class HomePage
     public ITypeable ItemTextField =>
         new TextField("", new Locator(LocatorType.Id, "ItemEditTextbox"));
 
+    public IElement GetItemTd(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[@class='ItemContentDiv' and text()='{itemName}']"
+            )
+        );
+
     public HomePage() { }
 }

@@ -26,9 +26,18 @@ namespace Todoly.Core.UIElements.Web
             {
                 if (_webElement == null)
                 {
-                    _webElement = GenericWebDriver.Wait.Until(
-                        ExpectedConditions.ElementIsVisible(Locator.GetBy())
-                    );
+                    try
+                    {
+                        _webElement = GenericWebDriver.Wait.Until(
+                            ExpectedConditions.ElementIsVisible(Locator.GetBy())
+                        );
+                    }
+                    catch
+                    {
+                        _webElement = GenericWebDriver.Wait.Until(
+                            ExpectedConditions.ElementExists(Locator.GetBy())
+                        );
+                    }
                 }
 
                 return _webElement;
