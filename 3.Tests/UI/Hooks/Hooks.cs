@@ -68,10 +68,19 @@ public class Hooks
         _client.DoRequest(Method.Put, _urlUserPutUri, payload);
     }
 
+    [AfterScenario("recover.password")]
+    public void RecoverPassword()
+    {
+        string payload = $"{{ \"Password\": \"{ConfigModel.TODO_LY_PASS}\" }}";
+        string password = _scenarioContext.Get<string>("Password");
+        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, password);
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
+    }
+
     [BeforeScenario("create.item", Order = 2)]
     public void CreateAnItem()
     {
-        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {projectModel.Id} }}";
+        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {projectModel!.Id} }}";
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);
