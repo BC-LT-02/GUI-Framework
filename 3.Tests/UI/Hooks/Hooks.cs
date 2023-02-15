@@ -15,6 +15,9 @@ public class Hooks
     private readonly RestHelper _client;
     private readonly string _url;
     private readonly string _projectName;
+    private readonly string _userFullName;
+    private readonly string _urlUserPutUri;
+
 
     public Hooks(ScenarioContext scenarioContext)
     {
@@ -22,6 +25,8 @@ public class Hooks
         _client = new RestHelper(ConfigModel.ApiHostUrl);
         _url = ConfigModel.ProjectUri;
         _projectName = IdHelper.GetNewId();
+        _urlUserPutUri = ConfigModel.UserPutUri;
+        _userFullName = ConfigModel.UserFullName;
     }
 
     [AfterTestRun]
@@ -49,4 +54,14 @@ public class Hooks
         _scenarioContext[ConfigModel.CurrentProject] = _projectName;
         _scenarioContext[ConfigModel.CurrentProjectPayload] = projectModel;
     }
+
+    [AfterScenario("update.fullname")]
+    public void UpdateFullName()
+    {
+        string payload = $"{{ \"FullName\": \"{_userFullName}\" }}";
+
+        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
+    }
+
 }
