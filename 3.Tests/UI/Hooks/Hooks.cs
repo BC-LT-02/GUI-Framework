@@ -16,8 +16,8 @@ public class Hooks
     private readonly string _urlProject;
     private readonly string _projectName;
     private readonly string _urlItem;
-    private readonly int? _projectId;
     private readonly string _itemName;
+    private ProjectModel? projectModel;
 
     public Hooks(ScenarioContext scenarioContext)
     {
@@ -27,12 +27,6 @@ public class Hooks
         _projectName = IdHelper.GetNewId();
         _urlItem = ConfigModel.ItemUri;
         _itemName = IdHelper.GetNewId();
-
-        if (_scenarioContext.TryGetValue("projectContent", out var projectContentData))
-        {
-            ProjectModel projectContent = (ProjectModel)projectContentData;
-            _projectId = projectContent.Id;
-        }
     }
 
     [AfterTestRun]
@@ -55,7 +49,7 @@ public class Hooks
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
-        ProjectModel? projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+        projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
 
         _scenarioContext[ConfigModel.CurrentProject] = _projectName;
         _scenarioContext[ConfigModel.CurrentProjectPayload] = projectModel;
@@ -64,7 +58,7 @@ public class Hooks
     [BeforeScenario("create.item", Order = 2)]
     public void CreateAnItem()
     {
-        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectId} }}";
+        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {projectModel.Id} }}";
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);
