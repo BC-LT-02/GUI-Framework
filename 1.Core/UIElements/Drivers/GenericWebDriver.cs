@@ -8,9 +8,7 @@ namespace Todoly.Core.UIElements.Drivers;
 public class GenericWebDriver
 {
     private static IWebDriver? _driver = null;
-    public static IWebDriver Instance =>
-        _driver =
-            _driver == null ? RemoteWebDriverFactory.GetDriver(ConfigModel.DriverType) : _driver;
+    public static IWebDriver Instance => _driver = _driver == null ? LoadDriver() : _driver;
 
     public static WebDriverWait Wait =>
         new WebDriverWait(Instance, TimeSpan.FromSeconds(ConfigModel.DriverExplicitTimeout));
@@ -21,6 +19,19 @@ public class GenericWebDriver
         {
             _driver!.Dispose();
             _driver = null;
+        }
+    }
+
+    public static IWebDriver LoadDriver()
+    {
+        var key = ConfigBuilder.Instance.GetString("DriverLocation");
+        if (key.Equals("Local"))
+        {
+            return WebDriverFactory.GetDriver(ConfigModel.DriverType);
+        }
+        else
+        {
+            return RemoteWebDriverFactory.GetDriver(ConfigModel.DriverType);
         }
     }
 }
