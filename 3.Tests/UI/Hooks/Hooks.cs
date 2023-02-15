@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
@@ -47,18 +48,33 @@ public class Hooks
         GenericWebDriver.Dispose();
     }
 
-    [BeforeScenario("create.project", Order = 1)]
+    [BeforeScenario(Order = 1)]
     public void CreateProject()
     {
-        string payload = $"{{ \"Content\": \"{_projectName}\" }}";
+        var scenarioTags = _scenarioContext.ScenarioInfo.Tags.ToList();
 
-        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        scenarioTags = scenarioTags
+            .Where(tag => tag.StartsWith("create.project."))
+            .Select(tag => tag.Replace("create.project.", ""))
+            .ToList();
 
-        RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
-        ProjectModel? projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+        if (scenarioTags.Count.Equals(0))
+        {
+            return;
+        }
 
-        _scenarioContext[ConfigModel.CurrentProject] = _projectName;
-        _scenarioContext[ConfigModel.CurrentProjectPayload] = projectModel;
+        foreach (string tag in scenarioTags)
+        {
+            string payload = $"{{ \"Content\": \"{tag}\" }}";
+
+            _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+
+            RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
+            ProjectModel? projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+
+            _scenarioContext[tag] = tag;
+            _scenarioContext[tag + "Model"] = projectModel;
+        }
     }
 
     [BeforeScenario("create.item", Order = 2)]

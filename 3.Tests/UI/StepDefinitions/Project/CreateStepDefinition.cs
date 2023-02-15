@@ -10,12 +10,12 @@ namespace SeleniumTest.Tests.Steps.Project;
 
 [Binding]
 [Scope(Feature = "Project Creation")]
-public class PostStepDefinitions : CommonSteps
+public class CreateStepDefinitions : CommonSteps
 {
     private readonly HomePage _homePage;
     private readonly ScenarioContext _scenarioContext;
 
-    public PostStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+    public CreateStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
     {
         _homePage = new HomePage();
         _scenarioContext = scenarioContext;
