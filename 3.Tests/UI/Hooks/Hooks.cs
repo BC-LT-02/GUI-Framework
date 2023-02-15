@@ -18,7 +18,6 @@ public class Hooks
     private readonly string _userFullName;
     private readonly string _urlUserPutUri;
 
-
     public Hooks(ScenarioContext scenarioContext)
     {
         _scenarioContext = scenarioContext;
@@ -63,5 +62,4 @@ public class Hooks
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
         _client.DoRequest(Method.Put, _urlUserPutUri, payload);
     }
-
 }
