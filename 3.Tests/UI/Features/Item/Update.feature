@@ -4,7 +4,7 @@ Feature: Item Update
     Background:
         Given the user is logged in
 
-    @Smoke @Regression @create.project @create.item
+    @Smoke @Regression @create.project @create.item @update.item
     Scenario: Update a name of an item succesfully
         When the user has selected a project
         And the user clicks on the item

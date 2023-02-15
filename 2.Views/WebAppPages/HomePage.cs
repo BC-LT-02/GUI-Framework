@@ -127,6 +127,33 @@ public class HomePage
             )
         );
 
+    public Button GetItemContextButton(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//img[@title='Options']"
+            )
+        );
+
+    public IElement GetItemTd(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[@class='ItemContentDiv' and text()='{itemName}']"
+            )
+        );
+
+    public Button ItemDeleteButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//ul[@id='itemContextMenu']/li[@class='delete separator']/a"
+            )
+        );
+
     public IClickable ItemButton(string itemName) =>
         new Button(
             "",

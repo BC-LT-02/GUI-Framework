@@ -53,8 +53,7 @@ public class UpdateStepDefinitions : CommonSteps
     [Then(@"the item should be displayed with the new name")]
     public void VerifyItemUpdate()
     {
-        var xpath = "//div[@class='ItemContentDiv' and text()='" + _expectedItemName + "']";
-        var newItem = GenericWebDriver.Instance.FindElement(By.XPath(xpath));
-        Assert.True(newItem.Displayed);
+        string actualText = _homePage.GetItemTd(_expectedItemName).WebElement.Text;
+        Assert.That(_expectedItemName, Is.EqualTo(actualText));
     }
 }
