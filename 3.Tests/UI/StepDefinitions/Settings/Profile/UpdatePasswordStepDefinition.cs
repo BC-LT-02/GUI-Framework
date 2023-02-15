@@ -1,7 +1,7 @@
 ﻿using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
 using Todoly.Tests.UI.Steps.Commons;
 using Todoly.Views.WebAppPages;
-using Todoly.Core.Helpers;
 
 namespace SeleniumTest.Tests;
 
