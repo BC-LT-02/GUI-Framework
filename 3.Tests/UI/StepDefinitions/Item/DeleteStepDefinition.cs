@@ -25,6 +25,14 @@ public class DeleteStepDefinitions : CommonSteps
         _scenarioContext = scenarioContext;
     }
 
+    [When(@"the user has selected a project")]
+    public void Giventheuserhasselectedaproject()
+    {
+        _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
+        WebActions.HoverElement(_homePage.GetProjectTd(projectName).WebElement);
+        _homePage.GetProjectContextButton(projectName).Click();
+    }
+
     [When(@"the user clicks on the delete option of an item")]
     public void Whentheuserclicksonthedeleteoptionofanitem()
     {
@@ -39,8 +47,7 @@ public class DeleteStepDefinitions : CommonSteps
     [Then(@"the item should be removed from the section")]
     public void Thentheitemshouldberemovedfromthesection()
     {
-        var xpath = "//div[@class='ItemContentDiv' and text()='" + _expectedItemName + "']";
-        var newItem = GenericWebDriver.Instance.FindElement(By.XPath(xpath));
-        Assert.False(newItem.Displayed);
+        string actualText = _homePage.GetItemTd(_expectedItemName).WebElement.Text;
+        Assert.That(_expectedItemName, !Is.EqualTo(actualText));
     }
 }
