@@ -26,7 +26,7 @@ public class DeleteStepDefinitions : CommonSteps
     }
 
     [When(@"the user has selected a project")]
-    public void Giventheuserhasselectedaproject()
+    public void SelectProject()
     {
         _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
         WebActions.HoverElement(_homePage.GetProjectTd(projectName).WebElement);
@@ -34,7 +34,7 @@ public class DeleteStepDefinitions : CommonSteps
     }
 
     [When(@"the user clicks on the delete option of an item")]
-    public void Whentheuserclicksonthedeleteoptionofanitem()
+    public void ClickOnDelete()
     {
         _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
         _expectedItemName = itemName;
@@ -45,7 +45,7 @@ public class DeleteStepDefinitions : CommonSteps
     }
 
     [Then(@"the item should be removed from the section")]
-    public void Thentheitemshouldberemovedfromthesection()
+    public void ShouldbeRemoved()
     {
         string actualText = _homePage.GetItemTd(_expectedItemName).WebElement.Text;
         Assert.That(_expectedItemName, !Is.EqualTo(actualText));

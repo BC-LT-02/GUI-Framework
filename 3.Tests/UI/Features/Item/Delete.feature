@@ -10,7 +10,6 @@ Feature: Item Deletion
         And the user clicks on the delete option of an item
         Then the item should be removed from the section
 
-# @Acceptance
 # Scenario: Delete all done items succesfully
 #     And has at least two done items located in the done items section
 #     When the user clicks on the delete all option

@@ -136,15 +136,6 @@ public class HomePage
             )
         );
 
-    public IElement GetItemTd(string itemName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[@class='ItemContentDiv' and text()='{itemName}']"
-            )
-        );
-
     public Button ItemDeleteButton =>
         new Button(
             "",
