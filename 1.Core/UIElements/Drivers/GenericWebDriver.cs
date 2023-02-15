@@ -24,14 +24,9 @@ public class GenericWebDriver
 
     public static IWebDriver LoadDriver()
     {
-        var key = ConfigBuilder.Instance.GetString("DriverLocation");
-        if (key.Equals("Local"))
-        {
-            return WebDriverFactory.GetDriver(ConfigModel.DriverType);
-        }
-        else
-        {
-            return RemoteWebDriverFactory.GetDriver(ConfigModel.DriverType);
-        }
+        var key = ConfigBuilder.Instance.GetString("ui", "DriverLocation");
+        return key.Equals("Local")
+            ? WebDriverFactory.GetDriver(ConfigModel.DriverType)
+            : RemoteWebDriverFactory.GetDriver(ConfigModel.DriverType);
     }
 }

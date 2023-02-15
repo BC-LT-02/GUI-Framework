@@ -20,9 +20,6 @@ public class RemoteWebDriverFactory
             case "Edge":
                 var edge = new EdgeOptions();
                 return RemoteConfigs(edge);
-            case "Safari":
-                var safari = new SafariOptions();
-                return RemoteConfigs(safari);
             case "Firefox":
                 var firefox = new FirefoxOptions();
                 return RemoteConfigs(firefox);
