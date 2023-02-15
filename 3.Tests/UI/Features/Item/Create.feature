@@ -5,15 +5,15 @@ Feature: Create an Item in a Project
         Given the user is logged in
     #And the user has an existing project
 
-    @create.project 
+    @create.project.NewProject
     Scenario: Create an Item Successfully
-        Given the user has selected a project
+        Given the user has selected the "NewProject" project
         When enters the item "new katas for monday" on Add New Todo input
         Then the item should be displayed in the project list
         
     # @Draft
-    # @Negative @create.project
+    # @Negative @create.project.NewProject
     # Scenario: Failed to Create an Item Due to Empty Name
-    #     Given the user has selected a project
+    #     Given the user has selected the "NewProject" project
     #     When the user tries to create an item with an empty string
     #     Then an error message "Name is required" should be displayed 

@@ -4,9 +4,9 @@ Feature: Project Update
     Background:
         Given the user is logged in
 
-    @Regression @create.project
+    @Regression @create.project.MyProject
     Scenario: Edit a project
-        When the user clicks the edit button on a Project
+        When the user clicks the edit button on "MyProject"
             And inputs a new Project name
             And clicks on the Save icon
         Then the project should be displayed with the new name
