@@ -14,22 +14,22 @@ public class LoginPage
     public readonly string EmailCredentials = ConfigModel.TODO_LY_EMAIL;
     public readonly string PassCredentials = ConfigModel.TODO_LY_PASS;
 
-    public IClickable LoginButton =>
+    public Button LoginButton =>
         new Button("", new Locator(LocatorType.ClassName, "HPHeaderLogin"));
 
-    public ITypeable EmailTextField =>
+    public TextField EmailTextField =>
         new TextField(
             "",
             new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxEmail")
         );
 
-    public ITypeable PasswordTextField =>
+    public TextField PasswordTextField =>
         new TextField(
             "",
             new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxPassword")
         );
 
-    public IClickable ConfirmLoginButton =>
+    public Button ConfirmLoginButton =>
         new Button("", new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_ButtonLogin"));
 
     public LoginPage() { }
