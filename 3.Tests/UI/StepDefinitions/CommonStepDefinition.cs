@@ -19,16 +19,4 @@ public class CommonSteps
         LoginPage loginPage = new LoginPage();
         loginPage!.LoginIntoApplication();
     }
-
-    [Given(@"the user has an existing project")]
-    public void Giventheuserhasanexistingproject()
-    {
-        _scenarioContext.Pending();
-    }
-
-    [Given(@"the user has an existing item")]
-    public void Giventheuserhasanexistingitem()
-    {
-        _scenarioContext.Pending();
-    }
 }
