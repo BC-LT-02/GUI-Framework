@@ -178,5 +178,8 @@ public class HomePage
     public IElement ItemDeletedAlert() =>
         new Button("", new Locator(LocatorType.XPath, $"//span[@id='InfoMessageText']"));
 
+    public IElement NoItemsOnMain() =>
+        new Button("", new Locator(LocatorType.XPath, $"//div[@class='NoItems']"));
+
     public HomePage() { }
 }

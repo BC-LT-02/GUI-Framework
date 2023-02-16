@@ -38,6 +38,7 @@ public class DeleteStepDefinitions : CommonSteps
     {
         _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
         _expectedItemName = itemName;
+        System.Console.WriteLine("ItemName: " + itemName);
 
         WebActions.HoverElement(_homePage.GetItemTd(itemName).WebElement);
         _homePage.GetItemContextButton(itemName).Click();
@@ -47,7 +48,17 @@ public class DeleteStepDefinitions : CommonSteps
     [Then(@"the item should be removed from the section")]
     public void ShouldbeRemoved()
     {
-        string actualText = _homePage.ItemDeletedAlert().WebElement.Text;
-        Assert.That(actualText, Is.EqualTo("Item has been Deleted"));
+        GenericWebDriver.Wait.Until(
+            ExpectedConditions.TextToBePresentInElement(
+                _homePage.ItemDeletedAlert().WebElement,
+                "Item has been Deleted"
+            )
+        );
+        string deletedAlert = _homePage.ItemDeletedAlert().WebElement.Text;
+        Assert.That(deletedAlert, Is.EqualTo("Item has been Deleted"));
+        Assert.That(
+            _homePage.NoItemsOnMain().WebElement.Text,
+            Is.EqualTo("There are no items to display")
+        );
     }
 }
