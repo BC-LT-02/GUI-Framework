@@ -40,6 +40,12 @@ public class Hooks
         APIScripts.RemoveAllProjects();
     }
 
+    [AfterScenario("delete.projects")]
+    public static void RemoveProjects()
+    {
+        APIScripts.RemoveAllProjects();
+    }
+
     [AfterScenario]
     public void SessionDisposal()
     {

@@ -145,6 +145,15 @@ public class HomePage
             )
         );
 
+    public Button ItemPriorityButton(string priorityValue) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//span[@class='PrioFrame' and text()='{priorityValue}']"
+            )
+        );
+
     public IClickable ItemButton(string itemName) =>
         new Button(
             "",
@@ -172,6 +181,15 @@ public class HomePage
             new Locator(
                 LocatorType.XPath,
                 $"//div[@class='ItemContentDiv' and text()='{itemName}']"
+            )
+        );
+
+    public IElement GetItemColor(string itemName, string itemColor) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[@class='ItemContentDiv' and text()='{itemName}'][contains(@style,'{itemColor}')]"
             )
         );
 
