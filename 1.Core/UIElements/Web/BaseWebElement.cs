@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SeleniumExtras.WaitHelpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.Interfaces;
@@ -25,7 +26,18 @@ namespace Todoly.Core.UIElements.Web
             {
                 if (_webElement == null)
                 {
-                    _webElement = GenericWebDriver.Instance.FindElement(Locator.GetBy());
+                    try
+                    {
+                        _webElement = GenericWebDriver.Wait.Until(
+                            ExpectedConditions.ElementIsVisible(Locator.GetBy())
+                        );
+                    }
+                    catch
+                    {
+                        _webElement = GenericWebDriver.Wait.Until(
+                            ExpectedConditions.ElementExists(Locator.GetBy())
+                        );
+                    }
                 }
 
                 return _webElement;

@@ -18,9 +18,11 @@ public class Hooks
     private readonly RestHelper _client;
     private readonly string _urlProject;
     private readonly string _projectName;
+    private readonly string _userFullName;
+    private readonly string _urlUserPutUri;
     private readonly string _urlItem;
-    private readonly int? _projectId;
     private readonly string _itemName;
+    private ProjectModel? _projectModel;
 
     public Hooks(ScenarioContext scenarioContext)
     {
@@ -28,14 +30,10 @@ public class Hooks
         _client = new RestHelper(ConfigModel.ApiHostUrl);
         _urlProject = ConfigModel.ProjectUri;
         _projectName = IdHelper.GetNewId();
+        _urlUserPutUri = ConfigModel.UserPutUri;
+        _userFullName = ConfigModel.UserFullName;
         _urlItem = ConfigModel.ItemUri;
         _itemName = IdHelper.GetNewId();
-
-        if (_scenarioContext.TryGetValue("projectContent", out var projectContentData))
-        {
-            ProjectModel projectContent = (ProjectModel)projectContentData;
-            _projectId = projectContent.Id;
-        }
     }
 
     [AfterTestRun]
@@ -44,18 +42,42 @@ public class Hooks
         APIScripts.RemoveAllProjects();
     }
 
-    [BeforeScenario("create.project", Order = 1)]
+    [BeforeScenario(Order = 1)]
     public void CreateProject()
     {
-        string payload = $"{{ \"Content\": \"{_projectName}\" }}";
+        var scenarioTags = _scenarioContext.ScenarioInfo.Tags.ToList();
+
+        scenarioTags = scenarioTags
+            .Where(tag => tag.StartsWith("create.project."))
+            .Select(tag => tag.Replace("create.project.", ""))
+            .ToList();
+
+        if (scenarioTags.Count.Equals(0))
+        {
+            return;
+        }
+
+        foreach (string tag in scenarioTags)
+        {
+            string payload = $"{{ \"Content\": \"{tag}\" }}";
+
+            _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+
+            RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
+            _projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+
+            _scenarioContext[tag] = tag;
+            _scenarioContext[tag + "Model"] = _projectModel;
+        }
+    }
+
+    [AfterScenario("update.fullname")]
+    public void UpdateFullName()
+    {
+        string payload = $"{{ \"FullName\": \"{_userFullName}\" }}";
 
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
-
-        RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
-        ProjectModel? projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
-
-        _scenarioContext[ConfigModel.CurrentProject] = _projectName;
-        _scenarioContext[ConfigModel.CurrentProjectPayload] = projectModel;
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
     }
 
     [AfterScenario]
@@ -64,7 +86,7 @@ public class Hooks
         if (_scenarioContext.TestError != null)
         {
             Screenshot image = ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot();
-            string path = $"../Assets/{_scenarioContext.ScenarioInfo.Title}";
+            string path = $"../../../Assets/{_scenarioContext.ScenarioInfo.Title}";
             path = string.Join(" ", path.Split().Select(word => char.ToUpper(word[0]) + word.Substring(1))).Replace(" ", "");
 
             if (!Directory.Exists(path))
@@ -85,7 +107,7 @@ public class Hooks
     [BeforeScenario("create.item", Order = 2)]
     public void CreateAnItem()
     {
-        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectId} }}";
+        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectModel.Id} }}";
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);

@@ -15,6 +15,7 @@ public class ConfigModel
     public static readonly string HostUrl = ConfigBuilder.Instance.GetString("ui", "HostUrl");
     public static readonly string TODO_LY_EMAIL = ConfigBuilder.Instance.GetString("TODO-LY-EMAIL");
     public static readonly string TODO_LY_PASS = ConfigBuilder.Instance.GetString("TODO-LY-PASS");
+    public static readonly string UserFullName = ConfigBuilder.Instance.GetString("api", "UserFullName");
     public static readonly string DriverType = ConfigBuilder.Instance.GetString("ui", "DriverType");
     public static readonly string ApiHostUrl = ConfigBuilder.Instance.GetString(
         "api",
@@ -26,6 +27,7 @@ public class ConfigModel
     );
     public static readonly string ItemUri = ConfigBuilder.Instance.GetString("api", "ItemUri");
     public static readonly string UserUri = ConfigBuilder.Instance.GetString("api", "UserUri");
+    public static readonly string UserPutUri = ConfigBuilder.Instance.GetString("api", "UserPutUri");
     public static readonly string CurrentProject = ConfigBuilder.Instance.GetString(
         "api",
         "CurrentProject"

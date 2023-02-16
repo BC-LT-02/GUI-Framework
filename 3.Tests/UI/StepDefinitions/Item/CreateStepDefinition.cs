@@ -22,10 +22,10 @@ namespace CreateItemTest
             _homePage = new HomePage();
         }
 
-        [Given(@"the user has selected a project")]
-        public void Giventheuserhasselectedaproject()
+        [Given(@"the user has selected the ""(.*)"" project")]
+        public void Giventheuserhasselectedaproject(string project)
         {
-            _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
+            _scenarioContext.TryGetValue(project, out string projectName);
             WebActions.HoverElement(_homePage.GetProjectTd(projectName).WebElement);
             _homePage.GetProjectContextButton(projectName).Click();
         }
