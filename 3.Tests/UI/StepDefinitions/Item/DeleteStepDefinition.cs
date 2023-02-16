@@ -34,7 +34,7 @@ public class DeleteStepDefinitions : CommonSteps
     }
 
     [When(@"the user clicks on the delete option of an item")]
-    public void ClickOnDelete()
+    public void ClickDelete()
     {
         _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
         _expectedItemName = itemName;
@@ -47,7 +47,7 @@ public class DeleteStepDefinitions : CommonSteps
     [Then(@"the item should be removed from the section")]
     public void ShouldbeRemoved()
     {
-        string actualText = _homePage.GetItemTd(_expectedItemName).WebElement.Text;
-        Assert.That(_expectedItemName, !Is.EqualTo(actualText));
+        string actualText = _homePage.ItemDeletedAlert().WebElement.Text;
+        Assert.That(actualText, Is.EqualTo("Item has been Deleted"));
     }
 }
