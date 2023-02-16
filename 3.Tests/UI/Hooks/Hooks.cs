@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
+using OpenQA.Selenium;
 using RestSharp;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
@@ -38,12 +40,6 @@ public class Hooks
     public static void CleanUp()
     {
         APIScripts.RemoveAllProjects();
-    }
-
-    [AfterScenario]
-    public void SessionDisposal()
-    {
-        GenericWebDriver.Dispose();
     }
 
     [BeforeScenario(Order = 1)]
@@ -84,6 +80,30 @@ public class Hooks
         _client.DoRequest(Method.Put, _urlUserPutUri, payload);
     }
 
+    [AfterScenario]
+    public void CaptureScreenshot()
+    {
+        if (_scenarioContext.TestError != null)
+        {
+            Screenshot image = ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot();
+            string path = $"../../../Assets/{_scenarioContext.ScenarioInfo.Title}";
+            path = string.Join(" ", path.Split().Select(word => char.ToUpper(word[0]) + word.Substring(1))).Replace(" ", "");
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string fileName = new string(DateTime.Now.ToString()
+                              .Where(c => !char.IsWhiteSpace(c) && c != '/' && c != ':')
+                              .ToArray());
+
+            image.SaveAsFile($"{path}/{fileName}.png", ScreenshotImageFormat.Png);
+        }
+
+        GenericWebDriver.Dispose();
+    }
+
     [BeforeScenario("create.item", Order = 2)]
     public void CreateAnItem()
     {
@@ -105,5 +125,11 @@ public class Hooks
 
         _scenarioContext.Add(ConfigModel.CurrentItem, _itemName);
         _scenarioContext.Add("itemContent", itemContent);
+    }
+
+    [AfterScenario]
+    public void SessionDisposal()
+    {
+        GenericWebDriver.Dispose();
     }
 }
