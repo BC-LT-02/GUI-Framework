@@ -5,7 +5,7 @@ Feature: Full name update
         Given the user is logged in
             And the user clicks on the Settings option on the Nav Bar
 
-    @Smoke @Regression @update.fullname
+    @Smoke @Regression @restore.default.fullname
     Scenario: Update full name succesfully
         When the user inputs a new full name "New Name" on the Full Name input
             And clicks on the OK button
@@ -18,4 +18,3 @@ Feature: Full name update
     #         And clicks on the OK button
     #     Then an alert should appear with the message "Full Name cannot be empty" 
     #         And an accept button is displayed
-

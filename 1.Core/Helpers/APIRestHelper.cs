@@ -29,7 +29,13 @@ public class RestHelper
             request.AddParameter("application/json", body, ParameterType.RequestBody);
         }
 
-        RestResponse response = client.Execute(request);
-        return response;
+        try
+        {
+            return client.Execute(request);
+        }
+        catch(Exception e)
+        {
+            throw new HttpRequestException("Request failed with the following error: " + e.Message);
+        }
     }
 }
