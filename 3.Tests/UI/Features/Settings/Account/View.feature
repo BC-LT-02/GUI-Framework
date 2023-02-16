@@ -4,6 +4,6 @@ Feature: Settings account view
         Given the user is logged in
 
     @Regression
-    Scenario: Empty the recycle bin succesfully
+    Scenario: View profile settings successfully
         When the user clicks on the Settings option and then account tab
         Then the user should be able to see the delete account button
