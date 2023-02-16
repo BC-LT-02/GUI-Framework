@@ -49,14 +49,14 @@ public class DeleteStepDefinitions : CommonSteps
     {
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
-                _homePage.ItemDeletedAlert().WebElement,
+                _homePage.ItemDeletedAlert.WebElement,
                 "Item has been Deleted"
             )
         );
-        string deletedAlert = _homePage.ItemDeletedAlert().WebElement.Text;
+        string deletedAlert = _homePage.ItemDeletedAlert.WebElement.Text;
         Assert.That(deletedAlert, Is.EqualTo("Item has been Deleted"));
         Assert.That(
-            _homePage.NoItemsOnMain().WebElement.Text,
+            _homePage.NoItemsOnMain.WebElement.Text,
             Is.EqualTo("There are no items to display")
         );
     }

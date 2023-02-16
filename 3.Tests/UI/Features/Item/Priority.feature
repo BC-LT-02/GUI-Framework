@@ -4,7 +4,7 @@ Feature: Item Priority
     Background:
         Given the user is logged in
 
-    @Smoke @Regression @create.project.Kids @create.item @delete.projects @priority
+    @Smoke @Regression @create.project.Kids @create.item @delete.projects @UI_Priority_Item
     Scenario Outline: Delete a pending item succesfully
         When the user has selected the "Kids" project
         And the user clicks on the priority <Priority> option of an item
