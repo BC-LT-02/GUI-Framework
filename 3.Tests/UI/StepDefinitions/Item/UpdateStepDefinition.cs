@@ -25,10 +25,10 @@ public class UpdateStepDefinitions : CommonSteps
         _scenarioContext = scenarioContext;
     }
 
-    [When(@"the user has selected a project")]
-    public void SelectProject()
+    [When(@"the user has selected the ""(.*)"" project")]
+    public void SelectProject(string project)
     {
-        _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
+        _scenarioContext.TryGetValue(project, out string projectName);
         _homePage.ProjectTd(projectName).Click();
     }
 

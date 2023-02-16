@@ -25,10 +25,10 @@ public class DeleteStepDefinitions : CommonSteps
         _scenarioContext = scenarioContext;
     }
 
-    [When(@"the user has selected a project")]
-    public void SelectProject()
+    [When(@"the user has selected the ""(.*)"" project")]
+    public void SelectProject(string project)
     {
-        _scenarioContext.TryGetValue(ConfigModel.CurrentProject, out string projectName);
+        _scenarioContext.TryGetValue(project, out string projectName);
         WebActions.HoverElement(_homePage.GetProjectTd(projectName).WebElement);
         _homePage.GetProjectContextButton(projectName).Click();
     }
@@ -38,7 +38,6 @@ public class DeleteStepDefinitions : CommonSteps
     {
         _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
         _expectedItemName = itemName;
-        System.Console.WriteLine("ItemName: " + itemName);
 
         WebActions.HoverElement(_homePage.GetItemTd(itemName).WebElement);
         _homePage.GetItemContextButton(itemName).Click();

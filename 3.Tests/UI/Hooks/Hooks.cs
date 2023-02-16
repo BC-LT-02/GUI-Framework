@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
@@ -19,7 +20,7 @@ public class Hooks
     private readonly string _urlUserPutUri;
     private readonly string _urlItem;
     private readonly string _itemName;
-    private ProjectModel? projectModel;
+    private ProjectModel? _projectModel;
 
     public Hooks(ScenarioContext scenarioContext)
     {
@@ -45,18 +46,33 @@ public class Hooks
         GenericWebDriver.Dispose();
     }
 
-    [BeforeScenario("create.project", Order = 1)]
+    [BeforeScenario(Order = 1)]
     public void CreateProject()
     {
-        string payload = $"{{ \"Content\": \"{_projectName}\" }}";
+        var scenarioTags = _scenarioContext.ScenarioInfo.Tags.ToList();
 
-        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        scenarioTags = scenarioTags
+            .Where(tag => tag.StartsWith("create.project."))
+            .Select(tag => tag.Replace("create.project.", ""))
+            .ToList();
 
-        RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
-        projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+        if (scenarioTags.Count.Equals(0))
+        {
+            return;
+        }
 
-        _scenarioContext[ConfigModel.CurrentProject] = _projectName;
-        _scenarioContext[ConfigModel.CurrentProjectPayload] = projectModel;
+        foreach (string tag in scenarioTags)
+        {
+            string payload = $"{{ \"Content\": \"{tag}\" }}";
+
+            _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+
+            RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
+            _projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+
+            _scenarioContext[tag] = tag;
+            _scenarioContext[tag + "Model"] = _projectModel;
+        }
     }
 
     [AfterScenario("update.fullname")]
@@ -71,7 +87,7 @@ public class Hooks
     [BeforeScenario("create.item", Order = 2)]
     public void CreateAnItem()
     {
-        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {projectModel.Id} }}";
+        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectModel?.Id} }}";
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);

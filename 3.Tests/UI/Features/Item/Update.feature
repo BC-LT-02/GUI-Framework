@@ -4,9 +4,9 @@ Feature: Item Update
     Background:
         Given the user is logged in
 
-    @Smoke @Regression @create.project @create.item @update.item
+    @Smoke @Regression @create.project.NewProject @create.item
     Scenario: Update a name of an item succesfully
-        When the user has selected a project
+        When the user has selected the "NewProject" project
         And the user clicks on the item
         And inputs a new item name and press enter
         Then the item should be displayed with the new name
