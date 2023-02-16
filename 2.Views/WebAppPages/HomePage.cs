@@ -163,6 +163,18 @@ public class HomePage
                 $"//div[@class='ItemContentDiv' and text()='{itemName}']"
             )
         );
+    public IClickable ItemCheckBox(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'MainContentArea')]//tbody//td[following-sibling::td/div[contains(text(), '{itemName}')]]//input"
+            )
+        );
+
+    public IElement CheckedItem(string itemName) =>
+        new BaseWebElement("", new Locator(LocatorType.XPath,
+            $"//div[contains(@id, 'DoneItemsDiv')]//div[contains(., '{itemName}')][contains(@class, 'DoneItem')]"));
 
     public HomePage() { }
 }

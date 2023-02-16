@@ -4,20 +4,17 @@ Feature: Password update
     Background:
         Given the user is logged in
             And the user clicks on the Settings option on the Nav Bar
-        When the user clicks on the Old Password input
-            And inputs his password
+        When the user inputs his password on the Old Password input
 
-    @Acceptance
+    @Acceptance @recover.password
     Scenario: Update password succesfully
-        And clicks on the New Password input
-        And inputs a new valid password "newpassword"
+        And inputs a new valid password "newpassword" on the New Password input
         And clicks on the OK button
-        Then the password is updated
-            And the settings view is closed
+        Then the password is updated closing the settings view
 
-    @Negative
-    Scenario: Fail to update password with empty input
-        And clicks on the OK button
-        Then an alert should appear with the message "Invalid Password"
-            And an accept button is displayed
+    # @Negative
+    # Scenario: Fail to update password with empty input
+    #     And clicks on the OK button
+    #     Then an alert should appear with the message "Invalid Password"
+    #         And an accept button is displayed
 

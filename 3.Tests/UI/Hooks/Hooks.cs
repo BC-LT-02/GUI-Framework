@@ -84,6 +84,24 @@ public class Hooks
         _client.DoRequest(Method.Put, _urlUserPutUri, payload);
     }
 
+    [AfterScenario("recover.password")]
+    public void RecoverPassword()
+    {
+        string payload = $"{{ \"Password\": \"{ConfigModel.TODO_LY_PASS}\" }}";
+        string password = _scenarioContext.Get<string>("Password");
+        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, password);
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
+    }
+
+    [AfterScenario("recover.email")]
+    public void RecoverEmail()
+    {
+        string payload = $"{{ \"Email\": \"{ConfigModel.TODO_LY_EMAIL}\" }}";
+        string email = _scenarioContext.Get<string>("Email");
+        _client.AddAuthenticator(email, ConfigModel.TODO_LY_PASS);
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
+    }
+
     [BeforeScenario("create.item", Order = 2)]
     public void CreateAnItem()
     {
