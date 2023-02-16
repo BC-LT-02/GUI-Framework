@@ -43,7 +43,7 @@ jobs:
         docker container prune -f
     - name: Create Livingdoc reports
       if: always()
-      run: livingdoc feature-folder 3.Tests/UI --output 3.Tests/UI/ReportOutputs/LivingDoc.html
+      run: livingdoc feature-folder 3.Tests/UI -t 3.Tests/UI/bin/Debug/net6.0/TestExecution.json --output 3.Tests/UI/ReportOutputs/LivingDoc.html
     - name: Upload LivingDoc report file
       if: always()
       uses: actions/upload-artifact@v3
@@ -54,7 +54,7 @@ jobs:
     - name: Screenshots of failed tests
       run: cd 3.Tests/UI/bin/Debug
     - name: Upload LivingDoc report file
-      if: always()
+      if: failure()
       uses: actions/upload-artifact@v3
       with:
         name: Screenshots
