@@ -87,7 +87,7 @@ public class Hooks
     [BeforeScenario("create.item", Order = 2)]
     public void CreateAnItem()
     {
-        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectModel.Id} }}";
+        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectModel!.Id} }}";
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);

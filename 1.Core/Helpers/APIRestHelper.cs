@@ -33,7 +33,7 @@ public class RestHelper
         {
             return client.Execute(request);
         }
-        catch(Exception e)
+        catch (HttpRequestException e)
         {
             throw new HttpRequestException("Request failed with the following error: " + e.Message);
         }
