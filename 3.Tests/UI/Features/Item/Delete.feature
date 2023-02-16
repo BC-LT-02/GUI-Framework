@@ -4,9 +4,9 @@ Feature: Item Deletion
     Background:
         Given the user is logged in
 
-    @Smoke @Regression @create.project.NewProject @create.item @delete
+    @Smoke @Regression @create.project.Shopping @create.item @delete
     Scenario: Delete a pending item succesfully
-        When the user has selected the "NewProject" project
+        When the user has selected the "Shopping" project
         And the user clicks on the delete option of an item
         Then the item should be removed from the section
 

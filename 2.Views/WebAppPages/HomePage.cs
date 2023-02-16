@@ -150,7 +150,7 @@ public class HomePage
             "",
             new Locator(
                 LocatorType.XPath,
-                "//div[@class='ItemContentDiv' and text()='" + itemName + "']"
+                $"//div[@class='ItemContentDiv' and text()='{itemName}']"
             )
         );
 
