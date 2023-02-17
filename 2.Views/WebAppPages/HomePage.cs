@@ -1,4 +1,4 @@
-using Todoly.Core.Helpers;
+﻿using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Enums;
 using Todoly.Core.UIElements.Interfaces;
@@ -149,7 +149,7 @@ public class HomePage
     [Locator(LocatorType.Id, "ItemEditTextbox")]
     public ITextField ItemTextField =>
         new TextField("", new Locator(LocatorType.XPath, "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"));
-    
+
     public Button ProjectButton(string projectName) =>
         new Button(
             "",
