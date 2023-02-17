@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
     <ProjectReference Include="..\..\1.Core\UIElements\UIElements.csproj" />
     <ProjectReference Include="..\..\2.Views\Models\Models.csproj" />
     <ProjectReference Include="..\..\2.Views\WebAppPages\WebAppPages.csproj" />

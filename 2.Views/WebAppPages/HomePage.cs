@@ -1,4 +1,4 @@
-﻿using Todoly.Core.Helpers;
+using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Enums;
 using Todoly.Core.UIElements.Interfaces;
@@ -231,6 +231,15 @@ public class HomePage
             )
         );
 
+    public ITextField ItemTextField =>
+        new TextField(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"
+            )
+        );
+
     public IElement GetItemTd(string itemName) =>
         new Button(
             "",
@@ -239,6 +248,18 @@ public class HomePage
                 $"//div[@class='ItemContentDiv' and text()='{itemName}']"
             )
         );
+    public IClickable ItemCheckBox(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'MainContentArea')]//tbody//td[following-sibling::td/div[contains(text(), '{itemName}')]]//input"
+            )
+        );
+
+    public IElement CheckedItem(string itemName) =>
+        new BaseWebElement("", new Locator(LocatorType.XPath,
+            $"//div[contains(@id, 'DoneItemsDiv')]//div[contains(., '{itemName}')][contains(@class, 'DoneItem')]"));
 
     public IElement GetItemColor(string itemName, string itemColor) =>
         new Button(
