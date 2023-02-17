@@ -71,7 +71,7 @@ public class Hooks
         }
     }
 
-    [AfterScenario("update.fullname")]
+    [AfterScenario("restore.default.fullname")]
     public void UpdateFullName()
     {
         string payload = $"{{ \"FullName\": \"{_userFullName}\" }}";
@@ -129,10 +129,6 @@ public class Hooks
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);
-        if (!response.IsSuccessful)
-        {
-            throw new Exception("Error: Bad Request");
-        }
 
         ItemModel? itemContent = JsonSerializer.Deserialize<ItemModel>(response.Content!);
 
