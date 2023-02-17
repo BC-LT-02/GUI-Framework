@@ -186,12 +186,39 @@ public class HomePage
             )
         );
 
+    public Button GetItemContextButton(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//img[@title='Options']"
+            )
+        );
+
+    public Button ItemDeleteButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//ul[@id='itemContextMenu']/li[@class='delete separator']/a"
+            )
+        );
+
+    public Button ItemPriorityButton(string priorityValue) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//span[@class='PrioFrame' and text()='{priorityValue}']"
+            )
+        );
+
     public IClickable ItemButton(string itemName) =>
         new Button(
             "",
             new Locator(
                 LocatorType.XPath,
-                "//div[@class='ItemContentDiv' and text()='" + itemName + "']"
+                $"//div[@class='ItemContentDiv' and text()='{itemName}']"
             )
         );
 
@@ -212,6 +239,21 @@ public class HomePage
                 $"//div[@class='ItemContentDiv' and text()='{itemName}']"
             )
         );
+
+    public IElement GetItemColor(string itemName, string itemColor) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[@class='ItemContentDiv' and text()='{itemName}'][contains(@style,'{itemColor}')]"
+            )
+        );
+
+    public IElement ItemDeletedAlert =>
+        new Button("", new Locator(LocatorType.XPath, $"//span[@id='InfoMessageText']"));
+
+    public IElement NoItemsOnMain =>
+        new Button("", new Locator(LocatorType.XPath, $"//div[@class='NoItems']"));
 
     public HomePage() { }
 }

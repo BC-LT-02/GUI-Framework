@@ -42,6 +42,12 @@ public class Hooks
         APIScripts.RemoveAllProjects();
     }
 
+    [AfterScenario("delete.projects")]
+    public static void RemoveProjects()
+    {
+        APIScripts.RemoveAllProjects();
+    }
+
     [BeforeScenario(Order = 1)]
     public void CreateProject()
     {
