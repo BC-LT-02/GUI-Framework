@@ -21,6 +21,13 @@ public class HomePage
                 "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"
             )
         );
+    public Button AccountTabButton =>
+        new Button(
+            "",
+            new Locator(LocatorType.XPath, "//ul[@id='settings_tabs']/li/a[text()='Account']")
+        );
+    public Button DeleteAccountButton =>
+        new Button("", new Locator(LocatorType.Id, "DeleteAccountBtn"));
 
     public Button AddNewProjectButton =>
         new Button(

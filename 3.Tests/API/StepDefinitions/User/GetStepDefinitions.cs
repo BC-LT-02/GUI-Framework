@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
 using Todoly.Tests.API.Steps.Commons;
 using Todoly.Views.Models;
 
@@ -24,7 +25,7 @@ namespace Todoly.Tests.API.Steps.User
         }
 
         [Then(@"the API should return a ""(.*)"" response with the requested user information")]
-        public void ThentheAPIshouldreturnastatuscode(string response, string body)
+        public void ThentheAPIshouldreturnastatuscode(string response)
         {
             RestResponse res = (RestResponse)_scenarioContext["Response"];
             Assert.True(res.IsSuccessful);
@@ -32,7 +33,7 @@ namespace Todoly.Tests.API.Steps.User
             var user = JsonSerializer.Deserialize<UserModel>(res.Content!);
 
             Assert.IsType<UserModel>(user);
-            Assert.Contains(user.Email!, body);
+            Assert.Contains(user.Email!, ConfigBuilder.Instance.GetString("TODO-LY-EMAIL"));
         }
     }
 }
