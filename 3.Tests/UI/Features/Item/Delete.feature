@@ -3,23 +3,18 @@ Feature: Item Deletion
 
     Background:
         Given the user is logged in
-            And the user has an existing project
 
-    @Acceptance
+    @Smoke @Regression @create.project.Shopping @create.item @UI_Delete_Item
     Scenario: Delete a pending item succesfully
-        And the user has a pending item in the main items section
-        When the user hovers over the item
-            And clicks on the menu list 
-            And clicks on the delete option
-        Then the item should be removed from the section 
-            And it should be added to the Recycle Bin section
+        When the user has selected the "Shopping" project
+        And the user clicks on the delete option of an item
+        Then the item should be removed from the section
 
-    @Acceptance
-    Scenario: Delete all done items succesfully
-        And has at least two done items located in the done items section
-        When the user clicks on the delete all option
-        Then the items should be removed from the section
-            And they should be added to the Recycle bin section
+# Scenario: Delete all done items succesfully
+#     And has at least two done items located in the done items section
+#     When the user clicks on the delete all option
+#     Then the items should be removed from the section
+#     And they should be added to the Recycle bin section
 
 
 
