@@ -52,9 +52,7 @@ public class LoginChromeTests
     public void ThenTheUserShouldBeAbleToSeeTheMainPage()
     {
         _homePage = new HomePage();
-        IClickable element = _homePage.LogoutButton;
-        Button logoutButton = (Button)element;
-        Assert.True(logoutButton.WebElement.Displayed);
+        Assert.True(_homePage.LogoutButton.WebElement.Displayed);
         Assert.That(GenericWebDriver.Instance.Title, Is.EqualTo("Todo.ly"));
     }
 }
