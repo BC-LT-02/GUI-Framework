@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using RestSharp;
 using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
 using Todoly.Tests.API.Steps.Commons;
 using Todoly.Views.Models;
-using Todoly.Core.Helpers;
 
 namespace Todoly.Tests.API.Steps.User
 {
