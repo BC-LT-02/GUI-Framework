@@ -179,7 +179,7 @@ public class HomePage
             )
         );
 
-    public ITypeable ItemTextField =>
+    public ITextField ItemTextField =>
         new TextField(
             "",
             new Locator(
