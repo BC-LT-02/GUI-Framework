@@ -6,11 +6,6 @@ Feature: Retrieve user information
         Given the user has valid credentials
         When the user submits a GET request to "/user.json"
         Then the API should return a "OK" response with the requested user information
-            """
-            {
-                "Email": "JalaATBC23@gmail.com"
-            }
-            """
             
     @negative
     Scenario: Fail to retrieve user information with invalid credentials

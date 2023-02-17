@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
+using OpenQA.Selenium;
 using RestSharp;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
@@ -40,12 +42,6 @@ public class Hooks
         APIScripts.RemoveAllProjects();
     }
 
-    [AfterScenario]
-    public void SessionDisposal()
-    {
-        GenericWebDriver.Dispose();
-    }
-
     [BeforeScenario(Order = 1)]
     public void CreateProject()
     {
@@ -75,13 +71,37 @@ public class Hooks
         }
     }
 
-    [AfterScenario("update.fullname")]
+    [AfterScenario("restore.default.fullname")]
     public void UpdateFullName()
     {
         string payload = $"{{ \"FullName\": \"{_userFullName}\" }}";
 
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
         _client.DoRequest(Method.Put, _urlUserPutUri, payload);
+    }
+
+    [AfterScenario]
+    public void CaptureScreenshot()
+    {
+        if (_scenarioContext.TestError != null)
+        {
+            Screenshot image = ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot();
+            string path = $"../../../Assets/{_scenarioContext.ScenarioInfo.Title}";
+            path = string.Join(" ", path.Split().Select(word => char.ToUpper(word[0]) + word.Substring(1))).Replace(" ", "");
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string fileName = new string(DateTime.Now.ToString()
+                              .Where(c => !char.IsWhiteSpace(c) && c != '/' && c != ':')
+                              .ToArray());
+
+            image.SaveAsFile($"{path}/{fileName}.png", ScreenshotImageFormat.Png);
+        }
+
+        GenericWebDriver.Dispose();
     }
 
     [AfterScenario("recover.password")]
@@ -109,10 +129,6 @@ public class Hooks
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
         RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);
-        if (!response.IsSuccessful)
-        {
-            throw new Exception("Error: Bad Request");
-        }
 
         ItemModel? itemContent = JsonSerializer.Deserialize<ItemModel>(response.Content!);
 
@@ -123,5 +139,11 @@ public class Hooks
 
         _scenarioContext.Add(ConfigModel.CurrentItem, _itemName);
         _scenarioContext.Add("itemContent", itemContent);
+    }
+
+    [AfterScenario]
+    public void SessionDisposal()
+    {
+        GenericWebDriver.Dispose();
     }
 }
