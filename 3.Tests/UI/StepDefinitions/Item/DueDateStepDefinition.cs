@@ -17,6 +17,7 @@ public class DueDateStepDefinitions : CommonSteps
     private readonly HomePage _homePage;
     private readonly ScenarioContext _scenarioContext;
     private string _expectedItemName = "";
+    private string _expectedItemDueDate = "";
 
     public DueDateStepDefinitions(ScenarioContext scenarioContext)
         : base(scenarioContext)
@@ -42,9 +43,10 @@ public class DueDateStepDefinitions : CommonSteps
         _homePage.GetItemDueDateButton(itemName).Click();
     }
 
-    [When(@"inputs a new (.*)")]
+    [When(@"inputs ""(.*)"" as due date")]
     public void InputsNewItemName(string dueDate)
     {
+        _expectedItemDueDate = dueDate;
         GenericWebDriver.Wait.Until(
             ExpectedConditions.ElementIsVisible(_homePage.ItemDueDateTextField.Locator.GetBy())
         );
@@ -54,16 +56,16 @@ public class DueDateStepDefinitions : CommonSteps
         _homePage.ItemDueDateTextField.Type(Keys.Enter);
     }
 
-    [Then(@"the item should be displayed with the (.*) tag")]
-    public void VerifyItemUpdate(string dueDate)
+    [Then(@"the item should be displayed with the same date-tag")]
+    public void VerifyItemUpdate()
     {
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
-                _homePage.GetItemDueDateButton(_expectedItemName).WebElement,
-                dueDate
+                _homePage.GetItemDueDateTd(_expectedItemName).WebElement,
+                _expectedItemDueDate
             )
         );
         string actualText = _homePage.GetItemDueDateButton(_expectedItemName).WebElement.Text;
-        Assert.That(dueDate, Is.EqualTo(actualText));
+        Assert.That(_expectedItemDueDate, Is.EqualTo(actualText));
     }
 }

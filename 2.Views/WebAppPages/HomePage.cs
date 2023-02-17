@@ -143,6 +143,15 @@ public class HomePage
             )
         );
 
+    public IElement GetItemDueDateTd(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//div[contains(@class, 'ItemDueDateInner')]"
+            )
+        );
+
     public Button GetItemContextButton(string itemName) =>
         new Button(
             "",

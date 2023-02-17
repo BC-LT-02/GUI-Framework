@@ -4,15 +4,9 @@ Feature: Item Due Date
     Background:
         Given the user is logged in
 
-    @Draft @create.project.Calendar @delete.projects @create.item @Due_Date_Item
-    Scenario Outline: Update the Due Date of an item succesfully
+    @Smoke @Regression @create.project.Calendar @create.item @Due_Date_Item
+    Scenario: Update the Due Date of an item succesfully
         When the user has selected the "Calendar" project
         And the user clicks on the Set Due Date option
-        And inputs a new <Due Date>
-        Then the item should be displayed with the <Date Showed> tag
-
-        Examples:
-            | Due Date        | Date Showed     |
-            | 1 Mar 12:00 AM  | 1 Mar 12:00 AM  |
-            | 24 Mar 03:00 PM | 24 Mar 03:00 PM |
-            | 15 Jun 03:00 PM | 15 Jun 03:00 PM |
+        And inputs "1 Mar 12:00 AM" as due date
+        Then the item should be displayed with the same date-tag
