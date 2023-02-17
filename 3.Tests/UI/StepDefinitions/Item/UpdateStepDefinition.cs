@@ -48,22 +48,15 @@ public class UpdateStepDefinitions : CommonSteps
     [When(@"inputs a new item name and press enter")]
     public void InputsNewItemName()
     {
-        System.Console.WriteLine("Here");
-        string itemName = IdHelper.GetNewId();
-        System.Console.WriteLine("Here1");
-        _expectedItemName = itemName;
-        System.Console.WriteLine("Here2");
+        string randomItemName = IdHelper.GetNewId();
+        _expectedItemName = randomItemName;
         GenericWebDriver.Wait.Until(
             ExpectedConditions.ElementIsVisible(_homePage.ItemTextField.Locator.GetBy())
         );
-        System.Console.WriteLine("Here3");
 
         _homePage.ItemTextField.Clear();
-        System.Console.WriteLine("Here4");
-        _homePage.ItemTextField.Type(itemName);
-        System.Console.WriteLine("Here5");
-        _homePage.ItemTextField.Type(Keys.Enter);
-        System.Console.WriteLine("Here6");
+        _homePage.ItemTextField.Type(_expectedItemName);
+        _homePage.CurrentProjectButton.Click();
     }
 
     [Then(@"the item should be displayed with the new name")]

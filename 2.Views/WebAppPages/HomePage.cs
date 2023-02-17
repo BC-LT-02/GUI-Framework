@@ -18,7 +18,10 @@ public class HomePage
         new Button("", new Locator(LocatorType.Id, "ctl00_HeaderTopControl1_LinkButtonLogout"));
 
     [Element("Settings", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']")]
+    [Locator(
+        LocatorType.XPath,
+        "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"
+    )]
     public Button SettingsButton =>
         new Button(
             "",
@@ -148,7 +151,13 @@ public class HomePage
     [Element("Edit Item", ElementType.TextField)]
     [Locator(LocatorType.Id, "ItemEditTextbox")]
     public ITextField ItemTextField =>
-        new TextField("", new Locator(LocatorType.XPath, "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"));
+        new TextField(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"
+            )
+        );
 
     public Button ProjectButton(string projectName) =>
         new Button(
@@ -158,6 +167,18 @@ public class HomePage
                 $"//*[@id='MainTable']//tr/td[contains(@class, 'ProjItemContent')][contains(., '{projectName}')]"
             )
         );
+
+    public Button SaveItemButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//li[contains(@class, 'BaseItemLi')]//img[@id='ItemEditSubmit']"
+            )
+        );
+
+    public Button CurrentProjectButton =>
+        new Button("", new Locator(LocatorType.Id, "CurrentProjectTitle"));
 
     public IElement GetProjectTd(string projectName) =>
         new Button(
@@ -239,6 +260,7 @@ public class HomePage
                 $"//div[@class='ItemContentDiv' and text()='{itemName}']"
             )
         );
+
     public IClickable ItemCheckBox(string itemName) =>
         new Button(
             "",
@@ -249,8 +271,13 @@ public class HomePage
         );
 
     public IElement CheckedItem(string itemName) =>
-        new BaseWebElement("", new Locator(LocatorType.XPath,
-            $"//div[contains(@id, 'DoneItemsDiv')]//div[contains(., '{itemName}')][contains(@class, 'DoneItem')]"));
+        new BaseWebElement(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'DoneItemsDiv')]//div[contains(., '{itemName}')][contains(@class, 'DoneItem')]"
+            )
+        );
 
     public IElement GetItemColor(string itemName, string itemColor) =>
         new Button(
