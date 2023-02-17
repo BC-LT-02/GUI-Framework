@@ -51,6 +51,10 @@ public class UpdateStepDefinitions : CommonSteps
         string itemName = IdHelper.GetNewId();
         _expectedItemName = itemName;
 
+        GenericWebDriver.Wait.Until(
+            ExpectedConditions.ElementIsVisible(_homePage.ItemTextField.Locator.GetBy())
+        );
+
         _homePage.ItemTextField.Clear();
         _homePage.ItemTextField.Type(itemName);
         _homePage.ItemTextField.Type(Keys.Enter);
