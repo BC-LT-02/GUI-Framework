@@ -180,7 +180,13 @@ public class HomePage
         );
 
     public ITypeable ItemTextField =>
-        new TextField("", new Locator(LocatorType.Id, "ItemEditTextbox"));
+        new TextField(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"
+            )
+        );
 
     public IElement GetItemTd(string itemName) =>
         new Button(

@@ -36,6 +36,12 @@ public class UpdateStepDefinitions : CommonSteps
     public void ClickItem()
     {
         _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
+        GenericWebDriver.Wait.Until(
+            ExpectedConditions.TextToBePresentInElement(
+                _homePage.GetItemTd(itemName).WebElement,
+                itemName
+            )
+        );
         _homePage.ItemButton(itemName).Click();
     }
 
