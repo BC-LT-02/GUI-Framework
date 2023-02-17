@@ -48,12 +48,6 @@ public class Hooks
         APIScripts.RemoveAllProjects();
     }
 
-    [AfterScenario]
-    public void SessionDisposal()
-    {
-        GenericWebDriver.Dispose();
-    }
-    
     [BeforeScenario(Order = 1)]
     public void CreateProject()
     {
