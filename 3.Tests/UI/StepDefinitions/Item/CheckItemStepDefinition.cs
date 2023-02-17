@@ -31,7 +31,7 @@ namespace CheckItemTest
             _homePage.ProjectTd(projectName).Click();
         }
 
-        [When(@"I check the item")]
+        [When(@"the user checks the item")]
         public void WhenIchecktheitem()
         {
             _itemName = _scenarioContext.Get<string>(ConfigModel.CurrentItem);
