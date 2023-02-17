@@ -34,16 +34,15 @@ namespace CheckItemTest
         [When(@"I check the item")]
         public void WhenIchecktheitem()
         {
-            //_scenarioContext.Add(ConfigModel.CurrentItem, _itemName);
             _itemName = _scenarioContext.Get<string>(ConfigModel.CurrentItem);
-            _homePage.ItemCheckBox(_itemName).Click();
+            _homePage.ItemCheckBox(_itemName!).Click();
         }
 
         [Then(@"the item should be listed in the Done Items")]
         public void Thentheitemshouldbelistedinthe()
         {
-            var expectedItem = _homePage.CheckedItem(_itemName).WebElement.Text;
-            Assert.That(expectedItem, Is.EqualTo(_itemName));
+            var expectedItem = _homePage.CheckedItem(_itemName!).WebElement.Text;
+            Assert.That(expectedItem, Is.EqualTo(_itemName!));
         }
     }
 }
