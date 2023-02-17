@@ -147,9 +147,9 @@ public class HomePage
 
     [Element("Edit Item", ElementType.TextField)]
     [Locator(LocatorType.Id, "ItemEditTextbox")]
-    public ITypeable ItemTextField =>
-        new TextField("", new Locator(LocatorType.Id, "ItemEditTextbox"));
-
+    public ITextField ItemTextField =>
+        new TextField("", new Locator(LocatorType.XPath, "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"));
+    
     public Button ProjectButton(string projectName) =>
         new Button(
             "",
@@ -228,15 +228,6 @@ public class HomePage
             new Locator(
                 LocatorType.XPath,
                 $"//div[@id='ProjectListPlaceHolder']//td[text()='{projectName}']"
-            )
-        );
-
-    public ITextField ItemTextField =>
-        new TextField(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"
             )
         );
 
