@@ -18,7 +18,10 @@ public class HomePage
         new Button("", new Locator(LocatorType.Id, "ctl00_HeaderTopControl1_LinkButtonLogout"));
 
     [Element("Settings", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']")]
+    [Locator(
+        LocatorType.XPath,
+        "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"
+    )]
     public Button SettingsButton =>
         new Button(
             "",
@@ -148,7 +151,13 @@ public class HomePage
     [Element("Edit Item", ElementType.TextField)]
     [Locator(LocatorType.Id, "ItemEditTextbox")]
     public ITextField ItemTextField =>
-        new TextField("", new Locator(LocatorType.XPath, "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"));
+        new TextField(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"
+            )
+        );
 
     public Button ProjectButton(string projectName) =>
         new Button(
@@ -183,6 +192,24 @@ public class HomePage
             new Locator(
                 LocatorType.XPath,
                 $"//td[text()='{projectName}']/ancestor::table[@class='ProjItemTable']//img[@title='Options']"
+            )
+        );
+
+    public Button GetItemDueDateButton(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//div[contains(@class, 'ItemDueDateInner')]"
+            )
+        );
+
+    public IElement GetItemDueDateTd(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//div[contains(@class, 'ItemDueDateInner')]"
             )
         );
 
@@ -239,6 +266,25 @@ public class HomePage
                 $"//div[@class='ItemContentDiv' and text()='{itemName}']"
             )
         );
+
+    public ITextField ItemDueDateTextField =>
+        new TextField(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//div[contains(@id, 'EditDueDate') and @itemid]//input[@id='EditDueDateAdvDate']"
+            )
+        );
+
+    public IClickable ItemDueDateSaveButtonField =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'EditDueDate') and @itemid]//input[@id='LinkShowDueDateSave']]"
+            )
+        );
+
     public IClickable ItemCheckBox(string itemName) =>
         new Button(
             "",
@@ -249,8 +295,13 @@ public class HomePage
         );
 
     public IElement CheckedItem(string itemName) =>
-        new BaseWebElement("", new Locator(LocatorType.XPath,
-            $"//div[contains(@id, 'DoneItemsDiv')]//div[contains(., '{itemName}')][contains(@class, 'DoneItem')]"));
+        new BaseWebElement(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'DoneItemsDiv')]//div[contains(., '{itemName}')][contains(@class, 'DoneItem')]"
+            )
+        );
 
     public IElement GetItemColor(string itemName, string itemColor) =>
         new Button(
