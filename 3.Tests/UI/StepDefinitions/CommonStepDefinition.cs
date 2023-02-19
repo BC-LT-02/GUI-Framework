@@ -16,8 +16,9 @@ public class CommonSteps
             {
                 throw new Exception("No view name was specified");
             }
-            return _currentView!; 
-        } 
+
+            return _currentView!;
+        }
         set
         {
             if (!string.IsNullOrWhiteSpace(value))
