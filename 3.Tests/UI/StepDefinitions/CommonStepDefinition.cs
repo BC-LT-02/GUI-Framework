@@ -10,17 +10,19 @@ public class CommonSteps
     private string? _currentView;
     public string CurrentView
     {
-        get => _currentView!;
+        get
+        {
+            if (string.IsNullOrWhiteSpace(_currentView))
+            {
+                throw new Exception("No view name was specified");
+            }
+            return _currentView!; 
+        } 
         set
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
                 _currentView = value;
-            }
-
-            if (string.IsNullOrWhiteSpace(_currentView))
-            {
-                throw new Exception("No view name was specified");
             }
         }
     }
@@ -59,7 +61,7 @@ public class CommonSteps
         UIElementFactory.GetElement(elementName, CurrentView).Type(input);
     }
 
-    [Then(@"the '(.*)' should be (not )?displayed")]
+    [Then(@"the '(.*)' should (not )?be displayed")]
     public void ValidateDisplay(string elementName, string display)
     {
         if (display != null)

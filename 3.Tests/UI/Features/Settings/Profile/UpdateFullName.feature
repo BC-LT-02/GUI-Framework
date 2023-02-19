@@ -9,7 +9,7 @@ Feature: Full name update
         When the user clicks on 'Settings' on 'Home Page'
             And types "New Name" on 'FullName' on 'Profile Page'
             And clicks on 'Ok'
-        Then the 'NonDisplayedClose' should be not displayed
+        Then the 'NonDisplayedClose' should not be displayed
             And the 'FullName' is updated
 
     # @Negative
