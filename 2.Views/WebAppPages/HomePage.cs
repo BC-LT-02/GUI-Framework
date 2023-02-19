@@ -207,6 +207,24 @@ public class HomePage
             )
         );
 
+    public Button GetItemDueDateButton(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//div[contains(@class, 'ItemDueDateInner')]"
+            )
+        );
+
+    public IElement GetItemDueDateTd(string itemName) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//div[contains(@class, 'ItemDueDateInner')]"
+            )
+        );
+
     public Button GetItemContextButton(string itemName) =>
         new Button(
             "",
@@ -258,6 +276,24 @@ public class HomePage
             new Locator(
                 LocatorType.XPath,
                 $"//div[@class='ItemContentDiv' and text()='{itemName}']"
+            )
+        );
+
+    public ITextField ItemDueDateTextField =>
+        new TextField(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//div[contains(@id, 'EditDueDate') and @itemid]//input[@id='EditDueDateAdvDate']"
+            )
+        );
+
+    public IClickable ItemDueDateSaveButtonField =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'EditDueDate') and @itemid]//input[@id='LinkShowDueDateSave']]"
             )
         );
 
