@@ -168,6 +168,18 @@ public class HomePage
             )
         );
 
+    public Button SaveItemButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//li[contains(@class, 'BaseItemLi')]//img[@id='ItemEditSubmit']"
+            )
+        );
+
+    public Button CurrentProjectButton =>
+        new Button("", new Locator(LocatorType.Id, "CurrentProjectTitle"));
+
     public IElement GetProjectTd(string projectName) =>
         new Button(
             "",

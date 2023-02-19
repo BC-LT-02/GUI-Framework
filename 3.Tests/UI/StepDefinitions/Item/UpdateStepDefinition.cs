@@ -48,16 +48,15 @@ public class UpdateStepDefinitions : CommonSteps
     [When(@"inputs a new item name and press enter")]
     public void InputsNewItemName()
     {
-        string itemName = IdHelper.GetNewId();
-        _expectedItemName = itemName;
-
+        string randomItemName = IdHelper.GetNewId();
+        _expectedItemName = randomItemName;
         GenericWebDriver.Wait.Until(
             ExpectedConditions.ElementIsVisible(_homePage.ItemTextField.Locator.GetBy())
         );
 
         _homePage.ItemTextField.Clear();
-        _homePage.ItemTextField.Type(itemName);
-        _homePage.ItemTextField.Type(Keys.Enter);
+        _homePage.ItemTextField.Type(_expectedItemName);
+        _homePage.CurrentProjectButton.Click();
     }
 
     [Then(@"the item should be displayed with the new name")]
