@@ -16,29 +16,19 @@ public class LoginPage
 
     [Element("Login", ElementType.Button)]
     [Locator(LocatorType.ClassName, "HPHeaderLogin")]
-    public Button LoginButton =>
-        new Button("", new Locator(LocatorType.ClassName, "HPHeaderLogin"));
+    public Button LoginButton => UIElementFactory.GetElement("Login", "Login Page");
 
     [Element("Email", ElementType.TextField)]
     [Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxEmail")]
-    public TextField EmailTextField =>
-        new TextField(
-            "",
-            new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxEmail")
-        );
+    public TextField EmailTextField => UIElementFactory.GetElement("Email", "Login Page");
 
     [Element("Password", ElementType.TextField)]
     [Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxPassword")]
-    public TextField PasswordTextField =>
-        new TextField(
-            "",
-            new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxPassword")
-        );
+    public TextField PasswordTextField => UIElementFactory.GetElement("Password", "Login Page");
 
     [Element("Confirm Login", ElementType.Button)]
     [Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_ButtonLogin")]
-    public Button ConfirmLoginButton =>
-        new Button("", new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_ButtonLogin"));
+    public Button ConfirmLoginButton => UIElementFactory.GetElement("Confirm Login", "Login Page");
 
     public LoginPage() { }
 
