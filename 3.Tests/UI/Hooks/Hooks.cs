@@ -21,8 +21,8 @@ public class Hooks
     private readonly string _userFullName;
     private readonly string _urlUserPutUri;
     private readonly string _urlItem;
-    private readonly string _itemName;
     private ProjectModel? _projectModel;
+    private ItemModel? _itemModel;
 
     public Hooks(ScenarioContext scenarioContext)
     {
@@ -33,7 +33,6 @@ public class Hooks
         _urlUserPutUri = ConfigModel.UserPutUri;
         _userFullName = ConfigModel.UserFullName;
         _urlItem = ConfigModel.ItemUri;
-        _itemName = IdHelper.GetNewId();
     }
 
     [AfterTestRun]
@@ -93,16 +92,23 @@ public class Hooks
         {
             Screenshot image = ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot();
             string path = $"../../../Assets/{_scenarioContext.ScenarioInfo.Title}";
-            path = string.Join(" ", path.Split().Select(word => char.ToUpper(word[0]) + word.Substring(1))).Replace(" ", "");
+            path = string.Join(
+                    " ",
+                    path.Split().Select(word => char.ToUpper(word[0]) + word.Substring(1))
+                )
+                .Replace(" ", "");
 
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            string fileName = new string(DateTime.Now.ToString()
-                              .Where(c => !char.IsWhiteSpace(c) && c != '/' && c != ':')
-                              .ToArray());
+            string fileName = new string(
+                DateTime.Now
+                    .ToString()
+                    .Where(c => !char.IsWhiteSpace(c) && c != '/' && c != ':')
+                    .ToArray()
+            );
 
             image.SaveAsFile($"{path}/{fileName}.png", ScreenshotImageFormat.Png);
         }
@@ -128,23 +134,35 @@ public class Hooks
         _client.DoRequest(Method.Put, _urlUserPutUri, payload);
     }
 
-    [BeforeScenario("create.item", Order = 2)]
+    [BeforeScenario(Order = 2)]
     public void CreateAnItem()
     {
-        string payload = $"{{ \"Content\": \"{_itemName}\", \"ProjectId\": {_projectModel!.Id} }}";
-        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        var itemNameTags = _scenarioContext.ScenarioInfo.Tags.ToList();
 
-        RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);
+        itemNameTags = itemNameTags
+            .Where(tag => tag.StartsWith("create.item."))
+            .Select(tag => tag.Replace("create.item.", ""))
+            .ToList();
 
-        ItemModel? itemContent = JsonSerializer.Deserialize<ItemModel>(response.Content!);
-
-        if (itemContent!.Content != _itemName)
+        if (itemNameTags.Count is 0)
         {
-            throw new Exception("Error: Response field 'Content' does not match input payload");
+            return;
         }
 
-        _scenarioContext.Add(ConfigModel.CurrentItem, _itemName);
-        _scenarioContext.Add("itemContent", itemContent);
+        foreach (var itemName in itemNameTags)
+        {
+            string payload =
+                $"{{ \"Content\": \"{itemName}\", \"ProjectId\": {_projectModel!.Id} }}";
+
+            _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+
+            RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);
+
+            _itemModel = JsonSerializer.Deserialize<ItemModel>(response.Content!);
+
+            _scenarioContext.Add(ConfigModel.CurrentItem, itemName);
+            _scenarioContext.Add("itemContent", _itemModel);
+        }
     }
 
     [AfterScenario]
