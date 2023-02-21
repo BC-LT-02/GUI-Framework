@@ -8,7 +8,7 @@ Feature: Add Above Item
     @smoke @create.project.Kids @create.item.Sleep
     Scenario Outline: Successfully addition of an item above an existing item
         Given the user has selected the "Kids" project
-        When the user clicks on the "<existing_item>" 
+        When the user selects on the "<existing_item>" 
             And selects "Add above"
         Then an input text box should be displayed above the "<existing_item>"
         When the user enters "<new_item>" and saves it
