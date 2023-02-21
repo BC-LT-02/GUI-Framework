@@ -4,7 +4,7 @@ Feature: Item Deletion
     Background:
         Given the user is logged in
 
-    @Smoke @Regression @create.project.Shopping @create.item @UI_Delete_Item
+    @Smoke @Regression @create.project.Shopping @create.item.NewItem @UI_Delete_Item
     Scenario: Delete a pending item succesfully
         When the user has selected the "Shopping" project
         And the user clicks on the delete option of an item

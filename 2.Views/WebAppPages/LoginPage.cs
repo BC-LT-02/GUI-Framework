@@ -1,36 +1,34 @@
 ﻿using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
-using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.Enums;
-using Todoly.Core.UIElements.Interfaces;
 using Todoly.Core.UIElements.Web;
 using Todoly.Core.UIElements.WebActions;
+using Todoly.Views.WebAppPages.Attributes;
 
 namespace Todoly.Views.WebAppPages;
 
+[View("Login Page")]
 public class LoginPage
 {
     public readonly string HostUrl = ConfigModel.HostUrl;
     public readonly string EmailCredentials = ConfigModel.TODO_LY_EMAIL;
     public readonly string PassCredentials = ConfigModel.TODO_LY_PASS;
 
-    public Button LoginButton =>
-        new Button("", new Locator(LocatorType.ClassName, "HPHeaderLogin"));
+    [Element("Login", ElementType.Button)]
+    [Locator(LocatorType.ClassName, "HPHeaderLogin")]
+    public Button LoginButton => UIElementFactory.GetElement("Login", "Login Page");
 
-    public TextField EmailTextField =>
-        new TextField(
-            "",
-            new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxEmail")
-        );
+    [Element("Email", ElementType.TextField)]
+    [Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxEmail")]
+    public TextField EmailTextField => UIElementFactory.GetElement("Email", "Login Page");
 
-    public TextField PasswordTextField =>
-        new TextField(
-            "",
-            new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxPassword")
-        );
+    [Element("Password", ElementType.TextField)]
+    [Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_TextBoxPassword")]
+    public TextField PasswordTextField => UIElementFactory.GetElement("Password", "Login Page");
 
-    public Button ConfirmLoginButton =>
-        new Button("", new Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_ButtonLogin"));
+    [Element("Confirm Login", ElementType.Button)]
+    [Locator(LocatorType.Id, "ctl00_MainContent_LoginControl1_ButtonLogin")]
+    public Button ConfirmLoginButton => UIElementFactory.GetElement("Confirm Login", "Login Page");
 
     public LoginPage() { }
 

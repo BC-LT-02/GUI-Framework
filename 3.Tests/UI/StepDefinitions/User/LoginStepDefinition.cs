@@ -1,21 +1,19 @@
 ﻿using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
-using Todoly.Core.UIElements.Interfaces;
-using Todoly.Core.UIElements.Web;
+using Todoly.Tests.UI.Steps.Commons;
 using Todoly.Views.WebAppPages;
 
 namespace SeleniumTest.Tests;
 
 [Binding]
 [Scope(Feature = "User Login")]
-public class LoginChromeTests
+public class LoginStepDefinitions : CommonSteps
 {
     private readonly LoginPage _loginPage;
-    private HomePage? _homePage;
     private readonly ScenarioContext _scenarioContext;
 
-    public LoginChromeTests(ScenarioContext scenarioContext)
+    public LoginStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
     {
         _loginPage = new LoginPage();
         _scenarioContext = scenarioContext;
@@ -27,12 +25,6 @@ public class LoginChromeTests
         GenericWebDriver.Instance.Navigate().GoToUrl(ConfigModel.HostUrl);
     }
 
-    [When(@"the user clicks on Login")]
-    public void WhenTheUserClicksOnLogin()
-    {
-        _loginPage.LoginButton.Click();
-    }
-
     [When(@"introduces his credentials")]
     public void WhenIntroducesHisCredentials()
     {
@@ -42,17 +34,10 @@ public class LoginChromeTests
         _loginPage.PasswordTextField.Type(_loginPage.PassCredentials);
     }
 
-    [When(@"clicks on Login button")]
-    public void WhenClicksOnLoginButton()
+    [Then(@"the user should be able to see the '(.*)' button on '(.*)'")]
+    public void ThenTheUserShouldBeAbleToSeeTheMainPage(string elementName, string viewName)
     {
-        _loginPage.ConfirmLoginButton.Click();
-    }
-
-    [Then(@"the user should be able to see the main page")]
-    public void ThenTheUserShouldBeAbleToSeeTheMainPage()
-    {
-        _homePage = new HomePage();
-        Assert.True(_homePage.LogoutButton.WebElement.Displayed);
+        Assert.True(UIElementFactory.GetElement(elementName, viewName).WebElement.Displayed);
         Assert.That(GenericWebDriver.Instance.Title, Is.EqualTo("Todo.ly"));
     }
 }
