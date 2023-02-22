@@ -304,6 +304,15 @@ public class HomePage
             )
         );
 
+    public Button ItemMenuAddItemBelowButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//ul[@id='itemContextMenu']/li[@class='add']/a"
+            )
+        );
+
     public IElement CheckedItem(string itemName) =>
         new BaseWebElement(
             "",

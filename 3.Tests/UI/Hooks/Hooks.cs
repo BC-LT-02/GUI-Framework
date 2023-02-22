@@ -160,8 +160,8 @@ public class Hooks
 
             _itemModel = JsonSerializer.Deserialize<ItemModel>(response.Content!);
 
-            _scenarioContext.Add(ConfigModel.CurrentItem, itemName);
-            _scenarioContext.Add("itemContent", _itemModel);
+            _scenarioContext[itemName] = itemName;
+            _scenarioContext[itemName + "Model"] = _itemModel;
         }
     }
 
