@@ -5,7 +5,7 @@ Feature: Checking a Todo Item
     Background:
         Given the user is logged in
 
-    @Smoke @create.project.NewProject @create.item
+    @Smoke @create.project.NewProject @create.item.NewItem
     Scenario: Checking an Item in a Project successfully
         Given the user has selected the "NewProject" project
         When the user checks the item
