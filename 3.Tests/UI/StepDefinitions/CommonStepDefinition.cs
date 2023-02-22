@@ -1,6 +1,9 @@
 ﻿using System;
+using SeleniumExtras.WaitHelpers;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
+using Todoly.Core.UIElements.Drivers;
+using Todoly.Core.UIElements.WebActions;
 using Todoly.Views.WebAppPages;
 
 namespace Todoly.Tests.UI.Steps.Commons;
@@ -90,7 +93,9 @@ public class CommonSteps
 
         if (display == "not ")
         {
-            Assert.False(UIElementFactory.GetElement(elementName, CurrentView).WebElement.Displayed);
+            Assert.False(
+                UIElementFactory.GetElement(elementName, CurrentView).WebElement.Displayed
+            );
         }
         else
         {
@@ -98,14 +103,20 @@ public class CommonSteps
         }
     }
 
+<<<<<<< HEAD
     [Then(@"the '(.*)' <(.*)> should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
     public void ValidateDisplay(string elementName, string locatorArgument, string display, string viewName)
+=======
+    [When(@"(?:the user )?hovers on '([a-zA-Z ]+)'(?: on '([a-zA-Z ]+)')?$")]
+    public void Hover(string elementName, string viewName)
+>>>>>>> e1720dc (Refactored test cases)
     {
         if (viewName != null)
         {
             CurrentView = viewName;
         }
 
+<<<<<<< HEAD
         if (display == "not ")
         {
             Assert.False(UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).WebElement.Displayed);
@@ -114,5 +125,19 @@ public class CommonSteps
         {
             Assert.True(UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).WebElement.Displayed);
         }
+=======
+        WebActions.HoverElement(UIElementFactory.GetElement(elementName, CurrentView).WebElement);
+    }
+
+    [Then(@"the main title text is ""(.*)""")]
+    public void Thenthemaintitletextis(string expectedTitle)
+    {
+        GenericWebDriver.Wait.Until(
+            ExpectedConditions.TextToBePresentInElement(
+                UIElementFactory.GetElement("Current Project Title", CurrentView).WebElement,
+                expectedTitle
+            )
+        );
+>>>>>>> e1720dc (Refactored test cases)
     }
 }

@@ -100,7 +100,7 @@ public class HomePage
 
     [Element("Current Project Title", ElementType.Button)]
     [Locator(LocatorType.Id, "CurrentProjectTitle")]
-    public IElement ProjectTitleDiv =>
+    public Button ProjectTitleDiv =>
         new Button("", new Locator(LocatorType.Id, "CurrentProjectTitle"));
 
     [Element("Add New Item", ElementType.Button)]
@@ -108,9 +108,9 @@ public class HomePage
     public Button NewItemAddButton =>
         new Button("", new Locator(LocatorType.Id, "NewItemAddButton"));
 
-    [Element("Recycle Bin", ElementType.Button)]
+    [Element("Recycle Bin Div", ElementType.Button)]
     [Locator(LocatorType.Id, "ItemId_-3")]
-    public IElement RecycleBinDiv => new Button("", new Locator(LocatorType.Id, "ItemId_-3"));
+    public Button RecycleBinDiv => new Button("", new Locator(LocatorType.Id, "ItemId_-3"));
 
     [Element("Recycle Bin Dropdown", ElementType.Button)]
     [Locator(LocatorType.XPath, "//div[@itemid='-3']/img")]

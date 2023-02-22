@@ -4,6 +4,7 @@ Feature: Settings account view
         Given the user is logged in
 
     @Regression
-    Scenario: Empty the recycle bin succesfully
-        When the user clicks on the Settings option and then account tab
+    Scenario: View account settings succesfully
+        When the user clicks on 'Settings' on 'Home Page'
+        And clicks on 'Account'
         Then the user should be able to see the delete account button

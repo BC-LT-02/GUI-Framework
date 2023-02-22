@@ -20,12 +20,6 @@ public class LogoutStepDefinitions : CommonSteps
         _homePage = new HomePage();
     }
 
-    [When(@"the user clicks the logout button")]
-    public void Whentheuserclicksthelogoutbutton()
-    {
-        _homePage.LogoutButton.Click();
-    }
-
     [Then(@"the user should be logged out from the site")]
     public void Thentheusershouldbeloggedoutfromthesite()
     {

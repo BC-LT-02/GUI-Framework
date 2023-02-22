@@ -5,7 +5,9 @@ Feature: Empty recycle bin
 
     @Regression
     Scenario: Empty the recycle bin succesfully
-        When the user clicks the recycle bin context menu and clicks the empty recycle bin button
+        When the user hovers on 'Recycle Bin Div' on 'Home Page'
+        And clicks on 'Recycle Bin Dropdown'
+        And clicks on 'Empty Recycle Bin'
         Then the main title text is "Recycle Bin"
         And the snack bar message is "Recycle Bin has been Emptied."
         And the recycle bin should should be empty
