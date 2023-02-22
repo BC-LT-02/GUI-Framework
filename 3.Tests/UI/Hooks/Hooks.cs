@@ -90,6 +90,7 @@ public class Hooks
     {
         if (_scenarioContext.TestError != null)
         {
+            ((IJavaScriptExecutor)GenericWebDriver.Instance).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \" Title not matched \"}}");
             Screenshot image = ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot();
             string path = $"../../../Assets/{_scenarioContext.ScenarioInfo.Title}";
             path = string.Join(

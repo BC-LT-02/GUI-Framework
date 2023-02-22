@@ -5,15 +5,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>Todoly.Core.UIElements</AssemblyName>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="4.8.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.1.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="110.0.5481.7700" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
     <Reference Include="RemoteWebDriver">
-      <HintPath>..\UIElements\Drivers\RemoteWebDriver.cs</HintPath>
+      <!-- <HintPath>..\UIElements\Drivers\RemoteWebDriver.cs</HintPath> -->
+      <HintPath>..\UIElements\first-sample-build.cs</HintPath>
     </Reference>
   </ItemGroup>
 

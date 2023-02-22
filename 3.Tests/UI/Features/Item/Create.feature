@@ -5,7 +5,7 @@ Feature: Create an Item in a Project
         Given the user is logged in
     #And the user has an existing project
 
-    @create.project.NewProject
+    @regression @create.project.NewProject
     Scenario: Create an Item Successfully
         Given the user has selected the "NewProject" project
         When enters the item "new katas for monday" on Add New Todo input

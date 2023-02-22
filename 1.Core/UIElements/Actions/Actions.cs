@@ -21,5 +21,6 @@ public class WebActions
     public static void NavigateTo(string url)
     {
         GenericWebDriver.Instance.Navigate().GoToUrl(url);
+        GenericWebDriver.Instance.Navigate().GoToUrl("https://todo.ly/");
     }
 }
