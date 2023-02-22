@@ -12,6 +12,9 @@
 .env
 .env.test
 
+# Test screenshots
+3.Tests/UI/Assets/
+
 #Livingdoc reports
 ReportOutputs/
 LivingDoc.html

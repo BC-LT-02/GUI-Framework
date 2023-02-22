@@ -18,7 +18,7 @@ public class UIElementFactory
                     classType.GetCustomAttribute<ViewAttribute>()?.Name == viewName).FirstOrDefault()!;
     }
 
-    public static dynamic GetElement(string elementName, string viewName)
+    public static dynamic GetElement(string elementName, string viewName, string locatorArgument = "")
     {
         var viewClassType = GetViewClassType(viewName);
         PropertyInfo elementInfo = viewClassType.GetTypeInfo().GetProperties()
@@ -30,12 +30,13 @@ public class UIElementFactory
         string className = string.Format(ElementTypeClassName, elementType.ToString());
         Type elementClassType = Assembly.Load(UIElementsAssemblyName).GetType(className)!;
 
-        return Activator.CreateInstance(elementClassType, new object[] { elementName, GetLocator(elementInfo) })!;
+        return Activator.CreateInstance(elementClassType, new object[] { elementName, GetLocator(elementInfo, locatorArgument) })!;
     }
 
-    private static Locator GetLocator(PropertyInfo elementInfo)
+    private static Locator GetLocator(PropertyInfo elementInfo, string locatorArgument = "")
     {
         LocatorAttribute locatorAttr = elementInfo.GetCustomAttributes<LocatorAttribute>().FirstOrDefault()!;
-        return new Locator(locatorAttr.LocatorType, locatorAttr.LocatorValue);
+        string locator = string.Format(locatorAttr.LocatorValue, locatorArgument);
+        return new Locator(locatorAttr.LocatorType, locator);
     }
 }
