@@ -3,6 +3,7 @@
     public enum ElementType
     {
         Button,
-        TextField
+        TextField,
+        Container
     }
 }

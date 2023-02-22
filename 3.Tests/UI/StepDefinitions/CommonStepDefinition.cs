@@ -1,5 +1,6 @@
 ﻿using System;
 using TechTalk.SpecFlow;
+using Todoly.Core.Helpers;
 using Todoly.Views.WebAppPages;
 
 namespace Todoly.Tests.UI.Steps.Commons;
@@ -59,13 +60,34 @@ public class CommonSteps
             CurrentView = viewName;
         }
 
-        UIElementFactory.GetElement(elementName, CurrentView).Type(input);
+        if (input == "Password Credential")
+        {
+            UIElementFactory.GetElement(elementName, CurrentView).Type(ConfigModel.TODO_LY_PASS);
+        }
+        else
+        {
+            if (elementName == "New Password")
+            {
+                _scenarioContext.Add("Password", input);
+            }
+            else if (elementName == "Email")
+            {
+                _scenarioContext.Add("Email", input);
+            }
+
+            UIElementFactory.GetElement(elementName, CurrentView).Type(input);
+        }
     }
 
-    [Then(@"the '(.*)' should (not )?be displayed")]
-    public void ValidateDisplay(string elementName, string display)
+    [Then(@"the '(.*)' should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
+    public void ValidateDisplay(string elementName, string display, string viewName)
     {
-        if (display != null)
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        if (display == "not ")
         {
             Assert.False(UIElementFactory.GetElement(elementName, CurrentView).WebElement.Displayed);
         }
