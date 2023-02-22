@@ -5,6 +5,7 @@ using Todoly.Views.WebAppPages;
 
 namespace Todoly.Tests.UI.Steps.Commons;
 
+[Binding]
 public class CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
@@ -94,6 +95,24 @@ public class CommonSteps
         else
         {
             Assert.True(UIElementFactory.GetElement(elementName, CurrentView).WebElement.Displayed);
+        }
+    }
+
+    [Then(@"the '(.*)' <(.*)> should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
+    public void ValidateDisplay(string elementName, string locatorArgument, string display, string viewName)
+    {
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        if (display == "not ")
+        {
+            Assert.False(UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).WebElement.Displayed);
+        }
+        else
+        {
+            Assert.True(UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).WebElement.Displayed);
         }
     }
 }
