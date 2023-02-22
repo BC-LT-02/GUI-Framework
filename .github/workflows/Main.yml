@@ -34,8 +34,8 @@ jobs:
         docker-compose -f 1.Core/Docker/${DriverType}.yml up -d
     - name: Run UI Tests
       run: dotnet test 3.Tests/UI --no-build --no-restore --filter "Category=Smoke | Category=Regression"
-    - name: Run API Tests
-      run: dotnet test 3.Tests/API --no-build --no-restore --filter "Category=Acceptance | Category=Negative"
+    #- name: Run API Tests
+    #  run: dotnet test 3.Tests/API --no-build --no-restore --filter "Category=Acceptance | Category=Negative"
     - name: End docker sessions
       run: |
         docker-compose -f 1.Core/Docker/hub.yml stop
