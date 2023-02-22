@@ -15,7 +15,6 @@ namespace CheckItemTest
     {
         private readonly HomePage _homePage;
         private readonly ScenarioContext _scenarioContext;
-        private readonly string _expectedItemName = "";
         private string _itemName = "";
 
         public CheckItemStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
