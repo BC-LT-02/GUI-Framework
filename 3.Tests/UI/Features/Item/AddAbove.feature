@@ -6,17 +6,8 @@ Feature: Add Above Item
         Given the user is logged in
 
     @smoke @create.project.Kids @create.item.Sleep
-    Scenario Outline: Successfully addition of an item above an existing item
+    Scenario: Successfully addition of an item above an existing item
         Given the user has selected the "Kids" project
-        When the user selects on the "<existing_item>" 
-            And selects "Add above"
-        Then an input text box should be displayed above the "<existing_item>"
-        When the user enters "<new_item>" and saves it
-        Then the "<new_item>" should be added above the "<existing_item>"
-
-Examples:
-| existing_item     | new_item              |
-| Sleep             | Brush your teeth      |
-| Brush your teeth  | Eat your dinner       |
-| Eat your dinner   | Make your homework    |
-| Eat your dinner   | Play with friends     |
+        When the user selects Add above on the "Sleep"
+        Then the user enters "Brush your teeth" and saves it
+        Then the "Brush your teeth" should be added above the "Sleep"

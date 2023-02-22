@@ -288,6 +288,14 @@ public class HomePage
             )
         );
 
+    public ITextField AddAboveOrBelowTextField =>
+        new TextField(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//ul[contains(@id, 'mainItemList')]//textarea[contains(@id, 'ItemEditTextbox')]"
+            )
+        );
     public IClickable ItemDueDateSaveButtonField =>
         new Button(
             "",
@@ -303,6 +311,15 @@ public class HomePage
             new Locator(
                 LocatorType.XPath,
                 $"//div[contains(@id, 'MainContentArea')]//tbody//td[following-sibling::td/div[contains(text(), '{itemName}')]]//input"
+            )
+        );
+
+    public Button ItemMenuAddItemAboveButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                "//ul[@id='itemContextMenu']/li[@class='add separator']/a"
             )
         );
 
@@ -329,6 +346,9 @@ public class HomePage
 
     public IElement NoItemsOnMain =>
         new Button("", new Locator(LocatorType.XPath, $"//div[@class='NoItems']"));
+
+    public IElement GetItemByIndex(int index) =>
+        new Button("", new Locator(LocatorType.XPath, $"//ul[contains(@id, 'mainItemList')]/li[{index}]"));
 
     public HomePage() { }
 }
