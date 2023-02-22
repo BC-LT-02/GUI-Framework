@@ -4,7 +4,7 @@ Feature: Item Due Date
     Background:
         Given the user is logged in
 
-    @Smoke @Regression @create.project.Calendar @create.item @Due_Date_Item
+    @Smoke @Regression @create.project.Calendar @create.item.NewItem @Due_Date_Item
     Scenario: Update the Due Date of an item succesfully
         When the user has selected the "Calendar" project
         And the user clicks on the Set Due Date option
