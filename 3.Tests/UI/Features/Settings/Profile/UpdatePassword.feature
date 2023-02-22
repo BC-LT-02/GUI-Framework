@@ -6,7 +6,7 @@ Feature: Password update
             And the user clicks on the Settings option on the Nav Bar
         When the user inputs his password on the Old Password input
 
-    @Acceptance @recover.password
+    @Smoke @Acceptance @recover.password
     Scenario: Update password succesfully
         And inputs a new valid password "newpassword" on the New Password input
         And clicks on the OK button

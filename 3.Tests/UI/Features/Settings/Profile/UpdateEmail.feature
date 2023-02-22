@@ -5,7 +5,7 @@ Feature: Email update
         Given the user is logged in
             And the user clicks on the Settings option on the Nav Bar
 
-    @Acceptance @recover.email
+    @Smoke @Acceptance @recover.email
     Scenario: Update email succesfully
         When the user inputs a new valid email "testjg@email.com" on the Email input
             And clicks on the OK button

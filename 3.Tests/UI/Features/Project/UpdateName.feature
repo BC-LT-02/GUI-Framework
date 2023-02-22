@@ -4,7 +4,7 @@ Feature: Project Update
     Background:
         Given the user is logged in
 
-    @Regression @create.project.MyProject
+    @Smoke @Regression @create.project.MyProject
     Scenario: Edit a project
         When the user clicks the edit button on "MyProject"
             And inputs a new Project name

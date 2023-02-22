@@ -1,7 +1,7 @@
 Feature: Time Zone update
     As a logged in user, the user should be able to update his time zone from his profile settings.
 
-    @Acceptance
+    @Smoke @Acceptance
     Scenario: Update time zone succesfully
         Given the user is logged in
             And the user clicks on the Settings option on the Nav Bar
