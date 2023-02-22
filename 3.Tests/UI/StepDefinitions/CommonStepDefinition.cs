@@ -5,6 +5,7 @@ using Todoly.Views.WebAppPages;
 
 namespace Todoly.Tests.UI.Steps.Commons;
 
+[Binding]
 public class CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
