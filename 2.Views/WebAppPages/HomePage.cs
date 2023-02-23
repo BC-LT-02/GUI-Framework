@@ -240,16 +240,43 @@ public class HomePage
             )
         );
 
+    public IClickable PostponeSelectButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'EditDueDate') and contains(@style, 'block')]//select[@id='DaySelect']"
+            )
+        );
+
+    public IClickable PostponeButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'EditDueDate') and contains(@style, 'block')]//input[@value='Postpone']"
+            )
+        );
+
+    public IClickable PostponeXTimeButton(string postponeTime) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'EditDueDate') and contains(@style, 'block')]//option[text()='{postponeTime}']"
+            )
+        );
+
     // DON'T USE THIS [DEPRECATED]
     // USE ProjectButton INSTEAD
     public IClickable ProjectTd(string projectName) =>
-    new Button(
-        "",
-        new Locator(
-            LocatorType.XPath,
-            $"//div[@id='ProjectListPlaceHolder']//td[text()='{projectName}']"
-        )
-    );
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[@id='ProjectListPlaceHolder']//td[text()='{projectName}']"
+            )
+        );
 
     public IElement GetItemTd(string itemName) =>
         new Button(
@@ -338,5 +365,8 @@ public class HomePage
         new Button("", new Locator(LocatorType.XPath, $"//div[@class='NoItems']"));
 
     public IElement GetItemByIndex(int index) =>
-        new Button("", new Locator(LocatorType.XPath, $"//ul[contains(@id, 'mainItemList')]/li[{index}]"));
+        new Button(
+            "",
+            new Locator(LocatorType.XPath, $"//ul[contains(@id, 'mainItemList')]/li[{index}]")
+        );
 }
