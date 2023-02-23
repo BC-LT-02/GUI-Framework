@@ -44,7 +44,7 @@ public class DueDateStepDefinitions : CommonSteps
     }
 
     [When(@"inputs ""(.*)"" as due date")]
-    public void InputsNewItemName(string dueDate)
+    public void InputsNewDueDate(string dueDate)
     {
         _expectedItemDueDate = dueDate;
         GenericWebDriver.Wait.Until(
@@ -56,16 +56,39 @@ public class DueDateStepDefinitions : CommonSteps
         _homePage.ItemDueDateTextField.Type(Keys.Enter);
     }
 
-    [Then(@"the item should be displayed with the same date-tag")]
-    public void VerifyItemUpdate()
+    [When(@"clicks on Postpone (.*)")]
+    public void PostponeDueDate(string postponeTime)
+    {
+        WebActions.HoverElement(_homePage.GetItemTd(_expectedItemName).WebElement);
+        _homePage.GetItemDueDateButton(_expectedItemName).Click();
+        _homePage.PostponeSelectButton.Click();
+        _homePage.PostponeXTimeButton(postponeTime).Click();
+        _homePage.PostponeButton.Click();
+    }
+
+    [Then(@"the item should be displayed as overdue")]
+    public void DueDateOverdue()
     {
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
                 _homePage.GetItemDueDateTd(_expectedItemName).WebElement,
-                _expectedItemDueDate
+                "days overdue"
             )
         );
         string actualText = _homePage.GetItemDueDateButton(_expectedItemName).WebElement.Text;
-        Assert.That(_expectedItemDueDate, Is.EqualTo(actualText));
+        Assert.That(actualText, Does.Contain("days overdue"));
+    }
+
+    [Then(@"the item should be displayed with the ""(.*)"" date-tag")]
+    public void VerifyDueDate(string dateTag)
+    {
+        GenericWebDriver.Wait.Until(
+            ExpectedConditions.TextToBePresentInElement(
+                _homePage.GetItemDueDateTd(_expectedItemName).WebElement,
+                dateTag
+            )
+        );
+        string actualText = _homePage.GetItemDueDateButton(_expectedItemName).WebElement.Text;
+        Assert.That(dateTag, Is.EqualTo(actualText));
     }
 }
