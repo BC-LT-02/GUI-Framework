@@ -4,10 +4,10 @@ Feature: Time Zone update
     @Smoke @Acceptance
     Scenario: Update time zone succesfully
         Given the user is logged in
-            And the user clicks on the Settings option on the Nav Bar
-        When the user clicks on the Time Zone dropdown list
-            And selects a new option of the list
-            And clicks on the OK button
-        Then the time zone is updated 
-            And the Settings view is closed
+        When the user clicks on 'Settings' on 'Home Page'
+            And clicks on 'Time Zone' 'Profile Page'
+            And clicks on ''
+            And clicks on 'Ok'
+        Then the 'NonDisplayedClose' should not be displayed
+            And the 'Time Zone' is updated
 

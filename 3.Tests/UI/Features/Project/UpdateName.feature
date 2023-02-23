@@ -7,6 +7,6 @@ Feature: Project Update
     @Smoke @Regression @create.project.MyProject
     Scenario: Edit a project
         When the user clicks the edit button on "MyProject"
-            And inputs a new Project name
-            And clicks on the Save icon
-        Then the project should be displayed with the new name
+            And types "My New Project Name" on 'Edit Project Input' on 'Home Page'
+            And clicks on 'Save Edit Project'
+        Then the 'Project Button' <My New Project Name> should be displayed

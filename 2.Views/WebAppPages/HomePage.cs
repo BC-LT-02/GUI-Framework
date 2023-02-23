@@ -55,7 +55,7 @@ public class HomePage
             )
         );
 
-    [Element("New Project Name", ElementType.Button)]
+    [Element("New Project Name", ElementType.TextField)]
     [Locator(LocatorType.Id, "NewProjNameInput")]
     public TextField AddNewProjectInput =>
         new TextField("", new Locator(LocatorType.Id, "NewProjNameInput"));
@@ -65,10 +65,14 @@ public class HomePage
     public Button AddNewProjectNameButton =>
         new Button("", new Locator(LocatorType.Id, "NewProjNameButton"));
 
-    // [Element("Selected Project", ElementType.Button)]
+    [Element("Selected Project", ElementType.Button)]
     [Locator(LocatorType.ClassName, "ProjectSelected")]
     public IElement CurrentSelectedProject =>
         new BaseWebElement("", new Locator(LocatorType.ClassName, "ProjectSelected"));
+
+    [Element("Project Button", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//div[@id='ProjectListPlaceHolder']//td[text()='{0}']")]
+    public IClickable? ProjectButton { get; }
 
     [Element("Edit Project", ElementType.Button)]
     [Locator(LocatorType.XPath, "//ul[@id='projectContextMenu']/li[@class='edit']/a")]
@@ -79,36 +83,20 @@ public class HomePage
         );
 
     [Element("Edit Project Input", ElementType.TextField)]
-    [Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/input']/li[@class='edit']/a")]
-    public TextField ProjectEditInput =>
-        new TextField("", new Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/input"));
+    [Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/input")]
+    public TextField? ProjectEditInput { get; }
 
     [Element("Save Edit Project", ElementType.Button)]
     [Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/img[@id='ItemEditSubmit']")]
-    public Button ProjectEditSaveButton =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "(//div[@id='ProjectEditDiv'])[1]/img[@id='ItemEditSubmit']"
-            )
-        );
+    public Button? ProjectEditSaveButton { get; }
 
     [Element("Cancel Edit Project", ElementType.Button)]
     [Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/img[@id='ItemEditCancel']")]
-    public Button ProjectEditCancelButton =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "(//div[@id='ProjectEditDiv'])[1]/img[@id='ItemEditCancel']"
-            )
-        );
+    public Button? ProjectEditCancelButton { get; }
 
     [Element("Delete Project", ElementType.Button)]
     [Locator(LocatorType.Id, "ProjShareMenuDel")]
-    public Button ProjectDeleteButton =>
-        new Button("", new Locator(LocatorType.Id, "ProjShareMenuDel"));
+    public Button? ProjectDeleteButton { get; }
 
     [Element("Current Project Title", ElementType.Button)]
     [Locator(LocatorType.Id, "CurrentProjectTitle")]
@@ -156,15 +144,6 @@ public class HomePage
             new Locator(
                 LocatorType.XPath,
                 "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"
-            )
-        );
-
-    public Button ProjectButton(string projectName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//*[@id='MainTable']//tr/td[contains(@class, 'ProjItemContent')][contains(., '{projectName}')]"
             )
         );
 
@@ -261,6 +240,35 @@ public class HomePage
             )
         );
 
+    public IClickable PostponeSelectButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'EditDueDate') and contains(@style, 'block')]//select[@id='DaySelect']"
+            )
+        );
+
+    public IClickable PostponeButton =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'EditDueDate') and contains(@style, 'block')]//input[@value='Postpone']"
+            )
+        );
+
+    public IClickable PostponeXTimeButton(string postponeTime) =>
+        new Button(
+            "",
+            new Locator(
+                LocatorType.XPath,
+                $"//div[contains(@id, 'EditDueDate') and contains(@style, 'block')]//option[text()='{postponeTime}']"
+            )
+        );
+
+    // DON'T USE THIS [DEPRECATED]
+    // USE ProjectButton INSTEAD
     public IClickable ProjectTd(string projectName) =>
         new Button(
             "",
@@ -348,7 +356,8 @@ public class HomePage
         new Button("", new Locator(LocatorType.XPath, $"//div[@class='NoItems']"));
 
     public IElement GetItemByIndex(int index) =>
-        new Button("", new Locator(LocatorType.XPath, $"//ul[contains(@id, 'mainItemList')]/li[{index}]"));
-
-    public HomePage() { }
+        new Button(
+            "",
+            new Locator(LocatorType.XPath, $"//ul[contains(@id, 'mainItemList')]/li[{index}]")
+        );
 }

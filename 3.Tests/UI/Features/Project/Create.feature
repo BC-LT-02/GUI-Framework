@@ -6,7 +6,7 @@
 
     @Smoke @Regression
     Scenario: Create a new project
-        When the user clicks the New Project button
-            And inputs a new project name
-            And clicks the Add button
-        Then a new project with the chosen name should be displayed in the projects list
+        When the user clicks on 'Add New Project' on 'Home Page'
+            And types "My New Project" on 'New Project Name'
+            And clicks on 'Add New Project Name'
+        Then the 'Project Button' <My New Project> should be displayed

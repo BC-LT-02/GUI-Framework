@@ -8,6 +8,10 @@ namespace Todoly.Views.WebAppPages;
 [View("Profile Page")]
 public class ProfilePage
 {
+    [Element("Profile Settings", ElementType.Container)]
+    [Locator(LocatorType.Id, "settings_Profile")]
+    public TextField ProfileSettingsContainer => UIElementFactory.GetElement("Profile Settings", "Profile Page");
+
     [Element("FullName", ElementType.TextField)]
     [Locator(LocatorType.Id, "FullNameInput")]
     public TextField FullNameTextField => UIElementFactory.GetElement("FullName", "Profile Page");

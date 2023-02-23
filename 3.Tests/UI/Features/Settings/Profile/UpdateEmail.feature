@@ -3,18 +3,18 @@ Feature: Email update
 
     Background:
         Given the user is logged in
-            And the user clicks on the Settings option on the Nav Bar
 
     @Smoke @Acceptance @recover.email
     Scenario: Update email succesfully
-        When the user inputs a new valid email "testjg@email.com" on the Email input
-            And clicks on the OK button
+        When the user clicks on 'Settings' on 'Home Page'
+            And types "testjg@email.com" on 'Email' on 'Profile Page'
+            And clicks on 'Ok'
         Then an alert should appear with the message "Email Address has changed, please relogin." 
         When the user clicks on the accept button being logged out
-            And clicks on Login
+            And clicks on 'Login' on 'Login Page'
             And introduces his new credentials
-            And clicks on Login button
-        Then the user should be logged in
+            And clicks on 'Confirm Login'
+        Then the 'Logout' should be displayed on 'Home Page'
 
     # @Negative
     # Scenario: Fail to update email with empty input
