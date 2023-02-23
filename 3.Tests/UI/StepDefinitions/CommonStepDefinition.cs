@@ -56,6 +56,17 @@ public class CommonSteps
         UIElementFactory.GetElement(elementName, CurrentView).Click();
     }
 
+    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)' <([a-zA-Z ]+)>(?: on '([a-zA-Z ]+)')?$")]
+    public void Click(string elementName, string locatorArgument, string viewName)
+    {
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).Click();
+    }
+
     [When(@"(?:the user )?types ""(.*)"" on '([a-zA-Z ]+)'(?: on '([a-zA-Z ]+)')?$")]
     public void Type(string input, string elementName, string viewName)
     {
@@ -83,6 +94,20 @@ public class CommonSteps
         }
     }
 
+    [When(@"(?:the user )?opens the context menu on <([a-zA-Z ]+)>(?: on '([a-zA-Z ]+)')?$")]
+    public void OpenContextMenu(string locatorArgument, string viewName)
+    {
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        _scenarioContext[ConfigModel.CurrentProject] = locatorArgument;
+
+        WebActions.HoverElement(UIElementFactory.GetElement("Project Button", CurrentView, locatorArgument).WebElement);
+        UIElementFactory.GetElement("Project Context Button", CurrentView, locatorArgument).Click();
+    }
+
     [Then(@"the '(.*)' should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
     public void ValidateDisplay(string elementName, string display, string viewName)
     {
@@ -100,6 +125,24 @@ public class CommonSteps
         else
         {
             Assert.True(UIElementFactory.GetElement(elementName, CurrentView).WebElement.Displayed);
+        }
+    }
+
+    [Then(@"the '(.*)' <(.*)> should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
+    public void ValidateDisplay(string elementName, string locatorArgument, string display, string viewName)
+    {
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        if (display == "not ")
+        {
+            Assert.False(UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).WebElement.Displayed);
+        }
+        else
+        {
+            Assert.True(UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).WebElement.Displayed);
         }
     }
 

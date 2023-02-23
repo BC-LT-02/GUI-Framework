@@ -25,14 +25,6 @@ public class PriorityStepDefinitions : CommonSteps
         _scenarioContext = scenarioContext;
     }
 
-    [When(@"the user has selected the ""(.*)"" project")]
-    public void SelectProject(string project)
-    {
-        _scenarioContext.TryGetValue(project, out string projectName);
-        WebActions.HoverElement(_homePage.GetProjectTd(projectName).WebElement);
-        _homePage.GetProjectContextButton(projectName).Click();
-    }
-
     [When(@"the user clicks on the priority (.*) option of an item")]
     public void ClickPriority(string priorityValue)
     {

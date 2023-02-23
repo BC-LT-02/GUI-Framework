@@ -65,39 +65,6 @@ public class HomePage
     public Button AddNewProjectNameButton =>
         new Button("", new Locator(LocatorType.Id, "NewProjNameButton"));
 
-    [Element("Selected Project", ElementType.Button)]
-    [Locator(LocatorType.ClassName, "ProjectSelected")]
-    public IElement CurrentSelectedProject =>
-        new BaseWebElement("", new Locator(LocatorType.ClassName, "ProjectSelected"));
-
-    [Element("Project Button", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//div[@id='ProjectListPlaceHolder']//td[text()='{0}']")]
-    public Button? ProjectButton { get; }
-
-    [Element("Edit Project", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//ul[@id='projectContextMenu']/li[@class='edit']/a")]
-    public Button ProjectEditButton =>
-        new Button(
-            "",
-            new Locator(LocatorType.XPath, "//ul[@id='projectContextMenu']/li[@class='edit']/a")
-        );
-
-    [Element("Edit Project Input", ElementType.TextField)]
-    [Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/input")]
-    public TextField? ProjectEditInput { get; }
-
-    [Element("Save Edit Project", ElementType.Button)]
-    [Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/img[@id='ItemEditSubmit']")]
-    public Button? ProjectEditSaveButton { get; }
-
-    [Element("Cancel Edit Project", ElementType.Button)]
-    [Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/img[@id='ItemEditCancel']")]
-    public Button? ProjectEditCancelButton { get; }
-
-    [Element("Delete Project", ElementType.Button)]
-    [Locator(LocatorType.Id, "ProjShareMenuDel")]
-    public Button? ProjectDeleteButton { get; }
-
     [Element("Current Project Title", ElementType.Button)]
     [Locator(LocatorType.Id, "CurrentProjectTitle")]
     public Button ProjectTitleDiv =>
@@ -157,33 +124,6 @@ public class HomePage
 
     public Button CurrentProjectButton =>
         new Button("", new Locator(LocatorType.Id, "CurrentProjectTitle"));
-
-    public Button GetProjectTd(string projectName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[@id='ProjectListPlaceHolder']//td[text()='{projectName}']"
-            )
-        );
-
-    public Button GetProjectHandle(string projectName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[@id='ProjectListPlaceHolder']//td[text()='{projectName}']/parent::tr/td/img[contains(@class, 'handle')]"
-            )
-        );
-
-    public Button GetProjectContextButton(string projectName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//td[text()='{projectName}']/ancestor::table[@class='ProjItemTable']//img[@title='Options']"
-            )
-        );
 
     public Button GetItemDueDateButton(string itemName) =>
         new Button(

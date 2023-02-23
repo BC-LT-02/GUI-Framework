@@ -7,7 +7,7 @@ Feature: Create an Item in a Project
 
     @create.project.NewProject
     Scenario: Create an Item Successfully
-        Given the user has selected the "NewProject" project
+        When the user clicks on 'Project Button' <NewProject> on 'Project Component'
         When enters the item "new katas for monday" on Add New Todo input
         Then the item should be displayed in the project list
         
