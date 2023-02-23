@@ -39,4 +39,13 @@ public class ProfilePage
     [Element("New Password", ElementType.TextField)]
     [Locator(LocatorType.Id, "TextPwNew")]
     public TextField NewPassTextField => UIElementFactory.GetElement(elementName: "New Password", "Profile Page");
+
+    [Element("Time Zone", ElementType.Button)]
+    [Locator(LocatorType.Id, "DropDownTimezone")]
+    public Button TimeZoneOption => UIElementFactory.GetElement("Time Zone", "Profile Page");
+
+    [Element("Hawaiian Time", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//select[@id = 'DropDownTimezone']//option[@value='Hawaiian Standard Time']")]
+    public Button HawaiianTimeOption => UIElementFactory.GetElement("Hawaiian Time", "Profile Page");
+
 }
