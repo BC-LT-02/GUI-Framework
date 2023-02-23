@@ -19,6 +19,7 @@ public class Hooks
     private readonly string _urlProject;
     private readonly string _projectName;
     private readonly string _userFullName;
+    private readonly string _userTimeZone;
     private readonly string _urlUserPutUri;
     private readonly string _urlItem;
     private ProjectModel? _projectModel;
@@ -32,6 +33,7 @@ public class Hooks
         _projectName = IdHelper.GetNewId();
         _urlUserPutUri = ConfigModel.UserPutUri;
         _userFullName = ConfigModel.UserFullName;
+        _userTimeZone = ConfigModel.UserTimeZone;
         _urlItem = ConfigModel.ItemUri;
     }
 
@@ -80,6 +82,15 @@ public class Hooks
     public void UpdateFullName()
     {
         string payload = $"{{ \"FullName\": \"{_userFullName}\" }}";
+
+        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
+    }
+
+    [AfterScenario("restore.default.timezone")]
+    public void UpdateTimeZone()
+    {
+        string payload = $"{{ \"TimeZoneId\": \"{_userTimeZone}\" }}";
 
         _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
         _client.DoRequest(Method.Put, _urlUserPutUri, payload);
