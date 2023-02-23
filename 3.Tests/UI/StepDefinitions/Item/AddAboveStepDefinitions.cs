@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Threading;
+using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
@@ -53,7 +54,7 @@ namespace MyNamespace
         {
             GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
-                _homePage.GetItemByIndex(1).WebElement, _itemAbove
+                _homePage.GetItemTd(_itemAbove).WebElement, expectedItemAbove
                 )
             );
             string itemAbove = _homePage.GetItemByIndex(1).WebElement.Text;

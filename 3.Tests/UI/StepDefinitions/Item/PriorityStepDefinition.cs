@@ -29,14 +29,14 @@ public class PriorityStepDefinitions : CommonSteps
     public void SelectProject(string project)
     {
         _scenarioContext.TryGetValue(project, out string projectName);
-        WebActions.HoverElement(_homePage.GetProjectTd(projectName).WebElement);
-        _homePage.GetProjectContextButton(projectName).Click();
+        _homePage.ProjectTd(projectName).Click();
     }
 
     [When(@"the user clicks on the priority (.*) option of an item")]
     public void ClickPriority(string priorityValue)
     {
-        _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
+        //_scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
+        string itemName = _homePage.GetItemByIndex(1).WebElement.Text;
         _expectedItemName = itemName;
 
         WebActions.HoverElement(_homePage.GetItemTd(itemName).WebElement);

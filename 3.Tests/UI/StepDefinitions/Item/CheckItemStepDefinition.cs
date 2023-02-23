@@ -30,10 +30,10 @@ namespace CheckItemTest
             _homePage.ProjectTd(projectName).Click();
         }
 
-        [When(@"the user checks the item")]
-        public void WhenIchecktheitem()
+        [When(@"the user checks the ""(.*)"" item")]
+        public void WhenIchecktheitem(string item)
         {
-            _itemName = _scenarioContext.Get<string>(ConfigModel.CurrentItem);
+            _itemName = _scenarioContext.Get<string>(item);
             _homePage.ItemCheckBox(_itemName!).Click();
         }
 

@@ -52,7 +52,7 @@ namespace MyNamespace
         {
             GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
-                _homePage.GetItemByIndex(1).WebElement, _itemName
+                _homePage.GetItemTd(_itemName).WebElement, expectedItem
                 )
             );
             string item = _homePage.GetItemByIndex(1).WebElement.Text;

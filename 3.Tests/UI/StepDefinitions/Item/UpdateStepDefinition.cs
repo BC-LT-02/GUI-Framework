@@ -35,7 +35,7 @@ public class UpdateStepDefinitions : CommonSteps
     [When(@"the user clicks on the item")]
     public void ClickItem()
     {
-        _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
+        string itemName = _homePage.GetItemByIndex(1).WebElement.Text;
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
                 _homePage.GetItemTd(itemName).WebElement,

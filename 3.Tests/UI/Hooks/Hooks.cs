@@ -157,7 +157,6 @@ public class Hooks
             _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
             RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);
-
             _itemModel = JsonSerializer.Deserialize<ItemModel>(response.Content!);
 
             _scenarioContext[itemName] = itemName;
