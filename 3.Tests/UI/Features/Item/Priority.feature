@@ -6,8 +6,8 @@ Feature: Item Priority
 
     @Smoke @Regression @create.project.Kids @create.item.EatLunch @delete.projects @UI_Priority_Item
     Scenario Outline: Delete a pending item succesfully
-        When the user has selected the "Kids" project
-        And the user clicks on the priority <Priority> option of an item
+        When the user clicks on 'Project Button' <Kids> on 'Project Component'
+            And the user clicks on the priority <Priority> option of an item
         Then the item color should be <Color>
 
         Examples:

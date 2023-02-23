@@ -22,14 +22,6 @@ public class CreateStepDefinitions : CommonSteps
         _homePage = new HomePage();
     }
 
-    [Given(@"the user has selected the ""(.*)"" project")]
-    public void Giventheuserhasselectedaproject(string project)
-    {
-        _scenarioContext.TryGetValue(project, out string projectName);
-        WebActions.HoverElement(_homePage.GetProjectTd(projectName).WebElement);
-        _homePage.GetProjectContextButton(projectName).Click();
-    }
-
     [When(@"enters the item ""(.*)"" on Add New Todo input")]
     public void Whentheuserclicks(string itemName)
     {
