@@ -4,10 +4,11 @@ Feature: Item Deletion
     Background:
         Given the user is logged in
 
-    @Smoke @Regression @create.project.Shopping @create.item.NewItem @UI_Delete_Item
+    @Smoke @Regression @create.project.Shopping @create.item.Bananas @UI_Delete_Item
     Scenario: Delete a pending item succesfully
         When the user clicks on 'Project Button' <Shopping> on 'Project Component'
-            And the user clicks on the delete option of an item
+        And the user hovers on "Get Item" <Bananas> on 'Items Component'
+        And the user clicks on "Item Contextmenu" <Bananas> on "Delete" option on "Items Component"
         Then the item should be removed from the section
 
 # Scenario: Delete all done items succesfully
