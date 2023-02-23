@@ -72,7 +72,7 @@ public class HomePage
 
     [Element("Project Button", ElementType.Button)]
     [Locator(LocatorType.XPath, "//div[@id='ProjectListPlaceHolder']//td[text()='{0}']")]
-    public IClickable? ProjectButton { get; }
+    public Button? ProjectButton { get; }
 
     [Element("Edit Project", ElementType.Button)]
     [Locator(LocatorType.XPath, "//ul[@id='projectContextMenu']/li[@class='edit']/a")]
@@ -100,7 +100,7 @@ public class HomePage
 
     [Element("Current Project Title", ElementType.Button)]
     [Locator(LocatorType.Id, "CurrentProjectTitle")]
-    public IElement ProjectTitleDiv =>
+    public Button ProjectTitleDiv =>
         new Button("", new Locator(LocatorType.Id, "CurrentProjectTitle"));
 
     [Element("Add New Item", ElementType.Button)]
@@ -108,9 +108,9 @@ public class HomePage
     public Button NewItemAddButton =>
         new Button("", new Locator(LocatorType.Id, "NewItemAddButton"));
 
-    [Element("Recycle Bin", ElementType.Button)]
+    [Element("Recycle Bin Div", ElementType.Button)]
     [Locator(LocatorType.Id, "ItemId_-3")]
-    public IElement RecycleBinDiv => new Button("", new Locator(LocatorType.Id, "ItemId_-3"));
+    public Button RecycleBinDiv => new Button("", new Locator(LocatorType.Id, "ItemId_-3"));
 
     [Element("Recycle Bin Dropdown", ElementType.Button)]
     [Locator(LocatorType.XPath, "//div[@itemid='-3']/img")]
@@ -124,12 +124,11 @@ public class HomePage
 
     [Element("No Items", ElementType.Button)]
     [Locator(LocatorType.ClassName, "NoItems")]
-    public IElement NoItemsDiv => new Button("", new Locator(LocatorType.ClassName, "NoItems"));
+    public Button NoItemsDiv => new Button("", new Locator(LocatorType.ClassName, "NoItems"));
 
     [Element("Information Message", ElementType.Button)]
     [Locator(LocatorType.Id, "InfoMessageText")]
-    public IElement InfoMessageText =>
-        new Button("", new Locator(LocatorType.Id, "InfoMessageText"));
+    public Button InfoMessageText => new Button("", new Locator(LocatorType.Id, "InfoMessageText"));
 
     [Element("Add New Todo", ElementType.TextField)]
     [Locator(LocatorType.Id, "NewItemContentInput")]
@@ -138,7 +137,7 @@ public class HomePage
 
     [Element("Edit Item", ElementType.TextField)]
     [Locator(LocatorType.Id, "ItemEditTextbox")]
-    public ITextField ItemTextField =>
+    public TextField ItemTextField =>
         new TextField(
             "",
             new Locator(
@@ -159,7 +158,7 @@ public class HomePage
     public Button CurrentProjectButton =>
         new Button("", new Locator(LocatorType.Id, "CurrentProjectTitle"));
 
-    public IElement GetProjectTd(string projectName) =>
+    public Button GetProjectTd(string projectName) =>
         new Button(
             "",
             new Locator(
@@ -168,7 +167,7 @@ public class HomePage
             )
         );
 
-    public IElement GetProjectHandle(string projectName) =>
+    public Button GetProjectHandle(string projectName) =>
         new Button(
             "",
             new Locator(
@@ -195,7 +194,7 @@ public class HomePage
             )
         );
 
-    public IElement GetItemDueDateTd(string itemName) =>
+    public Button GetItemDueDateTd(string itemName) =>
         new Button(
             "",
             new Locator(
@@ -231,7 +230,7 @@ public class HomePage
             )
         );
 
-    public IClickable ItemButton(string itemName) =>
+    public Button ItemButton(string itemName) =>
         new Button(
             "",
             new Locator(
@@ -240,7 +239,7 @@ public class HomePage
             )
         );
 
-    public IClickable PostponeSelectButton =>
+    public Button PostponeSelectButton =>
         new Button(
             "",
             new Locator(
@@ -249,7 +248,7 @@ public class HomePage
             )
         );
 
-    public IClickable PostponeButton =>
+    public Button PostponeButton =>
         new Button(
             "",
             new Locator(
@@ -258,7 +257,7 @@ public class HomePage
             )
         );
 
-    public IClickable PostponeXTimeButton(string postponeTime) =>
+    public Button PostponeXTimeButton(string postponeTime) =>
         new Button(
             "",
             new Locator(
@@ -267,9 +266,7 @@ public class HomePage
             )
         );
 
-    // DON'T USE THIS [DEPRECATED]
-    // USE ProjectButton INSTEAD
-    public IClickable ProjectTd(string projectName) =>
+    public Button ProjectTd(string projectName) =>
         new Button(
             "",
             new Locator(
@@ -278,7 +275,7 @@ public class HomePage
             )
         );
 
-    public IElement GetItemTd(string itemName) =>
+    public Button GetItemTd(string itemName) =>
         new Button(
             "",
             new Locator(
@@ -287,7 +284,7 @@ public class HomePage
             )
         );
 
-    public ITextField ItemDueDateTextField =>
+    public TextField ItemDueDateTextField =>
         new TextField(
             "",
             new Locator(
@@ -296,7 +293,7 @@ public class HomePage
             )
         );
 
-    public ITextField AddAboveOrBelowTextField =>
+    public TextField AddAboveOrBelowTextField =>
         new TextField(
             "",
             new Locator(
@@ -304,7 +301,7 @@ public class HomePage
                 "//ul[contains(@id, 'mainItemList')]//textarea[contains(@id, 'ItemEditTextbox')]"
             )
         );
-    public IClickable ItemDueDateSaveButtonField =>
+    public Button ItemDueDateSaveButtonField =>
         new Button(
             "",
             new Locator(
@@ -313,7 +310,7 @@ public class HomePage
             )
         );
 
-    public IClickable ItemCheckBox(string itemName) =>
+    public Button ItemCheckBox(string itemName) =>
         new Button(
             "",
             new Locator(
@@ -340,7 +337,7 @@ public class HomePage
             )
         );
 
-    public IElement GetItemColor(string itemName, string itemColor) =>
+    public Button GetItemColor(string itemName, string itemColor) =>
         new Button(
             "",
             new Locator(
@@ -349,13 +346,13 @@ public class HomePage
             )
         );
 
-    public IElement ItemDeletedAlert =>
+    public Button ItemDeletedAlert =>
         new Button("", new Locator(LocatorType.XPath, $"//span[@id='InfoMessageText']"));
 
-    public IElement NoItemsOnMain =>
+    public Button NoItemsOnMain =>
         new Button("", new Locator(LocatorType.XPath, $"//div[@class='NoItems']"));
 
-    public IElement GetItemByIndex(int index) =>
+    public Button GetItemByIndex(int index) =>
         new Button(
             "",
             new Locator(LocatorType.XPath, $"//ul[contains(@id, 'mainItemList')]/li[{index}]")
