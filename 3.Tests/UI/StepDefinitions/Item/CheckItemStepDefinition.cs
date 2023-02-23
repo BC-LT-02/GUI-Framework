@@ -17,17 +17,11 @@ namespace CheckItemTest
         private readonly ScenarioContext _scenarioContext;
         private string _itemName = "";
 
-        public CheckItemStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        public CheckItemStepDefinitions(ScenarioContext scenarioContext)
+            : base(scenarioContext)
         {
             _scenarioContext = scenarioContext;
             _homePage = new HomePage();
-        }
-
-        [Given(@"the user has selected the ""(.*)"" project")]
-        public void Giventheuserselectsaproject(string project)
-        {
-            _scenarioContext.TryGetValue(project, out string projectName);
-            _homePage.ProjectTd(projectName).Click();
         }
 
         [When(@"the user checks the item")]

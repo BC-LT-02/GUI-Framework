@@ -6,7 +6,7 @@ Feature: Item Update
 
     @Smoke @Regression @create.project.Exercise @create.item.Math @UI_Update_Item
     Scenario: Update a name of an item succesfully
-        When the user has selected the "Exercise" project
+        When the user clicks on 'Project Button' <Exercise> on 'Project Component'
         And the user clicks on the item
         And inputs a new item name and press enter
         Then the item should be displayed with the new name

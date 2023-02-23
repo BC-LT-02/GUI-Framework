@@ -18,17 +18,11 @@ namespace MyNamespace
         private string _itemName = "";
         private string _itemAbove = "";
 
-        public AddAboveItemStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        public AddAboveItemStepDefinitions(ScenarioContext scenarioContext)
+            : base(scenarioContext)
         {
             _scenarioContext = scenarioContext;
             _homePage = new HomePage();
-        }
-
-        [Given(@"the user has selected the ""(.*)"" project")]
-        public void Giventheuserhasselectedtheproject(string project)
-        {
-            _scenarioContext.TryGetValue(project, out string projectName);
-            _homePage.ProjectTd(projectName).Click();
         }
 
         [When(@"the user selects Add above on the ""(.*)""")]
@@ -52,8 +46,9 @@ namespace MyNamespace
         public void Thentheshouldbeaddedabovethe(string expectedItemAbove, string expectedItem)
         {
             GenericWebDriver.Wait.Until(
-            ExpectedConditions.TextToBePresentInElement(
-                _homePage.GetItemByIndex(1).WebElement, _itemAbove
+                ExpectedConditions.TextToBePresentInElement(
+                    _homePage.GetItemByIndex(1).WebElement,
+                    _itemAbove
                 )
             );
             string itemAbove = _homePage.GetItemByIndex(1).WebElement.Text;

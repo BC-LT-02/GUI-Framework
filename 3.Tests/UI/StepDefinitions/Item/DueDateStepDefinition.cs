@@ -26,13 +26,6 @@ public class DueDateStepDefinitions : CommonSteps
         _scenarioContext = scenarioContext;
     }
 
-    [When(@"the user has selected the ""(.*)"" project")]
-    public void SelectProject(string project)
-    {
-        _scenarioContext.TryGetValue(project, out string projectName);
-        _homePage.ProjectTd(projectName).Click();
-    }
-
     [When(@"the user clicks on the Set Due Date option")]
     public void ClickDueDateItem()
     {
