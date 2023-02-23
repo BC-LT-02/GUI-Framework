@@ -20,13 +20,4 @@ public class AccountViewStepDefinition : CommonSteps
         _scenarioContext = scenarioContext;
         _homePage = new HomePage();
     }
-
-    [Then(@"the user should be able to see the delete account button")]
-    public void Giventheusershouldbeabletoseethedeleteaccountbutton()
-    {
-        Assert.True(
-            _homePage.DeleteAccountButton.WebElement.Displayed,
-            "The delete account button is not being displayed"
-        );
-    }
 }

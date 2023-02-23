@@ -21,12 +21,6 @@ public class DeleteAllStepDefinitions : CommonSteps
         _homePage = new HomePage();
     }
 
-    [Then(@"the snack bar message is ""(.*)""")]
-    public void Giventhesnackbarmessageis(string expectedMessage)
-    {
-        Assert.That(_homePage.InfoMessageText.WebElement.Text, Is.EqualTo(expectedMessage));
-    }
-
     [Then(@"the recycle bin should should be empty")]
     public void Giventherecyclebinshouldshouldbeempty()
     {

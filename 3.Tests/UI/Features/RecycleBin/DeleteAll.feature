@@ -9,5 +9,5 @@ Feature: Empty recycle bin
         And clicks on 'Recycle Bin Dropdown'
         And clicks on 'Empty Recycle Bin'
         Then the main title text is "Recycle Bin"
-        And the snack bar message is "Recycle Bin has been Emptied."
+        And the snack bar message is 'Recycle Bin has been Emptied.' on 'Home Page'
         And the recycle bin should should be empty

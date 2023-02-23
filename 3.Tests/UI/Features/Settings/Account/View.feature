@@ -7,4 +7,4 @@ Feature: Settings account view
     Scenario: View account settings succesfully
         When the user clicks on 'Settings' on 'Home Page'
         And clicks on 'Account'
-        Then the user should be able to see the delete account button
+        Then the 'Delete Account' should be displayed on 'Home Page'
