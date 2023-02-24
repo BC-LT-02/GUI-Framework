@@ -8,18 +8,21 @@ namespace SeleniumTest.Tests;
 [Scope(Feature = "Full Name update")]
 public class UpdateFullNameStepDefinition : CommonSteps
 {
-    private readonly HomePage _homePage;
     private readonly ScenarioContext _scenarioContext;
-    public UpdateFullNameStepDefinition(ScenarioContext scenarioContext) : base(scenarioContext)
+
+    public UpdateFullNameStepDefinition(ScenarioContext scenarioContext)
+        : base(scenarioContext)
     {
-        _homePage = new HomePage();
         _scenarioContext = scenarioContext;
     }
 
     [Then(@"the '(.*)' is updated")]
     public void Thenthefullnameisupdated(string elementName)
     {
-        _homePage.SettingsButton.Click();
-        Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"), Is.EqualTo("New Name"));
+        UIElementFactory.GetElement("Settings", "Home Page").Click();
+        Assert.That(
+            UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"),
+            Is.EqualTo("New Name")
+        );
     }
 }
