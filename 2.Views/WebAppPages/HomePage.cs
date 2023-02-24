@@ -96,14 +96,4 @@ public class HomePage
     [Element("Information Message", ElementType.Button)]
     [Locator(LocatorType.Id, "InfoMessageText")]
     public Button InfoMessageText => new Button("", new Locator(LocatorType.Id, "InfoMessageText"));
-
-    //TODO
-    public Button GetItemColor(string itemName, string itemColor) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[@class='ItemContentDiv' and text()='{itemName}'][contains(@style,'{itemColor}')]"
-            )
-        );
 }
