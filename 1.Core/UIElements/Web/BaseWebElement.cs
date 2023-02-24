@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.Interfaces;
@@ -34,13 +35,20 @@ namespace Todoly.Core.UIElements.Web
                     }
                     catch
                     {
-                        _webElement = GenericWebDriver.Wait.Until(
-                            ExpectedConditions.ElementExists(Locator.GetBy())
-                        );
+                        try
+                        {
+                            _webElement = GenericWebDriver.Wait.Until(
+                                ExpectedConditions.ElementExists(Locator.GetBy())
+                            );
+                        }
+                        catch
+                        {
+                            Logger.Instance.Error($"Unable to find {Name} element with {Locator} locator.");
+                        }
                     }
                 }
 
-                return _webElement;
+                return _webElement!;
             }
             set => _webElement = value;
         }

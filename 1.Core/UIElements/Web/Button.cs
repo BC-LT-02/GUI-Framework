@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.Interfaces;
@@ -19,12 +20,12 @@ namespace Todoly.Core.UIElements.Web
             }
             catch (ElementNotVisibleException error)
             {
-                System.Console.WriteLine($"Unable to visualize button: {Name}");
+                Logger.Instance.Error($"Unable to visualize {Name} button");
                 throw error;
             }
             catch (ElementNotInteractableException error)
             {
-                System.Console.WriteLine($"Unable to click button: {Name}");
+                Logger.Instance.Error($"Unable to interact with {Name} button");
                 throw error;
             }
         }

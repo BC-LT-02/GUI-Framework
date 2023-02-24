@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using OpenQA.Selenium;
 using RestSharp;
+using Serilog;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
@@ -35,6 +36,24 @@ public class Hooks
         _userFullName = ConfigModel.UserFullName;
         _userTimeZone = ConfigModel.UserTimeZone;
         _urlItem = ConfigModel.ItemUri;
+    }
+
+    [BeforeFeature]
+    public static void BeforeFeature(FeatureContext context)
+    {
+        Logger.Instance.Information("Initializing {0} feature.", context.FeatureInfo.Title);
+    }
+
+    [AfterFeature]
+    public static void AfterFeature(FeatureContext context)
+    {
+        Logger.Instance.Information("Ending {0} feature.", context.FeatureInfo.Title);
+    }
+
+    [BeforeScenario]
+    public static void BeforeScenario(ScenarioContext context)
+    {
+        Logger.Instance.Information("Initializing {0} scenario.", context.ScenarioInfo.Title);
     }
 
     [AfterTestRun]
@@ -177,8 +196,10 @@ public class Hooks
     }
 
     [AfterScenario]
-    public void SessionDisposal()
+    public void SessionDisposal(ScenarioContext context)
     {
+        Logger.Instance.Information("Ending {0} scenario.", context.ScenarioInfo.Title);
+        Logger.Instance.Information("Disposing driver.");
         GenericWebDriver.Dispose();
     }
 }
