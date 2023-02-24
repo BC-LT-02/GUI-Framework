@@ -27,7 +27,9 @@ public class PriorityStepDefinitions : CommonSteps
     [Then(@"the <([\w ]+)> color should be (.*)")]
     public void PriorityShouldBeSet(string itemName, string itemColor)
     {
-        Assert.That(_homePage.GetItemColor(itemName, itemColor).WebElement.Displayed);
-        // Assert.That(UIElementFactory.GetElement("Item Color", "Items Component", itemName, itemColor).WebElement.Displayed);
+        Assert.That(
+            UIElementFactory.GetElement("Item Color", "Items Component", itemColor).WebElement.Text,
+            Is.EqualTo(itemName)
+        );
     }
 }
