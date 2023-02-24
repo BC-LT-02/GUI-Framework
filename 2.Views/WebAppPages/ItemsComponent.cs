@@ -66,10 +66,7 @@ public class ItemsComponent
     public Button? CurrentProjectButton { get; }
 
     [Element("Item Color", ElementType.Button)]
-    [Locator(
-        LocatorType.XPath,
-        "//div[@class='ItemContentDiv' and text()='{0}'][contains(@style,'{1}')]"
-    )]
+    [Locator(LocatorType.XPath, "//div[@class='ItemContentDiv'][contains(@style,'0')]")]
     public Button? GetItemColor { get; }
 
     [Element("Item DueDate", ElementType.Button)]
