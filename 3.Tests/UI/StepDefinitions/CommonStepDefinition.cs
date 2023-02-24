@@ -12,6 +12,8 @@ namespace Todoly.Tests.UI.Steps.Commons;
 public class CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
+    private readonly LoginPage _loginPage = new LoginPage();
+
     private string? _currentView;
     public string CurrentView
     {
@@ -41,8 +43,7 @@ public class CommonSteps
     [Given(@"the user is logged in")]
     public void Login()
     {
-        LoginPage loginPage = new LoginPage();
-        loginPage!.LoginIntoApplication();
+        _loginPage.LoginIntoApplication();
     }
 
     [When(@"(?:the user )?clicks on '([a-zA-Z ]+)'(?: on '([a-zA-Z ]+)')?$")]
@@ -227,5 +228,57 @@ public class CommonSteps
             UIElementFactory.GetElement("Information Message", CurrentView).WebElement.Text,
             Is.EqualTo(expectedMessage)
         );
+    }
+
+    [Then(@"an alert should appear with the message ""(.*)""")]
+    public void VerifyAlertMessage(string message)
+    {
+        var alert = GenericWebDriver.Wait.Until(ExpectedConditions.AlertIsPresent());
+        Assert.That(message, Is.EqualTo(alert.Text));
+    }
+
+    [When(@"the user accepts the alert")]
+    public void AcceptAlert()
+    {
+        GenericWebDriver.Instance.SwitchTo().Alert().Accept();
+    }
+
+    [When(@"introduces his credentials")]
+    public void IntroduceCredentials()
+    {
+        _loginPage!.EmailTextField.Clear();
+        try
+        {
+            _loginPage.EmailTextField.Type(_scenarioContext.Get<string>("Email"));
+        }
+        catch
+        {
+            _loginPage.EmailTextField.Type(_loginPage.EmailCredentials);
+        }
+
+        _loginPage.PasswordTextField.Clear();
+        _loginPage.PasswordTextField.Type(_loginPage.PassCredentials);
+    }
+
+    [Then(@"the '(.*)' value is updated with '(.*)' on '(.*)'")]
+    public void VerifyElementValueUpdate(string elementName, string newValue, string viewName)
+    {
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"), Is.EqualTo(newValue));
+    }
+
+    [When(@"the '(.*)' is selected on '(.*)'")]
+    public void VerifyElementIsSelected(string elementName, string viewName)
+    {
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("selected"), Is.EqualTo("true"));
     }
 }

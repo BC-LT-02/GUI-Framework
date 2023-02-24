@@ -25,7 +25,8 @@ namespace CheckItemTest
         [When(@"the user checks the item")]
         public void WhenIchecktheitem()
         {
-            _itemName = _scenarioContext.Get<string>(ConfigModel.CurrentItem);
+            _itemName = UIElementFactory.GetElement("Item Index", "Items Component", "1")
+                                          .WebElement.Text;
             UIElementFactory.GetElement("Item Checkbox", "Items Component", _itemName!).Click();
         }
 
