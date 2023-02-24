@@ -12,7 +12,7 @@ namespace Todoly.Tests.UI.Steps.Commons;
 public class CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
-    private LoginPage _loginPage = new LoginPage();
+    private readonly LoginPage _loginPage = new LoginPage();
 
     private string? _currentView;
     public string CurrentView
@@ -255,6 +255,7 @@ public class CommonSteps
         {
             _loginPage.EmailTextField.Type(_loginPage.EmailCredentials);
         }
+
         _loginPage.PasswordTextField.Clear();
         _loginPage.PasswordTextField.Type(_loginPage.PassCredentials);
     }
@@ -266,6 +267,7 @@ public class CommonSteps
         {
             CurrentView = viewName;
         }
+
         Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"), Is.EqualTo(newValue));
     }
 
@@ -276,6 +278,7 @@ public class CommonSteps
         {
             CurrentView = viewName;
         }
+
         Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("selected"), Is.EqualTo("true"));
     }
 }
