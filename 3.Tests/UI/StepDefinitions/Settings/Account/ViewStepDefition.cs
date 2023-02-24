@@ -20,20 +20,4 @@ public class AccountViewStepDefinition : CommonSteps
         _scenarioContext = scenarioContext;
         _homePage = new HomePage();
     }
-
-    [When(@"the user clicks on the Settings option and then account tab")]
-    public void WhentheuserclicksontheSettingsoptionandthenaccounttab()
-    {
-        _homePage.SettingsButton.Click();
-        _homePage.AccountTabButton.Click();
-    }
-
-    [Then(@"the user should be able to see the delete account button")]
-    public void Giventheusershouldbeabletoseethedeleteaccountbutton()
-    {
-        Assert.True(
-            _homePage.DeleteAccountButton.WebElement.Displayed,
-            "The delete account button is not being displayed"
-        );
-    }
 }

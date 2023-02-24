@@ -16,7 +16,6 @@ public class PriorityStepDefinitions : CommonSteps
 {
     private readonly HomePage _homePage;
     private readonly ScenarioContext _scenarioContext;
-    private string _expectedItemName = "";
 
     public PriorityStepDefinitions(ScenarioContext scenarioContext)
         : base(scenarioContext)
@@ -25,28 +24,12 @@ public class PriorityStepDefinitions : CommonSteps
         _scenarioContext = scenarioContext;
     }
 
-    [When(@"the user has selected the ""(.*)"" project")]
-    public void SelectProject(string project)
+    [Then(@"the <([\w ]+)> color should be (.*)")]
+    public void PriorityShouldBeSet(string itemName, string itemColor)
     {
-        _scenarioContext.TryGetValue(project, out string projectName);
-        _homePage.ProjectTd(projectName).Click();
-    }
-
-    [When(@"the user clicks on the priority (.*) option of an item")]
-    public void ClickPriority(string priorityValue)
-    {
-        //_scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
-        string itemName = _homePage.GetItemByIndex(1).WebElement.Text;
-        _expectedItemName = itemName;
-
-        WebActions.HoverElement(_homePage.GetItemTd(itemName).WebElement);
-        _homePage.GetItemContextButton(itemName).Click();
-        _homePage.ItemPriorityButton(priorityValue).Click();
-    }
-
-    [Then(@"the item color should be (.*)")]
-    public void PriorityShouldBeSet(string itemColor)
-    {
-        Assert.That(_homePage.GetItemColor(_expectedItemName, itemColor).WebElement.Displayed);
+        Assert.That(
+            UIElementFactory.GetElement("Item Color", "Items Component", itemColor).WebElement.Text,
+            Is.EqualTo(itemName)
+        );
     }
 }

@@ -5,10 +5,11 @@ Feature: Item Priority
         Given the user is logged in
 
     @Smoke @Regression @create.project.Kids @create.item.EatLunch @delete.projects @UI_Priority_Item
-    Scenario Outline: Succesfully Set Item Priority
-        When the user has selected the "Kids" project
-        And the user clicks on the priority <Priority> option of an item
-        Then the item color should be <Color>
+    Scenario Outline: Delete a pending item succesfully
+        When the user clicks on 'Project Button' <Kids> on 'Project Component'
+        And the user hovers on "Get Item" <EatLunch> on 'Items Component'
+        And the user clicks on "Item Contextmenu" <EatLunch> on "<Priority>" option on "Items Component"
+        Then the <EatLunch> color should be <Color>
 
         Examples:
             | Priority | Color             |

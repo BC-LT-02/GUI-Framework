@@ -7,7 +7,8 @@ Feature: Add Above Item
 
     @smoke @create.project.Kids @create.item.Sleep
     Scenario: Successfully addition of an item above an existing item
-        Given the user has selected the "Kids" project
-        When the user selects Add above on the "Sleep"
+        When the user clicks on 'Project Button' <Kids> on 'Project Component'
+        And the user hovers on "Get Item" <Sleep> on 'Items Component'
+        And the user clicks on "Item Contextmenu" <Sleep> on "Add item above" option on "Items Component"
         Then the user enters "Brush your teeth" and saves it
-        Then the "Brush your teeth" should be added above the "Sleep"
+        And the "Brush your teeth" should be added above the "Sleep"

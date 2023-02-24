@@ -13,34 +13,28 @@ namespace CheckItemTest
     [Scope(Feature = "Checking a Todo Item")]
     public class CheckItemStepDefinitions : CommonSteps
     {
-        private readonly HomePage _homePage;
         private readonly ScenarioContext _scenarioContext;
         private string _itemName = "";
 
-        public CheckItemStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        public CheckItemStepDefinitions(ScenarioContext scenarioContext)
+            : base(scenarioContext)
         {
             _scenarioContext = scenarioContext;
-            _homePage = new HomePage();
         }
 
-        [Given(@"the user has selected the ""(.*)"" project")]
-        public void Giventheuserselectsaproject(string project)
+        [When(@"the user checks the item")]
+        public void WhenIchecktheitem()
         {
-            _scenarioContext.TryGetValue(project, out string projectName);
-            _homePage.ProjectTd(projectName).Click();
-        }
-
-        [When(@"the user checks the ""(.*)"" item")]
-        public void WhenIchecktheitem(string item)
-        {
-            _itemName = _scenarioContext.Get<string>(item);
-            _homePage.ItemCheckBox(_itemName!).Click();
+            _itemName = _scenarioContext.Get<string>(ConfigModel.CurrentItem);
+            UIElementFactory.GetElement("Item Checkbox", "Items Component", _itemName!).Click();
         }
 
         [Then(@"the item should be listed in the Done Items")]
         public void Thentheitemshouldbelistedinthe()
         {
-            var expectedItem = _homePage.CheckedItem(_itemName!).WebElement.Text;
+            var expectedItem = UIElementFactory
+                .GetElement("Checked Item", "Items Component", _itemName!)
+                .WebElement.Text;
             Assert.That(expectedItem, Is.EqualTo(_itemName!));
         }
     }

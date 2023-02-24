@@ -9,4 +9,4 @@
         When the user clicks on 'Add New Project' on 'Home Page'
             And types "My New Project" on 'New Project Name'
             And clicks on 'Add New Project Name'
-        Then the 'Project Button' <My New Project> should be displayed
+        Then the 'Project Button' <My New Project> should be displayed on 'Project Component'

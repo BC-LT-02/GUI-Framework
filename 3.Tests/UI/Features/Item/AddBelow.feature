@@ -6,8 +6,9 @@ Feature: Add Below Item
         Given the user is logged in
 
     @smoke @create.project.Kids @create.item.Lunch @create.item.Sleep
-    Scenario: Successfully addition of an item below an existing item
-        Given the user has selected the "Kids" project
-        When the user selects Add below on the "Lunch"
+    Scenario: Successfully addition of an item above or below an existing item
+        When the user clicks on 'Project Button' <Kids> on 'Project Component'
+        And the user hovers on "Get Item" <Lunch> on 'Items Component'
+        And the user clicks on "Item Contextmenu" <Lunch> on "Add item below" option on "Items Component"
         Then the user enters "Brush your teeth" and saves it
-        Then the "Brush your teeth" should be added below the "Lunch"
+        And the "Brush your teeth" should be added below the "Lunch"
