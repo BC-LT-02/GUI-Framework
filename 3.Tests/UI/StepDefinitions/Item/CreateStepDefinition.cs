@@ -12,30 +12,21 @@ namespace CreateItemTest;
 [Scope(Feature = "Create an Item in a Project")]
 public class CreateStepDefinitions : CommonSteps
 {
-    private readonly HomePage _homePage;
     private readonly ScenarioContext _scenarioContext;
     private string _expectedItemName = "";
 
-    public CreateStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+    public CreateStepDefinitions(ScenarioContext scenarioContext)
+        : base(scenarioContext)
     {
         _scenarioContext = scenarioContext;
-        _homePage = new HomePage();
-    }
-
-    [Given(@"the user has selected the ""(.*)"" project")]
-    public void Giventheuserhasselectedaproject(string project)
-    {
-        _scenarioContext.TryGetValue(project, out string projectName);
-        WebActions.HoverElement(_homePage.GetProjectTd(projectName).WebElement);
-        _homePage.GetProjectContextButton(projectName).Click();
     }
 
     [When(@"enters the item ""(.*)"" on Add New Todo input")]
     public void Whentheuserclicks(string itemName)
     {
         _expectedItemName = itemName;
-        _homePage.AddToDoInput.Type(itemName);
-        _homePage.AddToDoInput.Type(Keys.Enter);
+        UIElementFactory.GetElement("Add New Todo", "Items Component").Type(itemName);
+        UIElementFactory.GetElement("Add New Todo", "Items Component").Type(Keys.Enter);
     }
 
     [Then(@"the item should be displayed in the project list")]
