@@ -18,11 +18,17 @@ public class ProjectComponent
     public IClickable? ProjectButton { get; }
 
     [Element("Project Handle", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//div[@id='ProjectListPlaceHolder']//td[text()='{0}']/parent::tr/td/img[contains(@class, 'handle')]")]
+    [Locator(
+        LocatorType.XPath,
+        "//div[@id='ProjectListPlaceHolder']//td[text()='{0}']/parent::tr/td/img[contains(@class, 'handle')]"
+    )]
     public Button? ProjectHandle { get; }
 
     [Element("Project Context Button", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//td[text()='{0}']/ancestor::table[@class='ProjItemTable']//img[@title='Options']")]
+    [Locator(
+        LocatorType.XPath,
+        "//td[text()='{0}']/ancestor::table[@class='ProjItemTable']//img[@title='Options']"
+    )]
     public Button? ProjectContextButton { get; }
 
     [Element("Edit Project Button", ElementType.Button)]

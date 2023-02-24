@@ -14,7 +14,6 @@ namespace SeleniumTest.Tests.Steps.Items;
 [Scope(Feature = "Item Due Date")]
 public class DueDateStepDefinitions : CommonSteps
 {
-    private readonly HomePage _homePage;
     private readonly ScenarioContext _scenarioContext;
     private string _expectedItemName = "";
     private string _expectedItemDueDate = "";
@@ -22,15 +21,7 @@ public class DueDateStepDefinitions : CommonSteps
     public DueDateStepDefinitions(ScenarioContext scenarioContext)
         : base(scenarioContext)
     {
-        _homePage = new HomePage();
         _scenarioContext = scenarioContext;
-    }
-
-    [When(@"the user has selected the ""(.*)"" project")]
-    public void SelectProject(string project)
-    {
-        _scenarioContext.TryGetValue(project, out string projectName);
-        _homePage.ProjectTd(projectName).Click();
     }
 
     [When(@"the user clicks on the Set Due Date option")]
@@ -39,8 +30,10 @@ public class DueDateStepDefinitions : CommonSteps
         _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
         _expectedItemName = itemName;
 
-        WebActions.HoverElement(_homePage.GetItemTd(itemName).WebElement);
-        _homePage.GetItemDueDateButton(itemName).Click();
+        WebActions.HoverElement(
+            UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement
+        );
+        UIElementFactory.GetElement("Item DueDate", "Items Component", itemName).Click();
     }
 
     [When(@"inputs ""(.*)"" as due date")]
@@ -48,22 +41,26 @@ public class DueDateStepDefinitions : CommonSteps
     {
         _expectedItemDueDate = dueDate;
         GenericWebDriver.Wait.Until(
-            ExpectedConditions.ElementIsVisible(_homePage.ItemDueDateTextField.Locator.GetBy())
+            ExpectedConditions.ElementIsVisible(
+                UIElementFactory.GetElement("DueDate TextField", "Items Component").Locator.GetBy()
+            )
         );
 
-        _homePage.ItemDueDateTextField.Clear();
-        _homePage.ItemDueDateTextField.Type(dueDate);
-        _homePage.ItemDueDateTextField.Type(Keys.Enter);
+        UIElementFactory.GetElement("DueDate TextField", "Items Component").Clear();
+        UIElementFactory.GetElement("DueDate TextField", "Items Component").Type(dueDate);
+        UIElementFactory.GetElement("DueDate TextField", "Items Component").Type(Keys.Enter);
     }
 
     [When(@"clicks on Postpone (.*)")]
     public void PostponeDueDate(string postponeTime)
     {
-        WebActions.HoverElement(_homePage.GetItemTd(_expectedItemName).WebElement);
-        _homePage.GetItemDueDateButton(_expectedItemName).Click();
-        _homePage.PostponeSelectButton.Click();
-        _homePage.PostponeXTimeButton(postponeTime).Click();
-        _homePage.PostponeButton.Click();
+        WebActions.HoverElement(
+            UIElementFactory.GetElement("Get Item", "Items Component", _expectedItemName).WebElement
+        );
+        UIElementFactory.GetElement("Item DueDate", "Items Component", _expectedItemName).Click();
+        UIElementFactory.GetElement("Postpone Select", "Items Component").Click();
+        UIElementFactory.GetElement("Postpone X Time", "Items Component", postponeTime).Click();
+        UIElementFactory.GetElement("Postpone Button", "Items Component").Click();
     }
 
     [Then(@"the item should be displayed as overdue")]
@@ -71,11 +68,15 @@ public class DueDateStepDefinitions : CommonSteps
     {
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
-                _homePage.GetItemDueDateTd(_expectedItemName).WebElement,
+                UIElementFactory
+                    .GetElement("Item DueDate Td", "Items Component", _expectedItemName)
+                    .WebElement,
                 "days overdue"
             )
         );
-        string actualText = _homePage.GetItemDueDateButton(_expectedItemName).WebElement.Text;
+        string actualText = UIElementFactory
+            .GetElement("Item DueDate", "Items Component", _expectedItemName)
+            .WebElement.Text;
         Assert.That(actualText, Does.Contain("days overdue"));
     }
 
@@ -84,11 +85,15 @@ public class DueDateStepDefinitions : CommonSteps
     {
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
-                _homePage.GetItemDueDateTd(_expectedItemName).WebElement,
+                UIElementFactory
+                    .GetElement("Item DueDate Td", "Items Component", _expectedItemName)
+                    .WebElement,
                 dateTag
             )
         );
-        string actualText = _homePage.GetItemDueDateButton(_expectedItemName).WebElement.Text;
+        string actualText = UIElementFactory
+            .GetElement("Item DueDate", "Items Component", _expectedItemName)
+            .WebElement.Text;
         Assert.That(dateTag, Is.EqualTo(actualText));
     }
 }

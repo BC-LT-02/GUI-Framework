@@ -104,7 +104,9 @@ public class CommonSteps
 
         _scenarioContext[ConfigModel.CurrentProject] = locatorArgument;
 
-        WebActions.HoverElement(UIElementFactory.GetElement("Project Button", CurrentView, locatorArgument).WebElement);
+        WebActions.HoverElement(
+            UIElementFactory.GetElement("Project Button", CurrentView, locatorArgument).WebElement
+        );
         UIElementFactory.GetElement("Project Context Button", CurrentView, locatorArgument).Click();
     }
 
@@ -129,7 +131,12 @@ public class CommonSteps
     }
 
     [Then(@"the '(.*)' <(.*)> should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
-    public void ValidateDisplay(string elementName, string locatorArgument, string display, string viewName)
+    public void ValidateDisplay(
+        string elementName,
+        string locatorArgument,
+        string display,
+        string viewName
+    )
     {
         if (viewName != null)
         {
@@ -138,11 +145,19 @@ public class CommonSteps
 
         if (display == "not ")
         {
-            Assert.False(UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).WebElement.Displayed);
+            Assert.False(
+                UIElementFactory
+                    .GetElement(elementName, CurrentView, locatorArgument)
+                    .WebElement.Displayed
+            );
         }
         else
         {
-            Assert.True(UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).WebElement.Displayed);
+            Assert.True(
+                UIElementFactory
+                    .GetElement(elementName, CurrentView, locatorArgument)
+                    .WebElement.Displayed
+            );
         }
     }
 
@@ -155,6 +170,38 @@ public class CommonSteps
         }
 
         WebActions.HoverElement(UIElementFactory.GetElement(elementName, CurrentView).WebElement);
+    }
+
+    [When(@"(?:the user )?hovers on ""([\w ]+)""(?: <([\w ]+)>)?(?: on '([\w ]+)')?$")]
+    public void HoverItemName(string elementName, string itemName, string viewName)
+    {
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        WebActions.HoverElement(
+            UIElementFactory.GetElement(elementName, CurrentView, itemName).WebElement
+        );
+    }
+
+    [When(
+        @"(?:the user )?clicks on [\x22']([\w ]+)[\x22'](?: <([\w ]+)>)?(?: on [\x22']([\w ]+)[\x22'])? option on [\x22']([\w ]+)[\x22']$"
+    )]
+    public void ClickContextOption(
+        string elementName,
+        string itemName,
+        string optionName,
+        string viewName
+    )
+    {
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        UIElementFactory.GetElement("Item Context Button", CurrentView, itemName).Click();
+        UIElementFactory.GetElement(elementName, CurrentView, optionName).Click();
     }
 
     [Then(@"the main title text is ""(.*)""")]
