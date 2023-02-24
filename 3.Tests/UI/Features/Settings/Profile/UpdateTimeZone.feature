@@ -9,5 +9,6 @@ Feature: Time Zone update
             And clicks on 'Hawaiian Time'
             And clicks on 'Ok'
         Then the 'NonDisplayedClose' should not be displayed
-            And the time zone is updated
+        When the user clicks on 'Settings' on 'Home Page'
+            And the 'Hawaiian Time' is selected on 'Profile Page'
 
