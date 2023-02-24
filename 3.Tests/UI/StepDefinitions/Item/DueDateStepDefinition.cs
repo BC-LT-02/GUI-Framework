@@ -27,11 +27,12 @@ public class DueDateStepDefinitions : CommonSteps
     [When(@"the user clicks on the Set Due Date option")]
     public void ClickDueDateItem()
     {
-        _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
+        string itemName = UIElementFactory.GetElement("Item Index", "Items Component", "1")
+                                          .WebElement.Text;
         _expectedItemName = itemName;
 
         WebActions.HoverElement(
-            UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement
+           UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement
         );
         UIElementFactory.GetElement("Item DueDate", "Items Component", itemName).Click();
     }
