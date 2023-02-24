@@ -29,7 +29,6 @@ namespace Todoly.Core.UIElements.Web
             catch (ElementNotInteractableException error)
             {
                 Logger.Instance.Error($"Unable to interact with {Name} button");
-                ;
                 throw error;
             }
             catch (WebDriverTimeoutException error)
