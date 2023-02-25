@@ -24,6 +24,10 @@ public class ProjectComponent
     )]
     public Button? ProjectHandle { get; }
 
+    [Element("Project With Shopping Bag Image", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//div[@style='background: url(Images/icons/cart2.png) no-repeat;']")]
+    public Button? ProjectShoppingBag { get; }
+
     [Element("Project Context Button", ElementType.Button)]
     [Locator(
         LocatorType.XPath,
@@ -31,9 +35,13 @@ public class ProjectComponent
     )]
     public Button? ProjectContextButton { get; }
 
-    [Element("Edit Project Button", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//ul[@id='projectContextMenu']/li[@class='edit']/a")]
+    [Element("Context Menu Buttons", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//ul[@id='projectContextMenu']/li[@class='{0}']/a")]
     public Button? ProjectEditButton { get; }
+
+    [Element("Shopping Bag Image", ElementType.Button)]
+    [Locator(LocatorType.XPath, "(//span[@iconid='14'])[1]")]
+    public Button? ShoppingBagImage { get; }
 
     [Element("Edit Project Input", ElementType.TextField)]
     [Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/input")]
@@ -47,7 +55,11 @@ public class ProjectComponent
     [Locator(LocatorType.XPath, "(//div[@id='ProjectEditDiv'])[1]/img[@id='ItemEditCancel']")]
     public Button? ProjectEditCancelButton { get; }
 
-    [Element("Delete Project", ElementType.Button)]
-    [Locator(LocatorType.Id, "ProjShareMenuDel")]
-    public Button? ProjectDeleteButton { get; }
+    [Element("Project Images", ElementType.Button)]
+    [Locator(LocatorType.XPath, "(//div[@id='IconFrameOuter'])[1]/span[@iconid='{0}']")]
+    public Button? ProjectImages { get; }
+
+    [Element("Second Project", ElementType.Button)]
+    [Locator(LocatorType.XPath, "(//li[@class='BaseProjectLi acceptProject acceptBoth' and contains(@style, 'display: list-item')])[2]//td[text()='{0}']")]
+    public Button? SecondProject { get; }
 }
