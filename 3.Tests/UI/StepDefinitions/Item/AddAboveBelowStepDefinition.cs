@@ -15,7 +15,6 @@ namespace MyNamespace
     {
         private readonly HomePage _homePage;
         private readonly ScenarioContext _scenarioContext;
-        private readonly string _itemName = "";
         private string _newItem = "";
 
         public AddBelowStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
