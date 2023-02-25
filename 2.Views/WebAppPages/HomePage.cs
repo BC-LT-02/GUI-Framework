@@ -22,14 +22,7 @@ public class HomePage
         LocatorType.XPath,
         "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"
     )]
-    public Button SettingsButton =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"
-            )
-        );
+    public Button? SettingsButton { get; }
 
     [Element("Account", ElementType.Button)]
     [Locator(LocatorType.XPath, "//ul[@id='settings_tabs']/li/a[text()='Account']")]
@@ -91,7 +84,7 @@ public class HomePage
 
     [Element("No Items", ElementType.Button)]
     [Locator(LocatorType.ClassName, "NoItems")]
-    public Button NoItemsDiv => new Button("", new Locator(LocatorType.ClassName, "NoItems"));
+    public Button? NoItemsDiv { get; }
 
     [Element("Information Message", ElementType.Button)]
     [Locator(LocatorType.Id, "InfoMessageText")]
