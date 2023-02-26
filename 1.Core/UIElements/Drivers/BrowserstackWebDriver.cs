@@ -2,13 +2,13 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Safari;
 using Todoly.Core.Helpers;
 
 namespace Todoly.Core.UIElements.Drivers;
 
-class BrowserStackOptions : DriverOptions
+internal class BrowserStackOptions : DriverOptions
 {
     public BrowserStackOptions(string browser_name, string browser_version)
     {
@@ -31,14 +31,19 @@ class BrowserStackOptions : DriverOptions
 
 public class BrowserstackWebDriverFactory
 {
+    public static readonly string BROWSERSTACK_USERNAME = ConfigModel.BROWSERSTACK_USERNAME;
+    public static readonly string BROWSERSTACK_ACCESSKEY = ConfigModel.BROWSERSTACK_ACCESSKEY;
+
     public static IWebDriver GetDriver()
     {
         string driverType = ConfigBuilder.Instance.GetString("ui", "DriverType");
-        // string uri = ConfigBuilder.Instance.GetString("ui", "HostUrl");
         switch (driverType)
         {
             case "Chrome":
-                var chrome = new RemoteWebDriver(new Uri("https://hub.browserstack.com/wd/hub/"), AddOptions());
+                var chrome = new RemoteWebDriver(
+                    new Uri("https://hub.browserstack.com/wd/hub/"),
+                    AddOptions()
+                );
                 return chrome;
             case "Edge":
                 var edge = new EdgeDriver();
@@ -63,21 +68,28 @@ public class BrowserstackWebDriverFactory
         return driver;
     }
 
-    public static DriverOptions  AddOptions()
+    public static DriverOptions AddOptions()
     {
         Dictionary<string, object> cap = new Dictionary<string, object>();
-        cap.Add("browserName", "Chrome");
-        cap.Add("browserVersion", "103.0");
-        cap.Add("os", "Windows");
-        cap.Add("osVersion", "11");
-        string BROWSERSTACK_USERNAME = "valeriagonzales_xua1FU";
-        //ConfigBuilder.Instance.GetString("BROWSERSTACK_USERNAME");
-        string BROWSERSTACK_ACCESS_KEY = "tQHXeetcDeAspg6rrJZe";
-        //ConfigBuilder.Instance.GetString("BROWSERSTACK_ACCESS_KEY");
-        string BUILD_NAME = "browserstack-build-1";
+        // cap.Add("browserName", "Chrome");
+        // cap.Add("browserVersion", "103.0");
+        // cap.Add("os", "Windows");
+        // cap.Add("osVersion", "11");
+
+        // cap.Add("browserName", "Firefox");
+        // cap.Add("browserVersion", "latest-beta");
+        // cap.Add("os", "OS X");
+        // cap.Add("osVersion", "Big Sur");
+
+        cap.Add("browserName", "Edge");
+        cap.Add("browserVersion", "latest");
+        cap.Add("os", "OS X");
+        cap.Add("osVersion", "Monterey");
+
+        string build_name = "browserstack-build-1";
         cap.Add("userName", BROWSERSTACK_USERNAME);
-        cap.Add("accessKey", BROWSERSTACK_ACCESS_KEY);
-        cap.Add("buildName", BUILD_NAME);
+        cap.Add("accessKey", BROWSERSTACK_ACCESSKEY);
+        cap.Add("buildName", build_name);
         string browserVersion =
             cap.ContainsKey("browserVersion") == true ? (string)cap["browserVersion"] : "";
         var browserstackOptions = new BrowserStackOptions(

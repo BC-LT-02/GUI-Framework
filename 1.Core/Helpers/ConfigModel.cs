@@ -15,6 +15,8 @@ public class ConfigModel
     public static readonly string HostUrl = ConfigBuilder.Instance.GetString("ui", "HostUrl");
     public static readonly string TODO_LY_EMAIL = ConfigBuilder.Instance.GetString("TODO-LY-EMAIL");
     public static readonly string TODO_LY_PASS = ConfigBuilder.Instance.GetString("TODO-LY-PASS");
+    public static readonly string BROWSERSTACK_USERNAME = ConfigBuilder.Instance.GetString("BROWSERSTACK-USERNAME");
+    public static readonly string BROWSERSTACK_ACCESSKEY = ConfigBuilder.Instance.GetString("BROWSERSTACK-ACCESSKEY");
     public static readonly string UserFullName = ConfigBuilder.Instance.GetString("api", "UserFullName");
     public static readonly string UserTimeZone = ConfigBuilder.Instance.GetString("api", "UserTimeZone");
     public static readonly string DriverType = ConfigBuilder.Instance.GetString("ui", "DriverType");

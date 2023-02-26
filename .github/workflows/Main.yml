@@ -25,6 +25,8 @@ jobs:
       run: |
         echo "TODO-LY-EMAIL=${{secrets.TODO_LY_EMAIL}}" >> $GITHUB_ENV
         echo "TODO-LY-PASS=${{secrets.TODO_LY_PASS}}" >> $GITHUB_ENV
+        echo "BROWSERSTACK-USERNAME=${{secrets.BROWSERSTACK_USERNAME}}" >> $GITHUB_ENV
+        echo "BROWSERSTACK-ACCESSKEY=${{secrets.BROWSERSTACK_ACCESSKEY}}" >> $GITHUB_ENV
         echo "DriverType=Chrome" >> $GITHUB_ENV
         echo "DriverLocation=Remote" >> $GITHUB_ENV
         echo "DriverMode=Headless" >> $GITHUB_ENV

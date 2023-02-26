@@ -5,7 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>Todoly.Core.UIElements</AssemblyName>
-    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>

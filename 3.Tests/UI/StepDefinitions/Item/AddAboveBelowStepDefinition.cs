@@ -28,7 +28,7 @@ namespace MyNamespace
         {
             _newItem = newItem;
             UIElementFactory.GetElement("Edit Item", "Items Component").Type(newItem);
-            UIElementFactory.GetElement("Edit Item", "Items Component").Type(newItem);
+            UIElementFactory.GetElement("Edit Item", "Items Component").Type(Keys.Enter);
         }
 
         [Then(@"the ""(.*)"" should be added (below|above) the ""(.*)""")]
