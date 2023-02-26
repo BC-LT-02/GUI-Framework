@@ -4,7 +4,7 @@ Feature: Email update
     Background:
         Given the user is logged in
 
-    @Acceptance @recover.email
+    @Smoke @Acceptance @recover.email
     Scenario: Update email succesfully
         When the user clicks on 'Settings' on 'Home Page'
             And types "testjg@email.com" on 'Email' on 'Profile Page'
