@@ -13,17 +13,18 @@ public class DeleteAllStepDefinitions : CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
 
-    private readonly HomePage _homePage;
-
-    public DeleteAllStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+    public DeleteAllStepDefinitions(ScenarioContext scenarioContext)
+        : base(scenarioContext)
     {
         _scenarioContext = scenarioContext;
-        _homePage = new HomePage();
     }
 
     [Then(@"the recycle bin should should be empty")]
     public void Giventherecyclebinshouldshouldbeempty()
     {
-        Assert.True(_homePage.NoItemsDiv.WebElement.Displayed, "The recycle bin is not empty");
+        Assert.True(
+            UIElementFactory.GetElement("No Items", "Home Page").WebElement.Displayed,
+            "The recycle bin is not empty"
+        );
     }
 }
