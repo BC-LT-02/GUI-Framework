@@ -10,12 +10,12 @@ using Todoly.Views.WebAppPages;
 namespace MyNamespace
 {
     [Binding]
-    [Scope(Feature = "Add Below Item")]
+    [Scope(Feature = "Add Above Below Item")]
     public class AddBelowStepDefinitions : CommonSteps
     {
         private readonly HomePage _homePage;
         private readonly ScenarioContext _scenarioContext;
-        private readonly string _itemName = "";
+        //private readonly string _itemName = "";
         private string _newItem = "";
 
         public AddBelowStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
