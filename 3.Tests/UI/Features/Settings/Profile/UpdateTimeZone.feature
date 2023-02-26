@@ -4,11 +4,10 @@ Feature: Time Zone update
     @Acceptance @restore.default.timezone
     Scenario: Update time zone succesfully
         Given the user is logged in
-        When the user clicks on 'Settings' on 'Home Page'
+        When the user clicks on 'Settings' at 'Home Page'
             And clicks on 'Time Zone' on 'Profile Page'
             And clicks on 'Hawaiian Time'
             And clicks on 'Ok'
         Then the 'NonDisplayedClose' should not be displayed
-        When the user clicks on 'Settings' on 'Home Page'
+        When the user clicks on 'Settings' at 'Home Page'
             And the 'Hawaiian Time' is selected on 'Profile Page'
-

@@ -46,7 +46,7 @@ public class CommonSteps
         _loginPage.LoginIntoApplication();
     }
 
-    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)'(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)'(?: at '([a-zA-Z ]+)')?$")]
     public void Click(string elementName, string viewName)
     {
         if (viewName != null)
@@ -57,7 +57,7 @@ public class CommonSteps
         UIElementFactory.GetElement(elementName, CurrentView).Click();
     }
 
-    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)' <([a-zA-Z ]+)>(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)' <([a-zA-Z ]+)>(?: at '([a-zA-Z ]+)')?$")]
     public void Click(string elementName, string locatorArgument, string viewName)
     {
         if (viewName != null)
@@ -68,7 +68,7 @@ public class CommonSteps
         UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).Click();
     }
 
-    [When(@"(?:the user )?types ""(.*)"" on '([a-zA-Z ]+)'(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?types ""(.*)"" on '([a-zA-Z ]+)'(?: at '([a-zA-Z ]+)')?$")]
     public void Type(string input, string elementName, string viewName)
     {
         if (viewName != null)
@@ -95,7 +95,7 @@ public class CommonSteps
         }
     }
 
-    [When(@"(?:the user )?opens the context menu on <([a-zA-Z ]+)>(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?opens the context menu on <([a-zA-Z ]+)>(?: at '([a-zA-Z ]+)')?$")]
     public void OpenContextMenu(string locatorArgument, string viewName)
     {
         if (viewName != null)
@@ -111,7 +111,7 @@ public class CommonSteps
         UIElementFactory.GetElement("Project Context Button", CurrentView, locatorArgument).Click();
     }
 
-    [Then(@"the '(.*)' should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
+    [Then(@"the '(.*)' should (not )?be displayed(?: at '([a-zA-Z ]+)')?$")]
     public void ValidateDisplay(string elementName, string display, string viewName)
     {
         if (viewName != null)
@@ -131,7 +131,7 @@ public class CommonSteps
         }
     }
 
-    [Then(@"the '(.*)' <(.*)> should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
+    [Then(@"the '(.*)' <(.*)> should (not )?be displayed(?: at '([a-zA-Z ]+)')?$")]
     public void ValidateDisplay(
         string elementName,
         string locatorArgument,
@@ -162,7 +162,7 @@ public class CommonSteps
         }
     }
 
-    [When(@"(?:the user )?hovers on '([a-zA-Z ]+)'(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?hovers on '([a-zA-Z ]+)'(?: at '([a-zA-Z ]+)')?$")]
     public void Hover(string elementName, string viewName)
     {
         if (viewName != null)
@@ -173,7 +173,7 @@ public class CommonSteps
         WebActions.HoverElement(UIElementFactory.GetElement(elementName, CurrentView).WebElement);
     }
 
-    [When(@"(?:the user )?hovers on ""([\w ]+)""(?: <([\w ]+)>)?(?: on '([\w ]+)')?$")]
+    [When(@"(?:the user )?hovers on ""([\w ]+)""(?: <([\w ]+)>)?(?: at '([\w ]+)')?$")]
     public void HoverItemName(string elementName, string itemName, string viewName)
     {
         if (viewName != null)
@@ -187,7 +187,7 @@ public class CommonSteps
     }
 
     [When(
-        @"(?:the user )?clicks on [\x22']([\w ]+)[\x22'](?: <([\w ]+)>)?(?: on [\x22']([\w ]+)[\x22'])? option on [\x22']([\w ]+)[\x22']$"
+        @"(?:the user )?clicks on [\x22']([\w ]+)[\x22'](?: <([\w ]+)>)?(?: on [\x22']([\w ]+)[\x22'])? option at [\x22']([\w ]+)[\x22']$"
     )]
     public void ClickContextOption(
         string elementName,
