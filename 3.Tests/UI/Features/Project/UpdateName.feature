@@ -6,7 +6,8 @@ Feature: Project Update
 
     @Regression @create.project.MyProject
     Scenario: Edit a project
-        When the user clicks the edit button on "MyProject"
-            And inputs a new Project name
-            And clicks on the Save icon
-        Then the project should be displayed with the new name
+        When the user opens the context menu on <MyProject> on 'Project Component'
+            And clicks on 'Edit Project Button' <MyProject>
+            And types "My New Project Name" on 'Edit Project Input'
+            And clicks on 'Save Edit Project'
+        Then the 'Project Button' <My New Project Name> should be displayed

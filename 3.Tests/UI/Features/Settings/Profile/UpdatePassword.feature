@@ -3,14 +3,14 @@ Feature: Password update
 
     Background:
         Given the user is logged in
-            And the user clicks on the Settings option on the Nav Bar
-        When the user inputs his password on the Old Password input
 
-    @Acceptance @recover.password
+    @Smoke @Acceptance @recover.password
     Scenario: Update password succesfully
-        And inputs a new valid password "newpassword" on the New Password input
-        And clicks on the OK button
-        Then the password is updated closing the settings view
+        When the user clicks on 'Settings' on 'Home Page'
+            And types "Password Credential" on 'Old Password' on 'Profile Page'
+            And types "New Password" on 'New Password'
+            And clicks on 'Ok'
+        Then the 'NonDisplayedClose' should not be displayed
 
     # @Negative
     # Scenario: Fail to update password with empty input
