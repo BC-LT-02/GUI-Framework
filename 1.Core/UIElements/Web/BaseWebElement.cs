@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
@@ -43,7 +44,7 @@ namespace Todoly.Core.UIElements.Web
                         }
                         catch
                         {
-                            Logger.Instance.Error($"Unable to find {Name} element with {Locator} locator.");
+                            Logger.CreateLoggerForTest(TestContext.CurrentContext.Test.Name).Error($"Unable to find {Name} element with {Locator} locator.");
                         }
                     }
                 }
