@@ -57,5 +57,8 @@ namespace Todoly.Core.UIElements.Web
             }
             set => _webElement = value;
         }
+
+        public bool IsInvisible() =>
+            GenericWebDriver.Wait.Until(ExpectedConditions.InvisibilityOfElementLocated(Locator.GetBy()));
     }
 }

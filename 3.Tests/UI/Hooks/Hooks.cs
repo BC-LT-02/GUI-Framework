@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using Allure.Commons;
 using OpenQA.Selenium;
 using RestSharp;
 using Serilog;
@@ -48,6 +49,8 @@ public class Hooks
         {
             File.Delete(latestFilePath);
         }
+        
+        AllureLifecycle.Instance.CleanupResultDirectory();
     }
 
     [BeforeFeature]
@@ -79,6 +82,20 @@ public class Hooks
         {
             logger.Information("Initializing {0} scenario.", context.ScenarioInfo.Title);
         }
+
+    [AfterStep]
+    public static void AfterStep(ScenarioContext context)
+    {
+        if (context.TestError != null)
+        {
+            byte[] content = GetScreenshot();
+            AllureLifecycle.Instance.AddAttachment("Failed test screenshot", "application/png", content);
+        }
+    }
+
+    private static byte[] GetScreenshot()
+    {
+        return ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot().AsByteArray;
     }
 
     [AfterTestRun]
@@ -212,11 +229,10 @@ public class Hooks
             _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
             RestResponse response = _client.DoRequest(Method.Post, _urlItem, payload);
-
             _itemModel = JsonSerializer.Deserialize<ItemModel>(response.Content!);
 
-            _scenarioContext.Add(ConfigModel.CurrentItem, itemName);
-            _scenarioContext.Add("itemContent", _itemModel);
+            _scenarioContext[itemName] = itemName;
+            _scenarioContext[itemName + "Model"] = _itemModel;
         }
     }
 

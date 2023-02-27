@@ -11,13 +11,12 @@ namespace Todoly.Tests.UI.Steps.User;
 [Scope(Feature = "User Logout")]
 public class LogoutStepDefinitions : CommonSteps
 {
-    private readonly HomePage _homePage;
     private readonly ScenarioContext _scenarioContext;
 
-    public LogoutStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+    public LogoutStepDefinitions(ScenarioContext scenarioContext)
+        : base(scenarioContext)
     {
         _scenarioContext = scenarioContext;
-        _homePage = new HomePage();
     }
 
     [Then(@"the user should be logged out from the site")]

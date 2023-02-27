@@ -10,7 +10,8 @@ Feature: Full name update
             And types "New Name" on 'FullName' on 'Profile Page'
             And clicks on 'Ok'
         Then the 'NonDisplayedClose' should not be displayed
-            And the 'FullName' is updated
+        When the user clicks on 'Settings' on 'Home Page'
+        Then the 'FullName' value is updated with 'New Name' on 'Profile Page'
 
     # @Negative
     # Scenario: Fail to update email with empty input

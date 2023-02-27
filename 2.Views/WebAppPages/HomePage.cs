@@ -12,6 +12,10 @@ public class HomePage
 {
     public readonly string HostUrl = ConfigModel.HostUrl;
 
+    [Element("Loader Img", ElementType.Container)]
+    [Locator(LocatorType.Id, "LoaderImg")]
+    public IElement? LoaderImg { get; }
+
     [Element("Logout", ElementType.Button)]
     [Locator(LocatorType.Id, "ctl00_HeaderTopControl1_LinkButtonLogout")]
     public Button LogoutButton =>
@@ -22,14 +26,7 @@ public class HomePage
         LocatorType.XPath,
         "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"
     )]
-    public Button SettingsButton =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "//div[@id='ctl00_HeaderTopControl1_PanelHeaderButtons']//a[text()='Settings']"
-            )
-        );
+    public Button? SettingsButton { get; }
 
     [Element("Account", ElementType.Button)]
     [Locator(LocatorType.XPath, "//ul[@id='settings_tabs']/li/a[text()='Account']")]
@@ -91,210 +88,9 @@ public class HomePage
 
     [Element("No Items", ElementType.Button)]
     [Locator(LocatorType.ClassName, "NoItems")]
-    public Button NoItemsDiv => new Button("", new Locator(LocatorType.ClassName, "NoItems"));
+    public Button? NoItemsDiv { get; }
 
     [Element("Information Message", ElementType.Button)]
     [Locator(LocatorType.Id, "InfoMessageText")]
     public Button InfoMessageText => new Button("", new Locator(LocatorType.Id, "InfoMessageText"));
-
-    [Element("Add New Todo", ElementType.TextField)]
-    [Locator(LocatorType.Id, "NewItemContentInput")]
-    public TextField AddToDoInput =>
-        new TextField("", new Locator(LocatorType.Id, "NewItemContentInput"));
-
-    [Element("Edit Item", ElementType.TextField)]
-    [Locator(LocatorType.Id, "ItemEditTextbox")]
-    public TextField ItemTextField =>
-        new TextField(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "//li[contains(@class, 'BaseItemLi')]//textarea[@id='ItemEditTextbox']"
-            )
-        );
-
-    public Button SaveItemButton =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//li[contains(@class, 'BaseItemLi')]//img[@id='ItemEditSubmit']"
-            )
-        );
-
-    public Button CurrentProjectButton =>
-        new Button("", new Locator(LocatorType.Id, "CurrentProjectTitle"));
-
-    public Button GetItemDueDateButton(string itemName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//div[contains(@class, 'ItemDueDateInner')]"
-            )
-        );
-
-    public Button GetItemDueDateTd(string itemName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//div[contains(@class, 'ItemDueDateInner')]"
-            )
-        );
-
-    public Button GetItemContextButton(string itemName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[text()='{itemName}']/ancestor::table[@class='ProjItemTable']//img[@title='Options']"
-            )
-        );
-
-    public Button ItemDeleteButton =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "//ul[@id='itemContextMenu']/li[@class='delete separator']/a"
-            )
-        );
-
-    public Button ItemPriorityButton(string priorityValue) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//span[@class='PrioFrame' and text()='{priorityValue}']"
-            )
-        );
-
-    public Button ItemButton(string itemName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[@class='ItemContentDiv' and text()='{itemName}']"
-            )
-        );
-
-    public Button PostponeSelectButton =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[contains(@id, 'EditDueDate') and contains(@style, 'block')]//select[@id='DaySelect']"
-            )
-        );
-
-    public Button PostponeButton =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[contains(@id, 'EditDueDate') and contains(@style, 'block')]//input[@value='Postpone']"
-            )
-        );
-
-    public Button PostponeXTimeButton(string postponeTime) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[contains(@id, 'EditDueDate') and contains(@style, 'block')]//option[text()='{postponeTime}']"
-            )
-        );
-
-    public Button ProjectTd(string projectName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[@id='ProjectListPlaceHolder']//td[text()='{projectName}']"
-            )
-        );
-
-    public Button GetItemTd(string itemName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[@class='ItemContentDiv' and text()='{itemName}']"
-            )
-        );
-
-    public TextField ItemDueDateTextField =>
-        new TextField(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "//div[contains(@id, 'EditDueDate') and @itemid]//input[@id='EditDueDateAdvDate']"
-            )
-        );
-
-    public TextField AddAboveOrBelowTextField =>
-        new TextField(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "//ul[contains(@id, 'mainItemList')]//textarea[contains(@id, 'ItemEditTextbox')]"
-            )
-        );
-    public Button ItemDueDateSaveButtonField =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[contains(@id, 'EditDueDate') and @itemid]//input[@id='LinkShowDueDateSave']]"
-            )
-        );
-
-    public Button ItemCheckBox(string itemName) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[contains(@id, 'MainContentArea')]//tbody//td[following-sibling::td/div[contains(text(), '{itemName}')]]//input"
-            )
-        );
-
-    public Button ItemMenuAddItemAboveButton =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                "//ul[@id='itemContextMenu']/li[@class='add separator']/a"
-            )
-        );
-
-    public IElement CheckedItem(string itemName) =>
-        new BaseWebElement(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[contains(@id, 'DoneItemsDiv')]//div[contains(., '{itemName}')][contains(@class, 'DoneItem')]"
-            )
-        );
-
-    public Button GetItemColor(string itemName, string itemColor) =>
-        new Button(
-            "",
-            new Locator(
-                LocatorType.XPath,
-                $"//div[@class='ItemContentDiv' and text()='{itemName}'][contains(@style,'{itemColor}')]"
-            )
-        );
-
-    public Button ItemDeletedAlert =>
-        new Button("", new Locator(LocatorType.XPath, $"//span[@id='InfoMessageText']"));
-
-    public Button NoItemsOnMain =>
-        new Button("", new Locator(LocatorType.XPath, $"//div[@class='NoItems']"));
-
-    public Button GetItemByIndex(int index) =>
-        new Button(
-            "",
-            new Locator(LocatorType.XPath, $"//ul[contains(@id, 'mainItemList')]/li[{index}]")
-        );
 }
