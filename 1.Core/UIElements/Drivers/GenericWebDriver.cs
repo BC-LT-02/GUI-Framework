@@ -29,4 +29,9 @@ public class GenericWebDriver
             ? WebDriverFactory.GetDriver(ConfigModel.DriverType)
             : RemoteWebDriverFactory.GetDriver(ConfigModel.DriverType);
     }
+
+    public static void AcceptAlert()
+    {
+        Instance.SwitchTo().Alert().Accept();
+    }
 }

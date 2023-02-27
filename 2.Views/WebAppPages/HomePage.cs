@@ -12,6 +12,10 @@ public class HomePage
 {
     public readonly string HostUrl = ConfigModel.HostUrl;
 
+    [Element("Loader Img", ElementType.Container)]
+    [Locator(LocatorType.Id, "LoaderImg")]
+    public IElement? LoaderImg { get; }
+
     [Element("Logout", ElementType.Button)]
     [Locator(LocatorType.Id, "ctl00_HeaderTopControl1_LinkButtonLogout")]
     public Button LogoutButton =>

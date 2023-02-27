@@ -4,6 +4,7 @@ using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.WebActions;
+using Todoly.Views.Helpers;
 using Todoly.Views.WebAppPages;
 
 namespace Todoly.Tests.UI.Steps.Commons;
@@ -95,7 +96,7 @@ public class CommonSteps
         }
     }
 
-    [When(@"(?:the user )?opens the context menu on <([a-zA-Z ]+)>(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?opens the Project Context Menu on <([a-zA-Z ]+)>(?: on '([a-zA-Z ]+)')?$")]
     public void OpenContextMenu(string locatorArgument, string viewName)
     {
         if (viewName != null)
@@ -111,6 +112,13 @@ public class CommonSteps
         UIElementFactory.GetElement("Project Context Button", CurrentView, locatorArgument).Click();
     }
 
+    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)' on the Project Context Menu")]
+    public void ProjectContextMenuAction(string locatorArgument)
+    {
+        locatorArgument = ProjectContextMenuHelper.ParseButtonName(locatorArgument);
+        UIElementFactory.GetElement("Context Menu Buttons", "Project Component", locatorArgument).Click();
+    }
+
     [Then(@"the '(.*)' should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
     public void ValidateDisplay(string elementName, string display, string viewName)
     {
@@ -121,9 +129,7 @@ public class CommonSteps
 
         if (display == "not ")
         {
-            Assert.False(
-                UIElementFactory.GetElement(elementName, CurrentView).WebElement.Displayed
-            );
+            Assert.True(UIElementFactory.GetElement(elementName, CurrentView).IsInvisible());
         }
         else
         {
@@ -146,11 +152,7 @@ public class CommonSteps
 
         if (display == "not ")
         {
-            Assert.False(
-                UIElementFactory
-                    .GetElement(elementName, CurrentView, locatorArgument)
-                    .WebElement.Displayed
-            );
+            Assert.True(UIElementFactory.GetElement(elementName, CurrentView).IsInvisible());
         }
         else
         {
@@ -237,10 +239,10 @@ public class CommonSteps
         Assert.That(message, Is.EqualTo(alert.Text));
     }
 
-    [When(@"the user accepts the alert")]
+    [When(@"(?:the user )?accepts the alert")]
     public void AcceptAlert()
     {
-        GenericWebDriver.Instance.SwitchTo().Alert().Accept();
+        GenericWebDriver.AcceptAlert();
     }
 
     [When(@"introduces his credentials")]
