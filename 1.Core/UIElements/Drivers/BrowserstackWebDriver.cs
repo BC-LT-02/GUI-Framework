@@ -41,7 +41,7 @@ public class BrowserstackWebDriverFactory
         {
             case "Chrome":
                 var chrome = new RemoteWebDriver(
-                    new Uri("https://hub.browserstack.com/wd/hub/"),
+                    new Uri(ConfigBuilder.Instance.GetString("ui", "BrowserStackUrl")),
                     AddOptions()
                 );
                 return chrome;

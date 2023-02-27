@@ -29,10 +29,8 @@ public class GenericWebDriver
         {
             case "BrowserStack":
                 return BrowserstackWebDriverFactory.GetDriver();
-            case "Local":
-                return WebDriverFactory.GetDriver(ConfigModel.DriverType);
             default:
-                return RemoteWebDriverFactory.GetDriver(ConfigModel.DriverType);
+                return WebDriverFactory.GetDriver(ConfigModel.DriverType);
         }
     }
 }

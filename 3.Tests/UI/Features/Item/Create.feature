@@ -5,7 +5,7 @@ Feature: Create an Item in a Project
         Given the user is logged in
     #And the user has an existing project
 
-    @regression @create.project.NewProject
+    @smoke @create.project.NewProject
     Scenario: Create an Item Successfully
         When the user clicks on 'Project Button' <NewProject> on 'Project Component'
         When enters the item "new katas for monday" on Add New Todo input

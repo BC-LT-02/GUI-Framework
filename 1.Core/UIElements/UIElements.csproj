@@ -13,7 +13,7 @@
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="110.0.5481.7700" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
     <Reference Include="RemoteWebDriver">
-      <HintPath>..\UIElements\first-sample-build.cs</HintPath>
+      <HintPath>..\UIElements\Drivers\RemoteWebDriver.cs</HintPath>
     </Reference>
   </ItemGroup>
 
