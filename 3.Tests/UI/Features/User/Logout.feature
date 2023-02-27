@@ -6,5 +6,5 @@ Feature: User Logout
 
     @Smoke
     Scenario: Logout off the site succesfully
-        When the user clicks on 'Logout' on 'Home Page'
+        When the user clicks on 'Logout' at 'Home Page'
         Then the user should be logged out from the site

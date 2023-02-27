@@ -7,6 +7,6 @@ Feature: Checking a Todo Item
 
     @Smoke @create.project.NewProject @create.item.NewItem
     Scenario: Checking an Item in a Project successfully
-        When the user clicks on 'Project Button' <NewProject> on 'Project Component'
+        When the user clicks on 'Project Button' <NewProject> at 'Project Component'
         When the user checks the item
         Then the item should be listed in the Done Items
