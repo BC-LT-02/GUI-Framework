@@ -80,6 +80,16 @@ public class DueDateStepDefinitions : CommonSteps
         Assert.That(actualText, Does.Contain("days overdue"));
     }
 
+    [Then(@"the item should be displayed in ""(.*)""")]
+    public void DisplayedInSection(string sectionName)
+    {
+        UIElementFactory.GetElement("Section Name", "Home Page", sectionName).Click();
+        string actualText = UIElementFactory
+            .GetElement("Get Item", "Items Component", _expectedItemName)
+            .WebElement.Text;
+        Assert.That(actualText, Does.Contain(_expectedItemName));
+    }
+
     [Then(@"the item should be displayed with the ""(.*)"" date-tag")]
     public void VerifyDueDate(string dateTag)
     {

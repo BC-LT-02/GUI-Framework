@@ -38,3 +38,15 @@ Feature: Item Due Date
             | 2 weeks  | 4 Jul 12:00 PM  |
             | 1 month  | 20 Jul 12:00 PM |
             | 2 months | 20 Aug 12:00 PM |
+
+    @Smoke @Regression @create.project.Today @create.item.GoToGym @Due_Date_Item @Jorge
+    Scenario Outline: Check if item appear on Today section
+        When the user clicks on 'Project Button' <Today> on 'Project Component'
+        And the user clicks on the Set Due Date option
+        And inputs "<Date>" as due date
+        Then the item should be displayed in "Today Section"
+
+        Examples:
+            | Date           | PostposeDate    |
+            | 1 Jan 12:00 AM | 21 Jun 12:00 PM |
+# | 1 Jan 12:00 AM | 22 Jun 12:00 PM |
