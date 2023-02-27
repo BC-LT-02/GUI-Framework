@@ -27,7 +27,9 @@ public class DueDateStepDefinitions : CommonSteps
     [When(@"the user clicks on the Set Due Date option")]
     public void ClickDueDateItem()
     {
-        _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
+        string itemName = UIElementFactory
+            .GetElement("Item Index", "Items Component", "1")
+            .WebElement.Text;
         _expectedItemName = itemName;
 
         WebActions.HoverElement(
@@ -39,6 +41,9 @@ public class DueDateStepDefinitions : CommonSteps
     [When(@"inputs ""(.*)"" as due date")]
     public void InputsNewDueDate(string dueDate)
     {
+        string format = "d MMM h:mm tt";
+        string today = DateTime.Now.ToString(format);
+        Console.WriteLine(today);
         _expectedItemDueDate = dueDate;
         GenericWebDriver.Wait.Until(
             ExpectedConditions.ElementIsVisible(
@@ -63,24 +68,7 @@ public class DueDateStepDefinitions : CommonSteps
         UIElementFactory.GetElement("Postpone Button", "Items Component").Click();
     }
 
-    [Then(@"the item should be displayed as overdue")]
-    public void DueDateOverdue()
-    {
-        GenericWebDriver.Wait.Until(
-            ExpectedConditions.TextToBePresentInElement(
-                UIElementFactory
-                    .GetElement("Item DueDate Td", "Items Component", _expectedItemName)
-                    .WebElement,
-                "days overdue"
-            )
-        );
-        string actualText = UIElementFactory
-            .GetElement("Item DueDate", "Items Component", _expectedItemName)
-            .WebElement.Text;
-        Assert.That(actualText, Does.Contain("days overdue"));
-    }
-
-    [Then(@"the item should be displayed in ""(.*)""")]
+    [Then(@"the item should be displayed in ""(.*)"" section")]
     public void DisplayedInSection(string sectionName)
     {
         UIElementFactory.GetElement("Section Name", "Home Page", sectionName).Click();
@@ -105,5 +93,22 @@ public class DueDateStepDefinitions : CommonSteps
             .GetElement("Item DueDate", "Items Component", _expectedItemName)
             .WebElement.Text;
         Assert.That(dateTag, Is.EqualTo(actualText));
+    }
+
+    [Then(@"the item should be displayed as overdue")]
+    public void DueDateOverdue()
+    {
+        GenericWebDriver.Wait.Until(
+            ExpectedConditions.TextToBePresentInElement(
+                UIElementFactory
+                    .GetElement("Item DueDate Td", "Items Component", _expectedItemName)
+                    .WebElement,
+                "days overdue"
+            )
+        );
+        string actualText = UIElementFactory
+            .GetElement("Item DueDate", "Items Component", _expectedItemName)
+            .WebElement.Text;
+        Assert.That(actualText, Does.Contain("days overdue"));
     }
 }

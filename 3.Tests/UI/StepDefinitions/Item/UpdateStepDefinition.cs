@@ -26,12 +26,13 @@ public class UpdateStepDefinitions : CommonSteps
     [When(@"the user clicks on the item")]
     public void ClickItem()
     {
-        _scenarioContext.TryGetValue(ConfigModel.CurrentItem, out string itemName);
+        string itemName = UIElementFactory.GetElement("Item Index", "Items Component", "1")
+                                          .WebElement.Text;
         GenericWebDriver.Wait.Until(
-            ExpectedConditions.TextToBePresentInElement(
-                UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement,
-                itemName
-            )
+           ExpectedConditions.TextToBePresentInElement(
+               UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement,
+               itemName
+           )
         );
         UIElementFactory.GetElement("Get Item", "Items Component", itemName).Click();
     }

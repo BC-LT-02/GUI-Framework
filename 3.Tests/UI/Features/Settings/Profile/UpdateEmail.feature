@@ -4,15 +4,15 @@ Feature: Email update
     Background:
         Given the user is logged in
 
-    @Acceptance @recover.email
+    @Smoke @Acceptance @recover.email
     Scenario: Update email succesfully
         When the user clicks on 'Settings' on 'Home Page'
             And types "testjg@email.com" on 'Email' on 'Profile Page'
             And clicks on 'Ok'
         Then an alert should appear with the message "Email Address has changed, please relogin." 
-        When the user clicks on the accept button being logged out
+        When the user accepts the alert
             And clicks on 'Login' on 'Login Page'
-            And introduces his new credentials
+            And introduces his credentials
             And clicks on 'Confirm Login'
         Then the 'Logout' should be displayed on 'Home Page'
 

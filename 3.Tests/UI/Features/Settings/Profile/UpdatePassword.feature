@@ -4,7 +4,7 @@ Feature: Password update
     Background:
         Given the user is logged in
 
-    @Acceptance @recover.password
+    @Smoke @Acceptance @recover.password
     Scenario: Update password succesfully
         When the user clicks on 'Settings' on 'Home Page'
             And types "Password Credential" on 'Old Password' on 'Profile Page'
