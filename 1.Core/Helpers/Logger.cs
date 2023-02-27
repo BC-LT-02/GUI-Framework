@@ -1,5 +1,5 @@
-﻿using Serilog;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using Serilog;
 
 namespace Todoly.Core.Helpers;
 public static class Logger
@@ -17,10 +17,7 @@ public static class Logger
 
             return _logger;
         }
-        set
-        {
-            _logger = value;
-        }
+        set => _logger = value;
     }
     public static ILogger[] CreateLoggersForTest(string? testName)
     {
