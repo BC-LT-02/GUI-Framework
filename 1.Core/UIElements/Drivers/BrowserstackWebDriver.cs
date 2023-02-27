@@ -71,15 +71,6 @@ public class BrowserstackWebDriverFactory
     public static DriverOptions AddOptions()
     {
         Dictionary<string, object> cap = new Dictionary<string, object>();
-        // cap.Add("browserName", "Chrome");
-        // cap.Add("browserVersion", "103.0");
-        // cap.Add("os", "Windows");
-        // cap.Add("osVersion", "11");
-
-        // cap.Add("browserName", "Firefox");
-        // cap.Add("browserVersion", "latest-beta");
-        // cap.Add("os", "OS X");
-        // cap.Add("osVersion", "Big Sur");
 
         cap.Add("browserName", "Edge");
         cap.Add("browserVersion", "latest");
