@@ -38,22 +38,47 @@ public class Hooks
         _urlItem = ConfigModel.ItemUri;
     }
 
+    [BeforeTestRun]
+    public static void BeforeTest()
+    {
+        string logsDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Logs");
+        string latestFilePath = Path.Combine(logsDirectory, $"Latest{DateTime.Now:yyyyMMddHH}.txt");
+
+        if (File.Exists(latestFilePath))
+        {
+            File.Delete(latestFilePath);
+        }
+    }
+
     [BeforeFeature]
     public static void BeforeFeature(FeatureContext context)
     {
-        Logger.CreateLoggerForTest(TestContext.CurrentContext.Test.Name).Information("Initializing {0} feature.", context.FeatureInfo.Title);
+        foreach (ILogger logger in Logger.Instance)
+        {
+            logger.Information("Initializing {0} feature.", context.FeatureInfo.Title);
+        }
     }
 
     [AfterFeature]
     public static void AfterFeature(FeatureContext context)
     {
-        Logger.CreateLoggerForTest(TestContext.CurrentContext.Test.Name).Information("Ending {0} feature.", context.FeatureInfo.Title);
+
+        foreach (ILogger logger in Logger.Instance)
+        {
+            logger.Information("Ending {0} feature.", context.FeatureInfo.Title);
+            logger.Information("Disposing driver.");
+        }
+
+        Logger.Instance = null!;
     }
 
     [BeforeScenario]
     public static void BeforeScenario(ScenarioContext context)
     {
-        Logger.CreateLoggerForTest(TestContext.CurrentContext.Test.Name).Information("Initializing {0} scenario.", context.ScenarioInfo.Title);
+        foreach (ILogger logger in Logger.Instance)
+        {
+            logger.Information("Initializing {0} scenario.", context.ScenarioInfo.Title);
+        }
     }
 
     [AfterTestRun]
@@ -198,8 +223,11 @@ public class Hooks
     [AfterScenario]
     public void SessionDisposal(ScenarioContext context)
     {
-        Logger.CreateLoggerForTest(TestContext.CurrentContext.Test.Name).Information("Ending {0} scenario.", context.ScenarioInfo.Title);
-        Logger.CreateLoggerForTest(TestContext.CurrentContext.Test.Name).Information("Disposing driver.");
+        foreach (ILogger logger in Logger.Instance)
+        {
+            logger.Information(messageTemplate: "Ending {0} scenario.", context.ScenarioInfo.Title);
+        }
+
         GenericWebDriver.Dispose();
     }
 }

@@ -5,6 +5,7 @@ using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.Interfaces;
+using Serilog;
 
 namespace Todoly.Core.UIElements.Web
 {
@@ -44,7 +45,10 @@ namespace Todoly.Core.UIElements.Web
                         }
                         catch
                         {
-                            Logger.CreateLoggerForTest(TestContext.CurrentContext.Test.Name).Error($"Unable to find {Name} element with {Locator} locator.");
+                            foreach(ILogger logger in Logger.Instance)
+                            {
+                                logger.Error($"Unable to find {Name} element with {Locator.Value} locator.");
+                            }
                         }
                     }
                 }
