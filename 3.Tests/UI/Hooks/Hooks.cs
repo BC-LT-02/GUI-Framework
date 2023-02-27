@@ -82,6 +82,7 @@ public class Hooks
         {
             logger.Information("Initializing {0} scenario.", context.ScenarioInfo.Title);
         }
+    }
 
     [AfterStep]
     public static void AfterStep(ScenarioContext context)
