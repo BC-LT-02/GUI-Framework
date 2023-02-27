@@ -16,3 +16,4 @@ jobs:
     needs: Check-Format-Issues
     name: Call UI tests workflow
     uses: ./.github/workflows/UITests.yml
+    secrets: inherit

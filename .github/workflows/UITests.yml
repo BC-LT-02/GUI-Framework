@@ -2,8 +2,6 @@ name: UI Test execution
 
 on:
   workflow_call:
-  schedule:
-    - cron: '0 */3 * * *' #Run every 3 hours
 
 jobs:
   Run-UI-Tests:
@@ -69,8 +67,6 @@ jobs:
       with:
         name: Run#${{ github.run_number }}_LivingDoc.html
         path: 3.Tests/UI/ReportOutputs/LivingDoc.html
-    - name: Screenshots of failed tests
-      run: cd 3.Tests/UI/bin/Debug
     - name: Upload failed test screenshots report file
       if: failure()
       uses: actions/upload-artifact@v3
