@@ -96,7 +96,9 @@ public class CommonSteps
         }
     }
 
-    [When(@"(?:the user )?opens the Project Context Menu on <([a-zA-Z ]+)>(?: at '([a-zA-Z ]+)')?$")]
+    [When(
+        @"(?:the user )?opens the Project Context Menu on <([a-zA-Z ]+)>(?: at '([a-zA-Z ]+)')?$"
+    )]
     public void OpenContextMenu(string locatorArgument, string viewName)
     {
         if (viewName != null)
@@ -116,7 +118,9 @@ public class CommonSteps
     public void ProjectContextMenuAction(string locatorArgument)
     {
         locatorArgument = ProjectContextMenuHelper.ParseButtonName(locatorArgument);
-        UIElementFactory.GetElement("Context Menu Buttons", "Project Component", locatorArgument).Click();
+        UIElementFactory
+            .GetElement("Context Menu Buttons", "Project Component", locatorArgument)
+            .Click();
     }
 
     [Then(@"the '(.*)' should (not )?be displayed(?: at '([a-zA-Z ]+)')?$")]
@@ -270,7 +274,10 @@ public class CommonSteps
             CurrentView = viewName;
         }
 
-        Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"), Is.EqualTo(newValue));
+        Assert.That(
+            UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"),
+            Is.EqualTo(newValue)
+        );
     }
 
     [When(@"the '(.*)' is selected at '(.*)'")]
@@ -281,6 +288,11 @@ public class CommonSteps
             CurrentView = viewName;
         }
 
-        Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("selected"), Is.EqualTo("true"));
+        Assert.That(
+            UIElementFactory
+                .GetElement(elementName, CurrentView)
+                .WebElement.GetAttribute("selected"),
+            Is.EqualTo("true")
+        );
     }
 }
