@@ -4,7 +4,7 @@ Feature: Project Deletion
     Background:
         Given the user is logged in
 
-    @Smoke @Regression @create.project.MyProject
+    @Smoke @Regression @delete.projects @create.project.MyProject
     Scenario: Delete a project
         When the user opens the Project Context Menu on <MyProject> at 'Project Component'
             And clicks on 'Delete' on the Project Context Menu

@@ -4,7 +4,7 @@
     Background:
         Given the user is logged in
 
-    @Regression @create.project.MyProject
+    @Regression @delete.projects @create.project.MyProject
     Scenario: Change a project image
         When the user opens the Project Context Menu on <MyProject> at 'Project Component'
             And clicks on 'Shopping Bag Image'

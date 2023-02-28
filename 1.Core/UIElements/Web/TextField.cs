@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.Interfaces;
@@ -22,17 +23,17 @@ namespace Todoly.Core.UIElements.Web
             }
             catch (ElementNotVisibleException error)
             {
-                System.Console.WriteLine($"Unable to visualize button: {Name}");
+                ConfigLogger.Error($"Unable to visualize {Name} button with ${Locator.Value}");
                 throw error;
             }
             catch (ElementNotInteractableException error)
             {
-                System.Console.WriteLine($"Unable to click button: {Name}");
+                ConfigLogger.Error($"Unable to interact with {Name} button with ${Locator.Value}");
                 throw error;
             }
             catch (WebDriverTimeoutException error)
             {
-                System.Console.WriteLine($"Text not cleared.");
+                ConfigLogger.Error($"{Name} text field not cleared.");
                 throw error;
             }
         }
@@ -56,7 +57,7 @@ namespace Todoly.Core.UIElements.Web
             }
             catch (WebDriverTimeoutException error)
             {
-                System.Console.WriteLine($"Keys not sent.");
+                ConfigLogger.Error($"Keys not sent to {Name} text field with ${Locator.Value}.");
                 throw error;
             }
         }

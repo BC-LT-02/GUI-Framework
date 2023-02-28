@@ -4,20 +4,20 @@ Feature: Items actions operations
     Background:
         Given the user is logged in
 
-    @create.project.Cleaning @UI_View_More
+    @delete.projects @create.project.Cleaning @UI_View_More
     Scenario: View More Options Successfully
         When the user clicks on 'Project Button' <Cleaning> at 'Project Component'
             And clicks on 'More Option' at 'Items Component'
         Then the 'More Options Panel' should be displayed
 
-    @create.project.Construction @UI_View_Less
+    @delete.projects @create.project.Construction @UI_View_Less
     Scenario: View Less Options Successfully
         When the user clicks on 'Project Button' <Construction> at 'Project Component'
             And clicks on 'More Option' at 'Items Component'
             And clicks on 'Less Option'
         Then the 'Less Options Panel' should not be displayed
 
-    @Smoke @Regression @create.project.Kids @create.item.EatLunch @delete.projects @UI_Priority_Item
+    @Smoke @Regression @delete.projects @create.project.Kids @create.item.EatLunch @UI_Priority_Item
     Scenario Outline: Place item priority
         When the user clicks on 'Project Button' <Kids> at 'Project Component'
             And the user hovers on "Get Item" <EatLunch> at 'Items Component'
@@ -31,13 +31,13 @@ Feature: Items actions operations
             | 3        | rgb(81, 153, 45)  |
             | 4        | rgb(0, 0, 0)      |
 
-    @Smoke @create.project.Washing @create.item.Car
+    @Smoke @delete.projects @create.project.Washing @create.item.Car
     Scenario: Checking an Item in a Project successfully
         When the user clicks on 'Project Button' <Washing> at 'Project Component'
             And the user checks "Car"
         Then "Car" should be listed in the Done Items
 
-    @smoke @create.project.Kids @create.item.Lunch @create.item.Sleep @delete.projects
+    @smoke @delete.projects @create.project.Kids @create.item.Lunch @create.item.Sleep
     Scenario Outline: Successfully addition of an item above or below an existing item
         When the user clicks on 'Project Button' <Kids> at 'Project Component'
             And the user hovers on "Get Item" <Lunch> at 'Items Component'
@@ -49,4 +49,3 @@ Feature: Items actions operations
             | Position | New_item  |
             | above    | Breakfast |
             | below    | Dinner    |
-
