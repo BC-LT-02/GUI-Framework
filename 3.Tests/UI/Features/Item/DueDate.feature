@@ -8,8 +8,8 @@ Feature: Item Due Date
     Scenario: Update the Due Date of an item succesfully
         When the user clicks on 'Project Button' <Calendar> at 'Project Component'
         And the user clicks on the Set Due Date option
-        And inputs "1 Mar 12:00 AM" as due date
-        Then the item should be displayed with the "1 Mar 12:00 AM" date-tag
+        And inputs "19 Mar 12:00 AM" as due date
+        Then the item should be displayed with the "19 Mar 12:00 AM" date-tag
 
     @Smoke @Regression @create.project.PastNotes @create.item.Apples @Due_Date_Item
     Scenario: Update the Due Date of an item succesfully to a date in the past
