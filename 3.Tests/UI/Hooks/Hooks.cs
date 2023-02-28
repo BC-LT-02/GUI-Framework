@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Allure.Commons;
 using OpenQA.Selenium;
 using RestSharp;
@@ -42,11 +43,14 @@ public class Hooks
     public static void BeforeTest()
     {
         string logsDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Logs");
-        string latestFilePath = Path.Combine(logsDirectory, $"Latest{DateTime.Now:yyyyMMddHH}.txt");
 
-        if (File.Exists(latestFilePath))
+        foreach (string filePath in Directory.GetFiles(logsDirectory))
         {
-            File.Delete(latestFilePath);
+            string fileName = Path.GetFileName(filePath);
+            if (Regex.IsMatch(fileName, @"Latest.*\.txt"))
+            {
+                File.Delete(filePath);
+            }
         }
 
         AllureLifecycle.Instance.CleanupResultDirectory();
