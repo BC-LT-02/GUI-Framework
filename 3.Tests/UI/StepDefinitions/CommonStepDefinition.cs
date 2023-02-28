@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
@@ -69,6 +70,13 @@ public class CommonSteps
         UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).Click();
     }
 
+    [When(@"enters the item ""(.*)"" on ""(.*)"" input")]
+    public void Whentheuserclicks(string itemName, string elementName)
+    {
+        UIElementFactory.GetElement(elementName, "Items Component").Type(itemName);
+        UIElementFactory.GetElement(elementName, "Items Component").Type(Keys.Enter);
+    }
+
     [When(@"(?:the user )?types ""(.*)"" on '([a-zA-Z ]+)'(?: at '([a-zA-Z ]+)')?$")]
     public void Type(string input, string elementName, string viewName)
     {
@@ -96,7 +104,9 @@ public class CommonSteps
         }
     }
 
-    [When(@"(?:the user )?opens the Project Context Menu on <([a-zA-Z ]+)>(?: at '([a-zA-Z ]+)')?$")]
+    [When(
+        @"(?:the user )?opens the Project Context Menu on <([a-zA-Z ]+)>(?: at '([a-zA-Z ]+)')?$"
+    )]
     public void OpenContextMenu(string locatorArgument, string viewName)
     {
         if (viewName != null)
@@ -141,7 +151,9 @@ public class CommonSteps
     public void ProjectContextMenuAction(string locatorArgument)
     {
         locatorArgument = ProjectContextMenuHelper.ParseButtonName(locatorArgument);
-        UIElementFactory.GetElement("Context Menu Buttons", "Project Component", locatorArgument).Click();
+        UIElementFactory
+            .GetElement("Context Menu Buttons", "Project Component", locatorArgument)
+            .Click();
     }
 
     [Then(@"the '(.*)' should (not )?be displayed(?: at '([a-zA-Z ]+)')?$")]
@@ -295,7 +307,10 @@ public class CommonSteps
             CurrentView = viewName;
         }
 
-        Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"), Is.EqualTo(newValue));
+        Assert.That(
+            UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"),
+            Is.EqualTo(newValue)
+        );
     }
 
     [When(@"the '(.*)' is selected at '(.*)'")]
@@ -306,6 +321,11 @@ public class CommonSteps
             CurrentView = viewName;
         }
 
-        Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("selected"), Is.EqualTo("true"));
+        Assert.That(
+            UIElementFactory
+                .GetElement(elementName, CurrentView)
+                .WebElement.GetAttribute("selected"),
+            Is.EqualTo("true")
+        );
     }
 }
