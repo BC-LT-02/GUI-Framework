@@ -19,7 +19,7 @@ Feature: Item Due Date
             | Today                | Today           |
             | Tomorrow             | Tomorrow        |
 
-    @Jorge @Smoke @Regression @create.project.NotImportant @delete.projects @create.item.Clean @Due_Date_Item
+    @Smoke @Regression @create.project.NotImportant @delete.projects @create.item.Clean @Due_Date_Item
     Scenario Outline: Postpone the Due Date of an item succesfully
         When the user clicks on 'Project Button' <NotImportant> at 'Project Component'
         And the user hovers on "Get Item" <Clean> at 'Items Component'
@@ -50,7 +50,7 @@ Feature: Item Due Date
         Then the "GoToGym" should be displayed in "<When>" section
 
         Examples:
-            | Date                | When  |
-            | 1 Jan 2020 12:00 AM | Today |
-            | 27 Feb 12:00 AM     | Today |
-            | 27 Aug 12:00 AM     | Next  |
+            | Date      | When  |
+            | Today     | Today |
+            | Yesterday | Today |
+            | Tomorrow  | Next  |

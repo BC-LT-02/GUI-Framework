@@ -34,6 +34,9 @@ public class DueDateStepDefinitions : CommonSteps
             case "Tomorrow":
                 dueDate = DateTime.Now.AddDays(1).ToString(format);
                 break;
+            case "Yesterday":
+                dueDate = DateTime.Now.AddDays(-1).ToString(format);
+                break;
             default:
                 break;
         }
