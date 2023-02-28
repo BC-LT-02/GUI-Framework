@@ -49,7 +49,7 @@ public class Hooks
         {
             File.Delete(filePath);
         }
-        
+
         AllureLifecycle.Instance.CleanupResultDirectory();
     }
 
