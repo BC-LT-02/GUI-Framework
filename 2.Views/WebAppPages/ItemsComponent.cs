@@ -124,4 +124,31 @@ public class ItemsComponent
         "DoneItemsShowLink"
     )]
     public Button? SeeAllCheckedItems { get; }
+    [Element("More Option", ElementType.Button)]
+    [Locator(
+        LocatorType.XPath,
+        "//img[@id='AddItemMore' and @src='/Images/AddItemBoxMoreNew.png']"
+    )]
+    public Button? MoreOptionButton { get; }
+
+    [Element("Less Option", ElementType.Button)]
+    [Locator(
+        LocatorType.XPath,
+        "//img[@id='AddItemMore' and @src='/Images/AddItemBoxLessNew.png']"
+    )]
+    public Button? LessOptionButton { get; }
+
+    [Element("More Options Panel", ElementType.Button)]
+    [Locator(
+        LocatorType.XPath,
+        "//div[@id='AddItemAdvPanel' and contains(@style, 'block')]"
+    )]
+    public Button? MoreOptionsPanel { get; }
+
+    [Element("Less Options Panel", ElementType.Button)]
+    [Locator(
+        LocatorType.XPath,
+        "//div[@id='AddItemAdvPanel' and contains(@style, 'none')]"
+    )]
+    public Button? LessOptionsPanel { get; }
 }

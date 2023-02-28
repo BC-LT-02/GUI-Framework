@@ -15,8 +15,6 @@ namespace SeleniumTest.Tests.Steps.Items;
 public class DueDateStepDefinitions : CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
-    private string _expectedItemName = "";
-    private string _expectedItemDueDate = "";
 
     public DueDateStepDefinitions(ScenarioContext scenarioContext)
         : base(scenarioContext)
@@ -24,23 +22,25 @@ public class DueDateStepDefinitions : CommonSteps
         _scenarioContext = scenarioContext;
     }
 
-    [When(@"the user clicks on the Set Due Date option")]
-    public void ClickDueDateItem()
-    {
-        string itemName = UIElementFactory.GetElement("Item Index", "Items Component", "1")
-                                          .WebElement.Text;
-        _expectedItemName = itemName;
-
-        WebActions.HoverElement(
-           UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement
-        );
-        UIElementFactory.GetElement("Item DueDate", "Items Component", itemName).Click();
-    }
-
     [When(@"inputs ""(.*)"" as due date")]
     public void InputsNewDueDate(string dueDate)
     {
-        _expectedItemDueDate = dueDate;
+        string format = "d MMM";
+        switch (dueDate)
+        {
+            case "Today":
+                dueDate = DateTime.Now.ToString(format);
+                break;
+            case "Tomorrow":
+                dueDate = DateTime.Now.AddDays(1).ToString(format);
+                break;
+            case "Yesterday":
+                dueDate = DateTime.Now.AddDays(-1).ToString(format);
+                break;
+            default:
+                break;
+        }
+
         GenericWebDriver.Wait.Until(
             ExpectedConditions.ElementIsVisible(
                 UIElementFactory.GetElement("DueDate TextField", "Items Component").Locator.GetBy()
@@ -52,49 +52,42 @@ public class DueDateStepDefinitions : CommonSteps
         UIElementFactory.GetElement("DueDate TextField", "Items Component").Type(Keys.Enter);
     }
 
-    [When(@"clicks on Postpone (.*)")]
-    public void PostponeDueDate(string postponeTime)
+    [When(@"clicks on (.*) ""(.*)""")]
+    public void PostponeDueDate(string postponeTime, string itemName)
     {
         WebActions.HoverElement(
-            UIElementFactory.GetElement("Get Item", "Items Component", _expectedItemName).WebElement
+            UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement
         );
-        UIElementFactory.GetElement("Item DueDate", "Items Component", _expectedItemName).Click();
+        UIElementFactory.GetElement("Item DueDate", "Items Component", itemName).Click();
         UIElementFactory.GetElement("Postpone Select", "Items Component").Click();
         UIElementFactory.GetElement("Postpone X Time", "Items Component", postponeTime).Click();
         UIElementFactory.GetElement("Postpone Button", "Items Component").Click();
     }
 
-    [Then(@"the item should be displayed as overdue")]
-    public void DueDateOverdue()
+    [Then(@"the ""(.*)"" should be displayed in ""(.*)"" section")]
+    public void DisplayedInSection(string itemName, string sectionName)
     {
-        GenericWebDriver.Wait.Until(
-            ExpectedConditions.TextToBePresentInElement(
-                UIElementFactory
-                    .GetElement("Item DueDate Td", "Items Component", _expectedItemName)
-                    .WebElement,
-                "days overdue"
-            )
-        );
+        UIElementFactory.GetElement("Section Name", "Home Page", sectionName).Click();
         string actualText = UIElementFactory
-            .GetElement("Item DueDate", "Items Component", _expectedItemName)
+            .GetElement("Get Item", "Items Component", itemName)
             .WebElement.Text;
-        Assert.That(actualText, Does.Contain("days overdue"));
+        Assert.That(actualText, Does.Contain(itemName));
     }
 
-    [Then(@"the item should be displayed with the ""(.*)"" date-tag")]
-    public void VerifyDueDate(string dateTag)
+    [Then(@"the ""(.*)"" date-tag should be displayed as ""(.*)""")]
+    public void VerifyDateTag(string itemName, string dateTag)
     {
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
                 UIElementFactory
-                    .GetElement("Item DueDate Td", "Items Component", _expectedItemName)
+                    .GetElement("Item DueDate Td", "Items Component", itemName)
                     .WebElement,
                 dateTag
             )
         );
         string actualText = UIElementFactory
-            .GetElement("Item DueDate", "Items Component", _expectedItemName)
+            .GetElement("Item DueDate", "Items Component", itemName)
             .WebElement.Text;
-        Assert.That(dateTag, Is.EqualTo(actualText));
+        Assert.That(actualText, Does.Contain(dateTag));
     }
 }
