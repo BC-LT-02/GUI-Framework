@@ -25,13 +25,8 @@ public class GenericWebDriver
     public static IWebDriver LoadDriver()
     {
         var key = ConfigBuilder.Instance.GetString("ui", "DriverLocation");
-        switch (key)
-        {
-            case "BrowserStack":
-                return BrowserstackWebDriverFactory.GetDriver();
-            default:
-                return WebDriverFactory.GetDriver(ConfigModel.DriverType);
-        }
+
+        return WebDriverFactory.GetDriver(key);
     }
 
     public static void AcceptAlert()

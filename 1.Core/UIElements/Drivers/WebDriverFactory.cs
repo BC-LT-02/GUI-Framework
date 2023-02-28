@@ -26,6 +26,9 @@ public class WebDriverFactory
             case "Firefox":
                 driver = new FirefoxDriver();
                 break;
+            case "BrowserStack":
+                driver = BrowserstackWebDriverFactory.GetDriver();
+                break;
             default:
                 throw new NotImplementedException("Error specifying the driver");
         }

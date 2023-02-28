@@ -1,9 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.Safari;
 using Todoly.Core.Helpers;
 
 namespace Todoly.Core.UIElements.Drivers;
@@ -14,12 +10,6 @@ internal class BrowserStackOptions : DriverOptions
     {
         BrowserName = browser_name;
         BrowserVersion = browser_version;
-    }
-
-    [Obsolete]
-    public override void AddAdditionalCapability(string capabilityName, object capabilityValue)
-    {
-        AddAdditionalOption(capabilityName, capabilityValue);
     }
 
     public override ICapabilities ToCapabilities()
@@ -37,16 +27,6 @@ public class BrowserstackWebDriverFactory
     public static readonly string DriverType = ConfigModel.DriverType;
 
     public static IWebDriver GetDriver() => new RemoteWebDriver(new Uri(BROWSERSTACK_URL), AddOptions());
-
-    public static IWebDriver BasicConfigs(IWebDriver driver)
-    {
-        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(
-            ConfigModel.DriverImplicitTimeout
-        );
-        driver.Manage().Window.Maximize();
-        return driver;
-    }
-
     public static DriverOptions AddOptions()
     {
         var capabilities = new Dictionary<string, object>()

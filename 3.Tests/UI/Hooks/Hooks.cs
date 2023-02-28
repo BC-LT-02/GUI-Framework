@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Allure.Commons;
 using OpenQA.Selenium;
 using RestSharp;
@@ -50,7 +51,11 @@ public class Hooks
         if (context.TestError != null)
         {
             byte[] content = GetScreenshot();
-            AllureLifecycle.Instance.AddAttachment("Failed test screenshot", "application/png", content);
+            AllureLifecycle.Instance.AddAttachment(
+                "Failed test screenshot",
+                "application/png",
+                content
+            );
         }
     }
 
@@ -121,9 +126,15 @@ public class Hooks
     [AfterScenario]
     public void CaptureScreenshot()
     {
+        string title = Regex.Replace(_scenarioContext.ScenarioInfo.Title, "(?i)successfully", "");
+
         if (_scenarioContext.TestError != null)
         {
-            ((IJavaScriptExecutor)GenericWebDriver.Instance).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \" Title not matched \"}}");
+            ((IJavaScriptExecutor)GenericWebDriver.Instance).ExecuteScript(
+                "browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \" "
+                    + title
+                    + " failed\"}}"
+            );
             Screenshot image = ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot();
             string path = $"../../../Assets/{_scenarioContext.ScenarioInfo.Title}";
             path = string.Join(
@@ -145,6 +156,14 @@ public class Hooks
             );
 
             image.SaveAsFile($"{path}/{fileName}.png", ScreenshotImageFormat.Png);
+        }
+        else
+        {
+            ((IJavaScriptExecutor)GenericWebDriver.Instance).ExecuteScript(
+                "browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \" "
+                    + title
+                    + " successfully\"}}"
+            );
         }
 
         GenericWebDriver.Dispose();
