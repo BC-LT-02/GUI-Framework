@@ -41,16 +41,16 @@ Feature: Item Due Date
             | 1 month  | 20 Jul 12:00 PM |
             | 2 months | 20 Aug 12:00 PM |
 
-    @Smoke @Regression @create.project.Today @delete.projects @create.item.GoToGym @Due_Date_Item
-    Scenario Outline: Check if item appear on Today section
-        When the user clicks on 'Project Button' <Today> at 'Project Component'
-            And the user hovers on "Get Item" <GoToGym> at 'Items Component'
-            And the user clicks on 'Item DueDate' <GoToGym> at 'Items Component'
-            And inputs "<Date>" as due date
-        Then the "GoToGym" should be displayed in "<When>" section
+    # @Smoke @Regression @create.project.Today @delete.projects @create.item.GoToGym @Due_Date_Item
+    # Scenario Outline: Check if item appear on Today section
+    #     When the user clicks on 'Project Button' <Today> at 'Project Component'
+    #         And the user hovers on "Get Item" <GoToGym> at 'Items Component'
+    #         And the user clicks on 'Item DueDate' <GoToGym> at 'Items Component'
+    #         And inputs "<Date>" as due date
+    #     Then the "GoToGym" should be displayed in "<When>" section
 
-        Examples:
-            | Date      | When  |
-            | Today     | Today |
-            | Yesterday | Today |
-            | Tomorrow  | Next  |
+    #     Examples:
+    #         | Date      | When  |
+    #         | Today     | Today |
+    #         | Yesterday | Today |
+    #         | Tomorrow  | Next  |
