@@ -146,7 +146,7 @@ public class Hooks
     }
 
     [BeforeScenario(Order = 2)]
-    public void CreateAnItem()
+    public void CreateItems()
     {
         var itemNameTags = _scenarioContext.ScenarioInfo.Tags.ToList();
 
@@ -160,10 +160,13 @@ public class Hooks
             return;
         }
 
-        foreach (var itemName in itemNameTags)
+        foreach (string itemName in itemNameTags)
         {
-            string payload =
-                $"{{ \"Content\": \"{itemName}\", \"ProjectId\": {_projectModel!.Id} }}";
+            bool isChecked = itemName.Contains("checked.");
+
+            string payload = isChecked
+                ? $"{{ \"Content\": \"{itemName.Replace("checked.", "")}\", \"ProjectId\": {_projectModel!.Id}, \"Checked\": \"true\" }}"
+                : $"{{ \"Content\": \"{itemName}\", \"ProjectId\": {_projectModel!.Id} }}";
 
             _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
