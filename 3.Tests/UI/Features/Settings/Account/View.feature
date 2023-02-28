@@ -5,6 +5,6 @@ Feature: Settings account view
 
     @Regression
     Scenario: View account settings succesfully
-        When the user clicks on 'Settings' on 'Home Page'
+        When the user clicks on 'Settings' at 'Home Page'
         And clicks on 'Account'
-        Then the 'Delete Account' should be displayed on 'Home Page'
+        Then the 'Delete Account' should be displayed at 'Home Page'

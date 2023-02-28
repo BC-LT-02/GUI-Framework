@@ -6,7 +6,7 @@
 
     @Smoke @Regression
     Scenario: Create a new project
-        When the user clicks on 'Add New Project' on 'Home Page'
+        When the user clicks on 'Add New Project' at 'Home Page'
             And types "My New Project" on 'New Project Name'
             And clicks on 'Add New Project Name'
-        Then the 'Project Button' <My New Project> should be displayed on 'Project Component'
+        Then the 'Project Button' <My New Project> should be displayed at 'Project Component'
