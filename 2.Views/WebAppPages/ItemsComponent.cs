@@ -111,14 +111,14 @@ public class ItemsComponent
     )]
     public Button? GetItemDueDateTd { get; }
 
-    [Element("More Options", ElementType.Button)]
+    [Element("More Option", ElementType.Button)]
     [Locator(
         LocatorType.XPath,
         "//img[@id='AddItemMore' and @src='/Images/AddItemBoxMoreNew.png']"
     )]
     public Button? MoreOptionButton { get; }
 
-    [Element("Less Options", ElementType.Button)]
+    [Element("Less Option", ElementType.Button)]
     [Locator(
         LocatorType.XPath,
         "//img[@id='AddItemMore' and @src='/Images/AddItemBoxLessNew.png']"

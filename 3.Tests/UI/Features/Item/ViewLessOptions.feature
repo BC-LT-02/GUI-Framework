@@ -5,6 +5,6 @@ Feature: View Less Options
     Scenario: View More Options Successfully
         Given the user is logged in
         When the user clicks on 'Project Button' <NewProject> at 'Project Component'
-            And clicks on 'More Options' at 'Items Component'
-            And clicks on 'Less Options'
+            And clicks on 'More Option' at 'Items Component'
+            And clicks on 'Less Option'
         Then the 'Less Options Panel' should not be displayed
