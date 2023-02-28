@@ -112,6 +112,31 @@ public class CommonSteps
         UIElementFactory.GetElement("Project Context Button", CurrentView, locatorArgument).Click();
     }
 
+    [When(@"the user drags and drop '([\w ]+)' '([\w ]+)' (above|on top of) '([\w ]+)'(?: at '([a-zA-Z ]+)')?$")]
+    public void DragAndDrop(string locatorArgument1, string elementName, string placeToDrop, string locatorArgument2, string viewName)
+    {
+        if (viewName != null)
+        {
+            CurrentView = viewName;
+        }
+
+        int x = 0, y = 0;
+        if (placeToDrop == "above")
+        {
+            y = -1;
+        }
+        else if (placeToDrop == "on top of")
+        {
+            x = 15;
+            y = 1;
+        }
+
+        var source = UIElementFactory.GetElement(elementName, CurrentView, locatorArgument1).WebElement;
+        var target = UIElementFactory.GetElement(elementName, CurrentView, locatorArgument2).WebElement;
+
+        WebActions.DragAndDrop(source, target, x, y);
+    }
+
     [When(@"(?:the user )?clicks on '([a-zA-Z ]+)' on the Project Context Menu")]
     public void ProjectContextMenuAction(string locatorArgument)
     {

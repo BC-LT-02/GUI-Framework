@@ -1,4 +1,4 @@
-Feature: Project Creation Above
+Feature: Project Creation Above and Below
     As a logged in user, the user should be able to add a project above or below another one.
 
     Background:
