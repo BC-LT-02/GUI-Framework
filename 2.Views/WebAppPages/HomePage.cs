@@ -95,6 +95,6 @@ public class HomePage
     public Button InfoMessageText => new Button("", new Locator(LocatorType.Id, "InfoMessageText"));
 
     [Element("Section Name", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//ul[@id='mainFilterList']//*[text()='{0}']")]
+    [Locator(LocatorType.XPath, "//td[@class='FilterItemContent' and text()='{0}']")]
     public Button? SectionName { get; }
 }

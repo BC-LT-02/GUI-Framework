@@ -68,7 +68,7 @@ public class DueDateStepDefinitions : CommonSteps
     public void DisplayedInSection(string itemName, string sectionName)
     {
         UIElementFactory.GetElement("Section Name", "Home Page", sectionName).Click();
-        Assert.True(UIElementFactory.GetElement("Get Item", CurrentView, itemName).WebElement.Displayed);
+        Assert.True(UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement.Displayed);
     }
 
     [Then(@"the ""(.*)"" date-tag should be displayed as ""(.*)""")]
