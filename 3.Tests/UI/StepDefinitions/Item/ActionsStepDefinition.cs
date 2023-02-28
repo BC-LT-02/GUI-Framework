@@ -45,13 +45,6 @@ public class PriorityStepDefinitions : CommonSteps
         }
     }
 
-    [Then(@"the user enters ""(.*)"" and saves it")]
-    public void Thentheuserentersandsavesit(string newItem)
-    {
-        UIElementFactory.GetElement("Edit Item", "Items Component").Type(newItem);
-        UIElementFactory.GetElement("Edit Item", "Items Component").Type(newItem);
-    }
-
     [Then(@"the <([\w ]+)> color should be (.*)")]
     public void PriorityShouldBeSet(string itemName, string itemColor)
     {

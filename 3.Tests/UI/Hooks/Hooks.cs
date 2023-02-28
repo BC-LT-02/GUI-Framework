@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Allure.Commons;
 using OpenQA.Selenium;
 using RestSharp;
@@ -39,9 +40,43 @@ public class Hooks
     }
 
     [BeforeTestRun]
-    public static void BeforeTestRun()
+    public static void BeforeTest()
     {
+        string logsDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Logs");
+
+        if (Directory.Exists(logsDirectory))
+        {
+            foreach (string filePath in Directory.GetFiles(logsDirectory))
+            {
+                string fileName = Path.GetFileName(filePath);
+                if (Regex.IsMatch(fileName, @"Latest.*\.txt"))
+                {
+                    File.Delete(filePath);
+                }
+            }
+        }
+
         AllureLifecycle.Instance.CleanupResultDirectory();
+    }
+
+    [BeforeFeature]
+    public static void BeforeFeature(FeatureContext context)
+    {
+        ConfigLogger.Information($"Initializing {context.FeatureInfo.Title} feature");
+    }
+
+    [AfterFeature]
+    public static void AfterFeature(FeatureContext context)
+    {
+        ConfigLogger.Information($"Ending {context.FeatureInfo.Title} feature");
+        ConfigLogger.Information("Disposing driver.");
+        ConfigLogger.Instance = null!;
+    }
+
+    [BeforeScenario]
+    public static void BeforeScenario(ScenarioContext context)
+    {
+        ConfigLogger.Information($"Initializing {context.ScenarioInfo.Title} scenario");
     }
 
     [AfterStep]
@@ -201,8 +236,10 @@ public class Hooks
     }
 
     [AfterScenario]
-    public void SessionDisposal()
+    public void SessionDisposal(ScenarioContext context)
     {
+        ConfigLogger.Information($"Ending {context.ScenarioInfo.Title} scenario");
+
         GenericWebDriver.Dispose();
     }
 }
