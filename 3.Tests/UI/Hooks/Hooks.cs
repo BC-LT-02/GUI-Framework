@@ -44,15 +44,12 @@ public class Hooks
     {
         string logsDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Logs");
 
-        foreach (string filePath in Directory.GetFiles(logsDirectory))
+        string filePath = Directory.EnumerateFiles(logsDirectory, "Latest*.txt", SearchOption.TopDirectoryOnly).FirstOrDefault()!;
+        if (filePath != null)
         {
-            string fileName = Path.GetFileName(filePath);
-            if (Regex.IsMatch(fileName, @"Latest.*\.txt"))
-            {
-                File.Delete(filePath);
-            }
+            File.Delete(filePath);
         }
-
+        
         AllureLifecycle.Instance.CleanupResultDirectory();
     }
 
