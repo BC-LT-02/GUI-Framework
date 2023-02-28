@@ -33,31 +33,10 @@ public class BrowserstackWebDriverFactory
 {
     public static readonly string BROWSERSTACK_USERNAME = ConfigModel.BROWSERSTACK_USERNAME;
     public static readonly string BROWSERSTACK_ACCESSKEY = ConfigModel.BROWSERSTACK_ACCESSKEY;
+    public static readonly string BROWSERSTACK_URL = ConfigModel.BROWSERSTACK_URL;
+    public static readonly string DriverType = ConfigModel.DriverType;
 
-    public static IWebDriver GetDriver()
-    {
-        string driverType = ConfigBuilder.Instance.GetString("ui", "DriverType");
-        switch (driverType)
-        {
-            case "Chrome":
-                var chrome = new RemoteWebDriver(
-                    new Uri(ConfigBuilder.Instance.GetString("ui", "BrowserStackUrl")),
-                    AddOptions()
-                );
-                return chrome;
-            case "Edge":
-                var edge = new EdgeDriver();
-                return BasicConfigs(edge);
-            case "Safari":
-                var safari = new SafariDriver();
-                return BasicConfigs(safari);
-            case "Firefox":
-                var firefox = new FirefoxDriver();
-                return BasicConfigs(firefox);
-            default:
-                throw new NotImplementedException("Error specifying the BitBar driver");
-        }
-    }
+    public static IWebDriver GetDriver() => new RemoteWebDriver(new Uri(BROWSERSTACK_URL), AddOptions());
 
     public static IWebDriver BasicConfigs(IWebDriver driver)
     {
@@ -70,24 +49,25 @@ public class BrowserstackWebDriverFactory
 
     public static DriverOptions AddOptions()
     {
-        Dictionary<string, object> cap = new Dictionary<string, object>();
+        var capabilities = new Dictionary<string, object>()
+        {
+            {"browserName", DriverType},
+            {"browserVersion", "latest"},
+            {"os", "OS X"},
+            {"osVersion", "Monterey"},
+            { "userName", BROWSERSTACK_USERNAME },
+            { "accessKey", BROWSERSTACK_ACCESSKEY },
+            { "buildName", "browserstack-build-1" }
+        };
 
-        cap.Add("browserName", "Edge");
-        cap.Add("browserVersion", "latest");
-        cap.Add("os", "OS X");
-        cap.Add("osVersion", "Monterey");
-
-        string build_name = "browserstack-build-1";
-        cap.Add("userName", BROWSERSTACK_USERNAME);
-        cap.Add("accessKey", BROWSERSTACK_ACCESSKEY);
-        cap.Add("buildName", build_name);
         string browserVersion =
-            cap.ContainsKey("browserVersion") == true ? (string)cap["browserVersion"] : "";
+            capabilities.ContainsKey("browserVersion") == true ? (string)capabilities["browserVersion"] : "";
         var browserstackOptions = new BrowserStackOptions(
-            (string)cap["browserName"],
+            (string)capabilities["browserName"],
             browserVersion
         );
-        browserstackOptions.AddAdditionalOption("bstack:options", cap);
+
+        browserstackOptions.AddAdditionalOption("bstack:options", capabilities);
         return browserstackOptions;
     }
 }

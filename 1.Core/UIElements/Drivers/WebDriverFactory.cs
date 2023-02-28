@@ -11,23 +11,26 @@ public class WebDriverFactory
 {
     public static IWebDriver GetDriver(string driverType)
     {
+        IWebDriver driver;
         switch (driverType)
         {
             case "Chrome":
-                var chrome = new ChromeDriver(AddChromeOptions());
-                return BasicConfigs(chrome);
+                driver = new ChromeDriver(AddChromeOptions());
+                break;
             case "Edge":
-                var edge = new EdgeDriver();
-                return BasicConfigs(edge);
+                driver = new EdgeDriver();
+                break;
             case "Safari":
-                var safari = new SafariDriver();
-                return BasicConfigs(safari);
+                driver = new SafariDriver();
+                break;
             case "Firefox":
-                var firefox = new FirefoxDriver();
-                return BasicConfigs(firefox);
+                driver = new FirefoxDriver();
+                break;
             default:
                 throw new NotImplementedException("Error specifying the driver");
         }
+
+        return BasicConfigs(driver);
     }
 
     public static IWebDriver BasicConfigs(IWebDriver driver)
