@@ -4,6 +4,7 @@ using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Core.UIElements.WebActions;
+using Todoly.Views.Helpers;
 using Todoly.Views.WebAppPages;
 
 namespace Todoly.Tests.UI.Steps.Commons;
@@ -46,7 +47,7 @@ public class CommonSteps
         _loginPage.LoginIntoApplication();
     }
 
-    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)'(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)'(?: at '([a-zA-Z ]+)')?$")]
     public void Click(string elementName, string viewName)
     {
         if (viewName != null)
@@ -57,7 +58,7 @@ public class CommonSteps
         UIElementFactory.GetElement(elementName, CurrentView).Click();
     }
 
-    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)' <([a-zA-Z ]+)>(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)' <([a-zA-Z ]+)>(?: at '([a-zA-Z ]+)')?$")]
     public void Click(string elementName, string locatorArgument, string viewName)
     {
         if (viewName != null)
@@ -68,7 +69,7 @@ public class CommonSteps
         UIElementFactory.GetElement(elementName, CurrentView, locatorArgument).Click();
     }
 
-    [When(@"(?:the user )?types ""(.*)"" on '([a-zA-Z ]+)'(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?types ""(.*)"" on '([a-zA-Z ]+)'(?: at '([a-zA-Z ]+)')?$")]
     public void Type(string input, string elementName, string viewName)
     {
         if (viewName != null)
@@ -95,7 +96,7 @@ public class CommonSteps
         }
     }
 
-    [When(@"(?:the user )?opens the context menu on <([a-zA-Z ]+)>(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?opens the Project Context Menu on <([a-zA-Z ]+)>(?: at '([a-zA-Z ]+)')?$")]
     public void OpenContextMenu(string locatorArgument, string viewName)
     {
         if (viewName != null)
@@ -111,7 +112,14 @@ public class CommonSteps
         UIElementFactory.GetElement("Project Context Button", CurrentView, locatorArgument).Click();
     }
 
-    [Then(@"the '(.*)' should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?clicks on '([a-zA-Z ]+)' on the Project Context Menu")]
+    public void ProjectContextMenuAction(string locatorArgument)
+    {
+        locatorArgument = ProjectContextMenuHelper.ParseButtonName(locatorArgument);
+        UIElementFactory.GetElement("Context Menu Buttons", "Project Component", locatorArgument).Click();
+    }
+
+    [Then(@"the '(.*)' should (not )?be displayed(?: at '([a-zA-Z ]+)')?$")]
     public void ValidateDisplay(string elementName, string display, string viewName)
     {
         if (viewName != null)
@@ -121,9 +129,7 @@ public class CommonSteps
 
         if (display == "not ")
         {
-            Assert.False(
-                UIElementFactory.GetElement(elementName, CurrentView).WebElement.Displayed
-            );
+            Assert.True(UIElementFactory.GetElement(elementName, CurrentView).IsInvisible());
         }
         else
         {
@@ -131,7 +137,7 @@ public class CommonSteps
         }
     }
 
-    [Then(@"the '(.*)' <(.*)> should (not )?be displayed(?: on '([a-zA-Z ]+)')?$")]
+    [Then(@"the '(.*)' <(.*)> should (not )?be displayed(?: at '([a-zA-Z ]+)')?$")]
     public void ValidateDisplay(
         string elementName,
         string locatorArgument,
@@ -146,11 +152,7 @@ public class CommonSteps
 
         if (display == "not ")
         {
-            Assert.False(
-                UIElementFactory
-                    .GetElement(elementName, CurrentView, locatorArgument)
-                    .WebElement.Displayed
-            );
+            Assert.True(UIElementFactory.GetElement(elementName, CurrentView).IsInvisible());
         }
         else
         {
@@ -162,7 +164,7 @@ public class CommonSteps
         }
     }
 
-    [When(@"(?:the user )?hovers on '([a-zA-Z ]+)'(?: on '([a-zA-Z ]+)')?$")]
+    [When(@"(?:the user )?hovers on '([a-zA-Z ]+)'(?: at '([a-zA-Z ]+)')?$")]
     public void Hover(string elementName, string viewName)
     {
         if (viewName != null)
@@ -173,7 +175,7 @@ public class CommonSteps
         WebActions.HoverElement(UIElementFactory.GetElement(elementName, CurrentView).WebElement);
     }
 
-    [When(@"(?:the user )?hovers on ""([\w ]+)""(?: <([\w ]+)>)?(?: on '([\w ]+)')?$")]
+    [When(@"(?:the user )?hovers on ""([\w ]+)""(?: <([\w ]+)>)?(?: at '([\w ]+)')?$")]
     public void HoverItemName(string elementName, string itemName, string viewName)
     {
         if (viewName != null)
@@ -187,7 +189,7 @@ public class CommonSteps
     }
 
     [When(
-        @"(?:the user )?clicks on [\x22']([\w ]+)[\x22'](?: <([\w ]+)>)?(?: on [\x22']([\w ]+)[\x22'])? option on [\x22']([\w ]+)[\x22']$"
+        @"(?:the user )?clicks on [\x22']([\w ]+)[\x22'](?: <([\w ]+)>)?(?: on [\x22']([\w ]+)[\x22'])? option at [\x22']([\w ]+)[\x22']$"
     )]
     public void ClickContextOption(
         string elementName,
@@ -216,7 +218,7 @@ public class CommonSteps
         );
     }
 
-    [Then(@"the snack bar message is '(.*)' on '([a-zA-Z ]+)'")]
+    [Then(@"the snack bar message is '(.*)' at '([a-zA-Z ]+)'")]
     public void Giventhesnackbarmessageis(string expectedMessage, string viewName)
     {
         if (viewName != null)
@@ -237,10 +239,10 @@ public class CommonSteps
         Assert.That(message, Is.EqualTo(alert.Text));
     }
 
-    [When(@"the user accepts the alert")]
+    [When(@"(?:the user )?accepts the alert")]
     public void AcceptAlert()
     {
-        GenericWebDriver.Instance.SwitchTo().Alert().Accept();
+        GenericWebDriver.AcceptAlert();
     }
 
     [When(@"introduces his credentials")]
@@ -260,7 +262,7 @@ public class CommonSteps
         _loginPage.PasswordTextField.Type(_loginPage.PassCredentials);
     }
 
-    [Then(@"the '(.*)' value is updated with '(.*)' on '(.*)'")]
+    [Then(@"the '(.*)' value is updated with '(.*)' at '(.*)'")]
     public void VerifyElementValueUpdate(string elementName, string newValue, string viewName)
     {
         if (viewName != null)
@@ -271,7 +273,7 @@ public class CommonSteps
         Assert.That(UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"), Is.EqualTo(newValue));
     }
 
-    [When(@"the '(.*)' is selected on '(.*)'")]
+    [When(@"the '(.*)' is selected at '(.*)'")]
     public void VerifyElementIsSelected(string elementName, string viewName)
     {
         if (viewName != null)

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using Allure.Commons;
 using OpenQA.Selenium;
 using RestSharp;
 using TechTalk.SpecFlow;
@@ -35,6 +36,27 @@ public class Hooks
         _userFullName = ConfigModel.UserFullName;
         _userTimeZone = ConfigModel.UserTimeZone;
         _urlItem = ConfigModel.ItemUri;
+    }
+
+    [BeforeTestRun]
+    public static void BeforeTestRun()
+    {
+        AllureLifecycle.Instance.CleanupResultDirectory();
+    }
+
+    [AfterStep]
+    public static void AfterStep(ScenarioContext context)
+    {
+        if (context.TestError != null)
+        {
+            byte[] content = GetScreenshot();
+            AllureLifecycle.Instance.AddAttachment("Failed test screenshot", "application/png", content);
+        }
+    }
+
+    private static byte[] GetScreenshot()
+    {
+        return ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot().AsByteArray;
     }
 
     [AfterTestRun]

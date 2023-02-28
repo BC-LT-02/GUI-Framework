@@ -4,7 +4,7 @@ Feature: User Login
     @Smoke
     Scenario: Login into the site succesfully
     Given the user navigates to the URL
-    When the user clicks on 'Login' on 'Login Page'
+    When the user clicks on 'Login' at 'Login Page'
         And introduces his credentials
         And clicks on 'Confirm Login'
-        Then the user should be able to see the 'Logout' button on 'Home Page'
+        Then the user should be able to see the 'Logout' button at 'Home Page'

@@ -34,7 +34,33 @@ jobs:
         docker-compose -f 1.Core/Docker/${DriverType}.yml up -d
     - name: Run UI Tests
       run: dotnet test 3.Tests/UI --no-build --no-restore
-      
+    - name: Get Allure history
+      uses: actions/checkout@v3
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+          
+    - name: Allure Report action from marketplace
+      uses: simple-elf/allure-report-action@master
+      if: always()
+      id: allure-report
+      with:
+        allure_results: 3.Tests/UI/bin/Debug/net6.0/allure-results
+        gh_pages: gh-pages
+        allure_report: allure-report
+        allure_history: allure-history
+
+    - name: Deploy report to Github Pages
+      if: always()
+      uses: peaceiris/actions-gh-pages@v2
+      env:
+        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: allure-history
+    #- name: Run API Tests
+    #  run: dotnet test 3.Tests/API --no-build --no-restore --filter "Category=Acceptance | Category=Negative"
     - name: End docker sessions
       if: always()
       run: |
