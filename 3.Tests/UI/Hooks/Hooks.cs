@@ -130,11 +130,15 @@ public class Hooks
 
         if (_scenarioContext.TestError != null)
         {
-            ((IJavaScriptExecutor)GenericWebDriver.Instance).ExecuteScript(
-                "browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \" "
-                    + title
-                    + " failed\"}}"
-            );
+            if (ConfigBuilder.Instance.GetString("ui", "DriverLocation") == "BrowserStack")
+            {
+                ((IJavaScriptExecutor)GenericWebDriver.Instance).ExecuteScript(
+                    "browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \" "
+                        + title
+                        + " failed\"}}"
+                );
+            }
+
             Screenshot image = ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot();
             string path = $"../../../Assets/{_scenarioContext.ScenarioInfo.Title}";
             path = string.Join(
@@ -159,11 +163,14 @@ public class Hooks
         }
         else
         {
-            ((IJavaScriptExecutor)GenericWebDriver.Instance).ExecuteScript(
+            if (ConfigBuilder.Instance.GetString("ui", "DriverLocation") == "BrowserStack")
+            {
+                ((IJavaScriptExecutor)GenericWebDriver.Instance).ExecuteScript(
                 "browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \" "
                     + title
                     + " successfully\"}}"
             );
+            }
         }
 
         GenericWebDriver.Dispose();

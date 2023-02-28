@@ -6,8 +6,8 @@ Feature: Password update
 
     @Smoke @Acceptance @recover.password
     Scenario: Update password succesfully
-        When the user clicks on 'Settings' on 'Home Page'
-            And types "Password Credential" on 'Old Password' on 'Profile Page'
+        When the user clicks on 'Settings' at 'Home Page'
+            And types "Password Credential" on 'Old Password' at 'Profile Page'
             And types "New Password" on 'New Password'
             And clicks on 'Ok'
         Then the 'NonDisplayedClose' should not be displayed
@@ -17,4 +17,3 @@ Feature: Password update
     #     And clicks on the OK button
     #     Then an alert should appear with the message "Invalid Password"
     #         And an accept button is displayed
-

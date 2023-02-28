@@ -11,39 +11,33 @@ public class WebDriverFactory
 {
     public static IWebDriver GetDriver(string driverType)
     {
-        IWebDriver driver;
         switch (driverType)
         {
             case "Chrome":
-                driver = new ChromeDriver(AddChromeOptions());
-                break;
+                return new ChromeDriver(AddChromeOptions());
+
             case "Edge":
-                driver = new EdgeDriver();
-                break;
+                return new EdgeDriver();
+
             case "Safari":
-                driver = new SafariDriver();
-                break;
+                return new SafariDriver();
+
             case "Firefox":
-                driver = new FirefoxDriver();
-                break;
-            case "BrowserStack":
-                driver = BrowserstackWebDriverFactory.GetDriver();
-                break;
+                return new FirefoxDriver();
+
             default:
                 throw new NotImplementedException("Error specifying the driver");
         }
-
-        return BasicConfigs(driver);
     }
 
-    public static IWebDriver BasicConfigs(IWebDriver driver)
-    {
-        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(
-            ConfigModel.DriverImplicitTimeout
-        );
-        driver.Manage().Window.Maximize();
-        return driver;
-    }
+    // public static IWebDriver BasicConfigs(IWebDriver driver)
+    // {
+    //     driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(
+    //         ConfigModel.DriverImplicitTimeout
+    //     );
+    //     driver.Manage().Window.Maximize();
+    //     return driver;
+    // }
 
     public static ChromeOptions AddChromeOptions()
     {
