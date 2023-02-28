@@ -5,7 +5,6 @@ using System.Text.Json;
 using Allure.Commons;
 using OpenQA.Selenium;
 using RestSharp;
-using Serilog;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
@@ -56,32 +55,21 @@ public class Hooks
     [BeforeFeature]
     public static void BeforeFeature(FeatureContext context)
     {
-        foreach (ILogger logger in Logger.Instance)
-        {
-            logger.Information("Initializing {0} feature.", context.FeatureInfo.Title);
-        }
+        ConfigLogger.Information($"Initializing {context.FeatureInfo.Title} feature");
     }
 
     [AfterFeature]
     public static void AfterFeature(FeatureContext context)
     {
-
-        foreach (ILogger logger in Logger.Instance)
-        {
-            logger.Information("Ending {0} feature.", context.FeatureInfo.Title);
-            logger.Information("Disposing driver.");
-        }
-
-        Logger.Instance = null!;
+        ConfigLogger.Information($"Ending {context.FeatureInfo.Title} feature");
+        ConfigLogger.Information("Disposing driver.");
+        ConfigLogger.Instance = null!;
     }
 
     [BeforeScenario]
     public static void BeforeScenario(ScenarioContext context)
     {
-        foreach (ILogger logger in Logger.Instance)
-        {
-            logger.Information("Initializing {0} scenario.", context.ScenarioInfo.Title);
-        }
+        ConfigLogger.Information($"Initializing {context.ScenarioInfo.Title} scenario");
     }
 
     [AfterStep]
@@ -240,10 +228,7 @@ public class Hooks
     [AfterScenario]
     public void SessionDisposal(ScenarioContext context)
     {
-        foreach (ILogger logger in Logger.Instance)
-        {
-            logger.Information(messageTemplate: "Ending {0} scenario.", context.ScenarioInfo.Title);
-        }
+        ConfigLogger.Information($"Ending {context.ScenarioInfo.Title} scenario");
 
         GenericWebDriver.Dispose();
     }

@@ -1,7 +1,5 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
-using Serilog;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Commons;
 using Todoly.Core.UIElements.Drivers;
@@ -25,29 +23,17 @@ namespace Todoly.Core.UIElements.Web
             }
             catch (ElementNotVisibleException error)
             {
-                foreach (ILogger logger in Logger.Instance)
-                {
-                    logger.Error($"Unable to visualize {Name} button with ${Locator.Value}");
-                }
-
+                ConfigLogger.Error($"Unable to visualize {Name} button with ${Locator.Value}");
                 throw error;
             }
             catch (ElementNotInteractableException error)
             {
-                foreach (ILogger logger in Logger.Instance)
-                {
-                    logger.Error($"Unable to interact with {Name} button with ${Locator.Value}");
-                }
-
+                ConfigLogger.Error($"Unable to interact with {Name} button with ${Locator.Value}");
                 throw error;
             }
             catch (WebDriverTimeoutException error)
             {
-                foreach (ILogger logger in Logger.Instance)
-                {
-                    logger.Error($"{Name} text field not cleared.");
-                }
-
+                ConfigLogger.Error($"{Name} text field not cleared.");
                 throw error;
             }
         }
@@ -71,11 +57,7 @@ namespace Todoly.Core.UIElements.Web
             }
             catch (WebDriverTimeoutException error)
             {
-                foreach (ILogger logger in Logger.Instance)
-                {
-                    logger.Error($"Keys not sent to {Name} text field with ${Locator.Value}.");
-                }
-
+                ConfigLogger.Error($"Keys not sent to {Name} text field with ${Locator.Value}.");
                 throw error;
             }
         }
