@@ -28,13 +28,6 @@ public class PriorityStepDefinitions : CommonSteps
         UIElementFactory.GetElement("Item Checkbox", "Items Component", itemName).Click();
     }
 
-    [Then(@"the user enters ""(.*)"" and saves it")]
-    public void Thentheuserentersandsavesit(string newItem)
-    {
-        UIElementFactory.GetElement("Edit Item", "Items Component").Type(newItem);
-        UIElementFactory.GetElement("Edit Item", "Items Component").Type(newItem);
-    }
-
     [Then(@"the <([\w ]+)> color should be (.*)")]
     public void PriorityShouldBeSet(string itemName, string itemColor)
     {
