@@ -32,7 +32,7 @@ public class GenericWebDriver
                 driver = WebDriverFactory.GetDriver(ConfigModel.DriverType);
                 break;
             case "BrowserStack":
-                driver = BrowserstackWebDriverFactory.GetDriver();
+                driver = BrowserstackWebDriverFactory.GetDriver(ConfigModel.DriverType);
                 break;
             default:
                 driver = RemoteWebDriverFactory.GetDriver(ConfigModel.DriverType);

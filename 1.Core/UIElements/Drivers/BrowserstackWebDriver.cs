@@ -24,14 +24,13 @@ public class BrowserstackWebDriverFactory
     public static readonly string BROWSERSTACK_USERNAME = ConfigModel.BROWSERSTACK_USERNAME;
     public static readonly string BROWSERSTACK_ACCESSKEY = ConfigModel.BROWSERSTACK_ACCESSKEY;
     public static readonly string BROWSERSTACK_URL = ConfigModel.BROWSERSTACK_URL;
-    public static readonly string DriverType = ConfigModel.DriverType;
 
-    public static IWebDriver GetDriver() => new RemoteWebDriver(new Uri(BROWSERSTACK_URL), AddOptions());
-    public static DriverOptions AddOptions()
+    public static IWebDriver GetDriver(string driverType) => new RemoteWebDriver(new Uri(BROWSERSTACK_URL), AddOptions(driverType));
+    public static DriverOptions AddOptions(string driverType)
     {
         var capabilities = new Dictionary<string, object>()
         {
-            {"browserName", DriverType},
+            {"browserName", driverType},
             {"browserVersion", "latest"},
             {"os", "OS X"},
             {"osVersion", "Monterey"},

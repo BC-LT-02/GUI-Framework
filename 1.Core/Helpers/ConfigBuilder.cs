@@ -19,7 +19,7 @@ public class ConfigBuilder
     {
         string res = DotNetEnv.Env.GetString(key);
 
-        return res != null ? res : throw new Exception("Key not found : " + key);
+        return res != null ? res : throw new Exception("Key not found");
     }
 
     public string GetString(string framework, string key)

@@ -21,7 +21,7 @@ jobs:
         echo "BROWSERSTACK-USERNAME=${{secrets.BROWSERSTACK_USERNAME}}" >> $GITHUB_ENV
         echo "BROWSERSTACK-ACCESSKEY=${{secrets.BROWSERSTACK_ACCESSKEY}}" >> $GITHUB_ENV
         echo "DriverType=Chrome" >> $GITHUB_ENV
-        echo "DriverLocation=BrowserStack" >> $GITHUB_ENV
+        echo "DriverLocation=Remote" >> $GITHUB_ENV
         echo "DriverMode=Headless" >> $GITHUB_ENV
     - name: Build
       run: dotnet build TodoFramework.sln
