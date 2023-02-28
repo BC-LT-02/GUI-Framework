@@ -113,10 +113,17 @@ public class ItemsComponent
 
     [Element("More Options", ElementType.Button)]
     [Locator(
-        LocatorType.Id,
-        "AddItemMore"
+        LocatorType.XPath,
+        "//img[@id='AddItemMore' and @src='/Images/AddItemBoxMoreNew.png']"
     )]
     public Button? MoreOptionButton { get; }
+
+    [Element("Less Options", ElementType.Button)]
+    [Locator(
+        LocatorType.XPath,
+        "//img[@id='AddItemMore' and @src='/Images/AddItemBoxLessNew.png']"
+    )]
+    public Button? LessOptionButton { get; }
 
     [Element("More Options Panel", ElementType.Button)]
     [Locator(
@@ -124,8 +131,6 @@ public class ItemsComponent
         "//div[@id='AddItemAdvPanel' and contains(@style, 'block')]"
     )]
     public Button? MoreOptionsPanel { get; }
-
-    public Button? LessOptionButton { get; }
 
     [Element("Less Options Panel", ElementType.Button)]
     [Locator(
