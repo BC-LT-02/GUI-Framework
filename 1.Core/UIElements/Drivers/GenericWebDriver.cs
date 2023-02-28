@@ -33,4 +33,9 @@ public class GenericWebDriver
                 return WebDriverFactory.GetDriver(ConfigModel.DriverType);
         }
     }
+
+    public static void AcceptAlert()
+    {
+        Instance.SwitchTo().Alert().Accept();
+    }
 }
