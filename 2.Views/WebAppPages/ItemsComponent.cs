@@ -110,4 +110,27 @@ public class ItemsComponent
         "//div[text()='{0}']/ancestor::table[@class='ProjItemTable']//div[contains(@class, 'ItemDueDateInner')]"
     )]
     public Button? GetItemDueDateTd { get; }
+
+    [Element("More Options", ElementType.Button)]
+    [Locator(
+        LocatorType.Id,
+        "AddItemMore"
+    )]
+    public Button? MoreOptionButton { get; }
+
+    [Element("More Options Panel", ElementType.Button)]
+    [Locator(
+        LocatorType.XPath,
+        "//div[@id='AddItemAdvPanel' and contains(@style, 'block')]"
+    )]
+    public Button? MoreOptionsPanel { get; }
+
+    public Button? LessOptionButton { get; }
+
+    [Element("Less Options Panel", ElementType.Button)]
+    [Locator(
+        LocatorType.XPath,
+        "//div[@id='AddItemAdvPanel' and contains(@style, 'none')]"
+    )]
+    public Button? LessOptionsPanel { get; }
 }
