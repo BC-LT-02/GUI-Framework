@@ -41,12 +41,12 @@ Feature: Items actions operations
     Scenario Outline: Successfully addition of an item above or below an existing item
         When the user clicks on 'Project Button' <Kids> at 'Project Component'
             And the user hovers on "Get Item" <Lunch> at 'Items Component'
-            And the user clicks on "Item Contextmenu" <Lunch> on "Add item <position>" option at "Items Component"
-            And enters the item "<new_item>" on "Edit Item" input
-        Then the "<new_item>" should be added <position> the "Lunch"
+            And the user clicks on "Item Contextmenu" <Lunch> on "Add item <Position>" option at "Items Component"
+            And enters the item "<New_item>" on "Edit Item" input
+        Then the "<New_item>" should be added <Position> the "Lunch"
 
         Examples:
-            | position | new_item  |
+            | Position | New_item  |
             | above    | Breakfast |
             | below    | Dinner    |
 

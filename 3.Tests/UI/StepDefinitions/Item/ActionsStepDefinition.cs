@@ -23,7 +23,7 @@ public class PriorityStepDefinitions : CommonSteps
     }
 
     [When(@"the user checks ""(.*)""")]
-    public void WhenIchecktheitem(string itemName)
+    public void WhenChecktheitem(string itemName)
     {
         UIElementFactory.GetElement("Item Checkbox", "Items Component", itemName).Click();
     }
