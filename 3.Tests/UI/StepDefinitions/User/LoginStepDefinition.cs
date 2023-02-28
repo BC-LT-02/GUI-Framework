@@ -23,11 +23,10 @@ public class LoginStepDefinitions : CommonSteps
         GenericWebDriver.Instance.Navigate().GoToUrl(ConfigModel.HostUrl);
     }
 
-    [Then(@"the user should be able to see the '(.*)' button on '(.*)'")]
+    [Then(@"the user should be able to see the '(.*)' button at '(.*)'")]
     public void ThenTheUserShouldBeAbleToSeeTheMainPage(string elementName, string viewName)
     {
         Assert.True(UIElementFactory.GetElement(elementName, viewName).WebElement.Displayed);
         Assert.That(GenericWebDriver.Instance.Title, Is.EqualTo("Todo.ly"));
     }
 }
-
