@@ -7,9 +7,9 @@ Feature: Item Due Date
     @Smoke @Regression @create.project.Calendar @delete.projects @create.item.NewItem @Due_Date_Item
     Scenario Outline: Update the Due Date of an item succesfully
         When the user clicks on 'Project Button' <Calendar> at 'Project Component'
-        And the user hovers on "Get Item" <NewItem> at 'Items Component'
-        And the user clicks on 'Item DueDate' <NewItem> at 'Items Component'
-        And inputs "<Date>" as due date
+            And the user hovers on "Get Item" <NewItem> at 'Items Component'
+            And the user clicks on 'Item DueDate' <NewItem> at 'Items Component'
+            And inputs "<Date>" as due date
         Then the "NewItem" date-tag should be displayed as "<DateTag>"
 
         Examples:
@@ -19,13 +19,13 @@ Feature: Item Due Date
             | Today                | Today           |
             | Tomorrow             | Tomorrow        |
 
-    @Jorge @Smoke @Regression @create.project.NotImportant @delete.projects @create.item.Clean @Due_Date_Item
+    @Smoke @Regression @create.project.NotImportant @delete.projects @create.item.Clean @Due_Date_Item
     Scenario Outline: Postpone the Due Date of an item succesfully
         When the user clicks on 'Project Button' <NotImportant> at 'Project Component'
-        And the user hovers on "Get Item" <Clean> at 'Items Component'
-        And the user clicks on 'Item DueDate' <Clean> at 'Items Component'
-        And inputs "20 Jun 12:00 PM" as due date
-        And clicks on <Postpone> "Clean"
+            And the user hovers on "Get Item" <Clean> at 'Items Component'
+            And the user clicks on 'Item DueDate' <Clean> at 'Items Component'
+            And inputs "20 Jun 12:00 PM" as due date
+            And clicks on <Postpone> "Clean"
         Then the "Clean" date-tag should be displayed as "<DateTag>"
 
         Examples:
@@ -44,13 +44,13 @@ Feature: Item Due Date
     @Smoke @Regression @create.project.Today @delete.projects @create.item.GoToGym @Due_Date_Item
     Scenario Outline: Check if item appear on Today section
         When the user clicks on 'Project Button' <Today> at 'Project Component'
-        And the user hovers on "Get Item" <GoToGym> at 'Items Component'
-        And the user clicks on 'Item DueDate' <GoToGym> at 'Items Component'
-        And inputs "<Date>" as due date
+            And the user hovers on "Get Item" <GoToGym> at 'Items Component'
+            And the user clicks on 'Item DueDate' <GoToGym> at 'Items Component'
+            And inputs "<Date>" as due date
         Then the "GoToGym" should be displayed in "<When>" section
 
         Examples:
-            | Date                | When  |
-            | 1 Jan 2020 12:00 AM | Today |
-            | 27 Feb 12:00 AM     | Today |
-            | 27 Aug 12:00 AM     | Next  |
+            | Date      | When  |
+            | Today     | Today |
+            | Yesterday | Today |
+            | Tomorrow  | Next  |
