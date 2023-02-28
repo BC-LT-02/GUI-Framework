@@ -6,21 +6,21 @@ Feature: Item Due Date
 
     @Smoke @Regression @create.project.Calendar @create.item.NewItem @Due_Date_Item
     Scenario: Update the Due Date of an item succesfully
-        When the user clicks on 'Project Button' <Calendar> on 'Project Component'
+        When the user clicks on 'Project Button' <Calendar> at 'Project Component'
         And the user clicks on the Set Due Date option
         And inputs "1 Mar 12:00 AM" as due date
         Then the item should be displayed with the "1 Mar 12:00 AM" date-tag
 
     @Smoke @Regression @create.project.PastNotes @create.item.Apples @Due_Date_Item
     Scenario: Update the Due Date of an item succesfully to a date in the past
-        When the user clicks on 'Project Button' <PastNotes> on 'Project Component'
+        When the user clicks on 'Project Button' <PastNotes> at 'Project Component'
         And the user clicks on the Set Due Date option
         And inputs "20 Jun 2020 02:00 AM" as due date
         Then the item should be displayed as overdue
 
     @Smoke @Regression @create.project.NotImportant @delete.projects @create.item.Clean @Due_Date_Item
     Scenario Outline: Postpone the Due Date of an item succesfully
-        When the user clicks on 'Project Button' <NotImportant> on 'Project Component'
+        When the user clicks on 'Project Button' <NotImportant> at 'Project Component'
         And the user clicks on the Set Due Date option
         And inputs "20 Jun 12:00 PM" as due date
         And clicks on Postpone <Postpone>

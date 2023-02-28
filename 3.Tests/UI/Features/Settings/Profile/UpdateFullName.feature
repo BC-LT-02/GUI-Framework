@@ -6,12 +6,12 @@ Feature: Full name update
 
     @Smoke @Regression @restore.default.fullname
     Scenario: Update full name succesfully
-        When the user clicks on 'Settings' on 'Home Page'
-            And types "New Name" on 'FullName' on 'Profile Page'
+        When the user clicks on 'Settings' at 'Home Page'
+            And types "New Name" on 'FullName' at 'Profile Page'
             And clicks on 'Ok'
         Then the 'NonDisplayedClose' should not be displayed
-        When the user clicks on 'Settings' on 'Home Page'
-        Then the 'FullName' value is updated with 'New Name' on 'Profile Page'
+        When the user clicks on 'Settings' at 'Home Page'
+        Then the 'FullName' value is updated with 'New Name' at 'Profile Page'
 
     # @Negative
     # Scenario: Fail to update email with empty input
