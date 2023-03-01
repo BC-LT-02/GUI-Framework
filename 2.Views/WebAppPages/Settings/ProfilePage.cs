@@ -47,4 +47,41 @@ public class ProfilePage
     [Element("Hawaiian Time", ElementType.Button)]
     [Locator(LocatorType.XPath, "//select[@id = 'DropDownTimezone']//option[@value='Hawaiian Standard Time']")]
     public Button? HawaiianTimeOption { get; }
+
+    [Element("Default Settings", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//ul[@id='settings_tabs']//a[@href='#settings_basicPanel']")]
+    public Button? DefaultSettings { get; }
+
+    [Element("General Settings", ElementType.Container)]
+    [Locator(LocatorType.XPath, "//div[@id='settings_basicPanel']//div[text()='General Settings']")]
+    public Container? GeneralSettingsContainer { get; }
+
+    [Element("Share", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//ul[@id='settings_tabs']//a[@href='#settings_sharePanel']")]
+    public Button? Share { get; }
+
+    [Element("Projects Shared", ElementType.Container)]
+    [Locator(LocatorType.XPath, "//div[@id='settings_sharePanel']//div[text()='Projects Shared with you']")]
+    public Container? ProjectsSharedContainer { get; }
+
+    [Element("Pro", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//ul[@id='settings_tabs']//a[@href='#settings_ProPanel']")]
+    public Button? Pro { get; }
+
+    [Element("Upgrade to Pro", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//div[@id='settingsNonPro']//a[@href='/Upgrade']")]
+    public Button? UpgradeToProOption { get; }
+
+    [Element("Account", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//ul[@id='settings_tabs']/li/a[text()='Account']")]
+    public Button AccountTabButton =>
+        new Button(
+            "",
+            new Locator(LocatorType.XPath, "//ul[@id='settings_tabs']/li/a[text()='Account']")
+        );
+
+    [Element("Delete Account", ElementType.Button)]
+    [Locator(LocatorType.Id, "DeleteAccountBtn")]
+    public Button DeleteAccountButton =>
+        new Button("", new Locator(LocatorType.Id, "DeleteAccountBtn"));
 }
