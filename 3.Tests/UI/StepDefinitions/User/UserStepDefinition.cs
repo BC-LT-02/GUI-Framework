@@ -1,4 +1,5 @@
-﻿using TechTalk.SpecFlow;
+﻿using NUnit.Framework.Constraints;
+using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Tests.UI.Steps.Commons;
@@ -7,12 +8,12 @@ using Todoly.Views.WebAppPages;
 namespace SeleniumTest.Tests;
 
 [Binding]
-[Scope(Feature = "User Login")]
-public class LoginStepDefinitions : CommonSteps
+[Scope(Feature = "User")]
+public class UserStepDefinitions : CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
 
-    public LoginStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+    public UserStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
     {
         _scenarioContext = scenarioContext;
     }
@@ -28,5 +29,15 @@ public class LoginStepDefinitions : CommonSteps
     {
         Assert.True(UIElementFactory.GetElement(elementName, viewName).WebElement.Displayed);
         Assert.That(GenericWebDriver.Instance.Title, Is.EqualTo("Todo.ly"));
+    }
+
+    [Then(@"the user should be logged out from the site")]
+    public void Thentheusershouldbeloggedoutfromthesite()
+    {
+        var currentUrl = GenericWebDriver.Instance.Url;
+        var currentTitle = GenericWebDriver.Instance.Title;
+
+        Assert.That(currentUrl, new EqualConstraint(ConfigModel.HostUrl));
+        Assert.That(currentTitle, new EqualConstraint("Todo.ly Simple Todo List"));
     }
 }
