@@ -10,7 +10,7 @@ Feature: Items CRUD operations
             And enters the item "new katas for monday" on "Add New Todo" input
         Then the 'Get Item' <new katas for monday> should be displayed at 'Items Component'
 
-    @Smoke @Regression @create.project.Exercise @delete.projects @create.item.Math @UI_Update_Item @jorge
+    @Smoke @Regression @create.project.Exercise @delete.projects @create.item.Math @UI_Update_Item
     Scenario: Update a name of an item succesfully
         When the user clicks on 'Project Button' <Exercise> at 'Project Component'
             And the user hovers on "Get Item" <Math> at 'Items Component'
@@ -25,8 +25,8 @@ Feature: Items CRUD operations
             And the user clicks on "Item Contextmenu" <Bananas> on "Delete" option at "Items Component"
         Then the 'Get Item' <Bananas> should not be displayed at 'Items Component'
 
-    @create.project.NewProject @UI_Create_Item
-    Scenario: Create an Item Due Tomorrow Successfully
-        When the user clicks on 'Project Button' <NewProject> at 'Project Component'
-        And enters the item "new katas for monday" on "Add New Todo" input
-        Then the 'Get Item' <new katas for monday> should be displayed at 'Items Component'
+    # @create.project.NewProject @UI_Create_Item
+    # Scenario: Create an Item Due Tomorrow Successfully
+    #     When the user clicks on 'Project Button' <NewProject> at 'Project Component'
+    #     And enters the item "new katas for monday" on "Add New Todo" input
+    #     Then the 'Get Item' <new katas for monday> should be displayed at 'Items Component'
