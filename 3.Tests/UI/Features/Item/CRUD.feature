@@ -4,19 +4,19 @@ Feature: Items CRUD operations
     Background:
         Given the user is logged in
 
-    # @create.project.NewProject @delete.projects @UI_Create_Item
-    # Scenario: Create an Item Successfully
-    #     When the user clicks on 'Project Button' <NewProject> at 'Project Component'
-    #         And enters the item "new katas for monday" on "Add New Todo" input
-    #     Then the 'Get Item' <new katas for monday> should be displayed at 'Items Component'
+    @create.project.NewProject @delete.projects @UI_Create_Item
+    Scenario: Create an Item Successfully
+        When the user clicks on 'Project Button' <NewProject> at 'Project Component'
+            And enters the item "new katas for monday" on "Add New Todo" input
+        Then the 'Get Item' <new katas for monday> should be displayed at 'Items Component'
 
-    # @Smoke @Regression @create.project.Exercise @delete.projects @create.item.Math @UI_Update_Item @jorge
-    # Scenario: Update a name of an item succesfully
-    #     When the user clicks on 'Project Button' <Exercise> at 'Project Component'
-    #         And the user hovers on "Get Item" <Math> at 'Items Component'
-    #         And the user clicks on "Item Contextmenu" <Math> on "Edit" option at "Items Component"
-    #         And enters the item "New name" on "Edit Item" input
-    #     Then the 'Get Item' <New name> should be displayed at 'Items Component'
+    @Smoke @Regression @create.project.Exercise @delete.projects @create.item.Math @UI_Update_Item @jorge
+    Scenario: Update a name of an item succesfully
+        When the user clicks on 'Project Button' <Exercise> at 'Project Component'
+            And the user hovers on "Get Item" <Math> at 'Items Component'
+            And the user clicks on "Item Contextmenu" <Math> on "Edit" option at "Items Component"
+            And enters the item "New name" on "Edit Item" input
+        Then the 'Get Item' <New name> should be displayed at 'Items Component'
 
     @Smoke @Regression @create.project.Shopping @delete.projects @create.item.Bananas @UI_Delete_Item
     Scenario: Delete a pending item succesfully

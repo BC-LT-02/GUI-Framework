@@ -23,4 +23,14 @@ public class APIScripts
             }
         }
     }
+
+    public static string[] RetrieveProjectNames()
+    {
+        RestHelper client = new RestHelper(ConfigModel.ApiHostUrl);
+        client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        RestResponse response = client.DoRequest(Method.Get, ConfigModel.ProjectUri, null);
+        ProjectModel[] projectNames = JsonSerializer.Deserialize<ProjectModel[]>(response.Content!)!;
+
+        return projectNames.Select(each => each.Content).ToArray()!;
+    }
 }

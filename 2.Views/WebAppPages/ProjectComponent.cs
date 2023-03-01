@@ -59,10 +59,6 @@ public class ProjectComponent
     [Locator(LocatorType.XPath, "(//div[@id='IconFrameOuter'])[1]/span[@iconid='{0}']")]
     public Button? ProjectImages { get; }
 
-    [Element("Second Project", ElementType.Button)]
-    [Locator(LocatorType.XPath, "(//div[@id='ProjectListPlaceHolder']//li)[2]//td[text()='{0}']")]
-    public Button? SecondProject { get; }
-
     [Element("Child Project", ElementType.Button)]
     [Locator(LocatorType.XPath, "//ul[@class='list projectList']//td[text()='{0}']")]
     public Button? ChildProject { get; }

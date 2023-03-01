@@ -320,4 +320,12 @@ public class CommonSteps
             Is.EqualTo("true")
         );
     }
+
+    [Then(@"the project '([\w ]+)' should appear before '([\w ]+)'")]
+    public void VerifyProjectsOrder(string project1, string project2)
+    {
+        string[] projectNames = APIScripts.RetrieveProjectNames();
+
+        Assert.That(Array.IndexOf(projectNames, project1), Is.LessThan(Array.IndexOf(projectNames, project2)));
+    }
 }

@@ -17,6 +17,10 @@ public class ItemsComponent
     [Locator(LocatorType.XPath, "//div[@class='ItemContentDiv' and text()='{0}']")]
     public IClickable? GetItemTd { get; }
 
+    [Element("Item Handle", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//div[@id='ItemListPlaceHolder']//div[text()='asd']/ancestor::tr/td/img[contains(@class, 'handle')]")]
+    public IClickable? ItemHandle { get; }
+
     [Element("Item Context Button", ElementType.Button)]
     [Locator(
         LocatorType.XPath,

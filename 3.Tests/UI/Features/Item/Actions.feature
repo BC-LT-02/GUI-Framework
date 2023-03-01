@@ -32,18 +32,18 @@ Feature: Items actions operations
             | 4        | rgb(0, 0, 0)      |
 
 
-    # @smoke @create.project.Kids @create.item.Lunch @create.item.Sleep @delete.projects
-    # Scenario Outline: Successfully addition of an item above or below an existing item
-    #     When the user clicks on 'Project Button' <Kids> at 'Project Component'
-    #     And the user hovers on "Get Item" <Lunch> at 'Items Component'
-    #     And the user clicks on "Item Contextmenu" <Lunch> on "Add item <Position>" option at "Items Component"
-    #     And enters the item "<New_item>" on "Edit Item" input
-    #     Then the "<New_item>" should be added <Position> the "Lunch"
+    @smoke @create.project.Kids @create.item.Lunch @create.item.Sleep @delete.projects
+    Scenario Outline: Successfully addition of an item above or below an existing item
+        When the user clicks on 'Project Button' <Kids> at 'Project Component'
+        And the user hovers on "Get Item" <Lunch> at 'Items Component'
+        And the user clicks on "Item Contextmenu" <Lunch> on "Add item <Position>" option at "Items Component"
+        And enters the item "<New_item>" on "Edit Item" input
+        Then the "<New_item>" should be added <Position> the "Lunch"
 
-    #     Examples:
-    #         | Position | New_item  |
-    #         | above    | Breakfast |
-    #         | below    | Dinner    |
+        Examples:
+            | Position | New_item  |
+            | above    | Breakfast |
+            | below    | Dinner    |
 
 
     @Smoke @create.project.NewProject @create.item.NewItem @create.item.checked.DoneItem @delete.projects
