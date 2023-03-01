@@ -15,17 +15,34 @@ namespace SeleniumTest.Tests.Steps.Items;
 public class PriorityStepDefinitions : CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
+    private string _itemName = "";
 
-    public PriorityStepDefinitions(ScenarioContext scenarioContext)
-        : base(scenarioContext)
+    public PriorityStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
     {
         _scenarioContext = scenarioContext;
     }
 
-    [When(@"the user checks ""(.*)""")]
-    public void WhenChecktheitem(string itemName)
+    [When(@"the user (checks|unchecks) the item")]
+    public void WhenIchecktheitem(string action)
     {
-        UIElementFactory.GetElement("Item Checkbox", "Items Component", itemName).Click();
+        if (action == "checks")
+        {
+            _itemName = UIElementFactory
+                .GetElement("Item Index", "Items Component", "1")
+                .WebElement.Text;
+            UIElementFactory.GetElement("Item Checkbox", "Items Component", _itemName!).Click();
+        }
+        else
+        {
+            UIElementFactory.GetElement("Checked Item See All", "Items Component").Click();
+
+            _itemName = UIElementFactory
+                .GetElement("Checked Item", "Items Component", "DoneItem")
+                .WebElement.Text;
+            UIElementFactory
+                .GetElement("Checked Item Checkbox", "Items Component", _itemName)
+                .Click();
+        }
     }
 
     [Then(@"the <([\w ]+)> color should be (.*)")]
@@ -37,13 +54,24 @@ public class PriorityStepDefinitions : CommonSteps
         );
     }
 
-    [Then(@"""(.*)"" should be listed in the Done Items")]
-    public void Thentheitemshouldbelistedinthe(string itemName)
+    [Then(@"the item should be listed in the (Done|Undone) Items")]
+    public void Thentheitemshouldbelistedinthe(string status)
     {
-        var expectedItem = UIElementFactory
-            .GetElement("Checked Item", "Items Component", itemName)
-            .WebElement.Text;
-        Assert.That(expectedItem, Is.EqualTo(itemName));
+        string expectedItem;
+        if (status == "Done")
+        {
+            expectedItem = UIElementFactory
+                .GetElement("Checked Item", "Items Component", _itemName!)
+                .WebElement.Text;
+        }
+        else
+        {
+            expectedItem = UIElementFactory
+                .GetElement("Item Index", "Items Component", "2")
+                .WebElement.Text;
+        }
+
+        Assert.That(expectedItem, Is.EqualTo(_itemName!));
     }
 
     [Then(@"the ""(.*)"" should be added (below|above) the ""(.*)""")]
@@ -57,7 +85,9 @@ public class PriorityStepDefinitions : CommonSteps
         string new_item;
         GenericWebDriver.Wait.Until(
             ExpectedConditions.TextToBePresentInElement(
-                UIElementFactory.GetElement("Get Item", "Items Component", expectedNewItem).WebElement,
+                UIElementFactory
+                    .GetElement("Get Item", "Items Component", expectedNewItem)
+                    .WebElement,
                 expectedNewItem
             )
         );

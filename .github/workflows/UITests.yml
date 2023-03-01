@@ -73,3 +73,9 @@ jobs:
       with:
         name: Screenshots
         path: 3.Tests/UI/Assets
+    - name: Upload Latest Logs file
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: TestsLogs
+        path: 3.Tests/UI/bin/Debug/net6.0/Logs/Latest*.txt

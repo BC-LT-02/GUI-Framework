@@ -4,7 +4,7 @@ Feature: Item Due Date
     Background:
         Given the user is logged in
 
-    @Smoke @Regression @delete.projects @create.project.Calendar @create.item.NewItem @Due_Date_Item
+    @Smoke @Regression @create.project.Calendar @delete.projects @create.item.NewItem @Due_Date_Item
     Scenario Outline: Update the Due Date of an item succesfully
         When the user clicks on 'Project Button' <Calendar> at 'Project Component'
             And the user hovers on "Get Item" <NewItem> at 'Items Component'
@@ -19,7 +19,7 @@ Feature: Item Due Date
             | Today                | Today           |
             | Tomorrow             | Tomorrow        |
 
-    @Smoke @Regression @delete.projects @create.project.NotImportant @create.item.Clean @Due_Date_Item
+    @Smoke @Regression @delete.projects @create.project.NotImportant @delete.projects @create.item.Clean @Due_Date_Item
     Scenario Outline: Postpone the Due Date of an item succesfully
         When the user clicks on 'Project Button' <NotImportant> at 'Project Component'
             And the user hovers on "Get Item" <Clean> at 'Items Component'
@@ -41,7 +41,7 @@ Feature: Item Due Date
             | 1 month  | 20 Jul 12:00 PM |
             | 2 months | 20 Aug 12:00 PM |
 
-    # @Smoke @Regression @delete.projects @create.project.Today @create.item.GoToGym @Due_Date_Item
+    # @Smoke @Regression @delete.projects @create.project.Today @delete.projects @create.item.GoToGym @Due_Date_Item
     # Scenario Outline: Check if item appear on Today section
     #     When the user clicks on 'Project Button' <Today> at 'Project Component'
     #         And the user hovers on "Get Item" <GoToGym> at 'Items Component'

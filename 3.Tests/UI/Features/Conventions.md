@@ -14,7 +14,7 @@ Given THE USER IS logged in
 # HOOKS
 - Use all lowercase letters separated by dots(.)
 - Start the hook name with an action verb followed by an object e.g.
-  - `@delete.projects @create.project.NAME_OF_PROJECT`
+  - `@create.project.NAME_OF_PROJECT`
   - `@delete.project`
   - `@go.to.login.page`
 <br>

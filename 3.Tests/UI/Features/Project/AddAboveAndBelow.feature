@@ -4,7 +4,7 @@ Feature: Project Creation Above and Below
     Background:
         Given the user is logged in
 
-    @Regression @delete.projects @create.project.MyProject
+    @Regression @create.project.MyProject @delete_projects
     Scenario: Add a project above
         When the user opens the Project Context Menu on <MyProject> at 'Project Component'
             And clicks on 'Add item above' on the Project Context Menu
@@ -12,7 +12,7 @@ Feature: Project Creation Above and Below
             And clicks on 'Save Edit Project'
         Then the 'Project Button' <My New Project Name> should be displayed
 
-    @Regression @delete.projects @create.project.MyProject
+    @Regression @create.project.MyProject @delete_projects
     Scenario: Add a project below
         When the user opens the Project Context Menu on <MyProject> at 'Project Component'
             And clicks on 'Add item below' on the Project Context Menu
