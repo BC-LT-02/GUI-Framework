@@ -74,6 +74,7 @@ jobs:
         name: Screenshots
         path: 3.Tests/UI/Assets
     - name: Upload Latest Logs file
+      if: always()
       uses: actions/upload-artifact@v3
       with:
         name: TestsLogs
