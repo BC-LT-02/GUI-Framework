@@ -42,12 +42,12 @@ Feature: Item Due Date
             | 2 months | 20 Aug 12:00 PM |
 
     @Smoke @Regression @create.project.Errands @delete.projects @create.item.GoToGym @Due_Date_Item
-    Scenario Outline: Check if item appear on Today section
+    Scenario Outline: Check if item appear on given section
         When the user clicks on 'Project Button' <Errands> at 'Project Component'
             And the user hovers on "Get Item" <GoToGym> at 'Items Component'
             And the user clicks on 'Item DueDate' <GoToGym> at 'Items Component'
             And inputs "<Date>" as due date
-        Then the "GoToGym" should be displayed in "<When>" section
+        Then the "GoToGym" in "Errands" should be displayed in "<When>" section
 
         Examples:
             | Date      | When  |

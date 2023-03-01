@@ -17,6 +17,10 @@ public class ItemsComponent
     [Locator(LocatorType.XPath, "//div[@class='ItemContentDiv' and text()='{0}']")]
     public IClickable? GetItemTd { get; }
 
+    [Element("Item Tag", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//div[@id='FilterItemProjectDiv' and text()='{0}']")]
+    public IClickable? ItemTag { get; }
+
     [Element("Item Context Button", ElementType.Button)]
     [Locator(
         LocatorType.XPath,
