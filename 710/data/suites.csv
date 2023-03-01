@@ -1,2 +1,2 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Wed Mar 01 19:01:00 GMT 2023","Wed Mar 01 19:01:11 GMT 2023","11310","","","","","","Logout off the site succesfully",""
+"broken","Wed Mar 01 19:02:46 GMT 2023","Wed Mar 01 19:02:46 GMT 2023","162","","","","","","Logout off the site succesfully",""
