@@ -14,29 +14,20 @@ public class WebDriverFactory
         switch (driverType)
         {
             case "Chrome":
-                var chrome = new ChromeDriver(AddChromeOptions());
-                return BasicConfigs(chrome);
+                return new ChromeDriver(AddChromeOptions());
+
             case "Edge":
-                var edge = new EdgeDriver();
-                return BasicConfigs(edge);
+                return new EdgeDriver();
+
             case "Safari":
-                var safari = new SafariDriver();
-                return BasicConfigs(safari);
+                return new SafariDriver();
+
             case "Firefox":
-                var firefox = new FirefoxDriver();
-                return BasicConfigs(firefox);
+                return new FirefoxDriver();
+
             default:
                 throw new NotImplementedException("Error specifying the driver");
         }
-    }
-
-    public static IWebDriver BasicConfigs(IWebDriver driver)
-    {
-        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(
-            ConfigModel.DriverImplicitTimeout
-        );
-        driver.Manage().Window.Maximize();
-        return driver;
     }
 
     public static ChromeOptions AddChromeOptions()
