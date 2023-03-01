@@ -39,6 +39,57 @@ public class Hooks
         _urlItem = ConfigModel.ItemUri;
     }
 
+    private void Authenticate()
+    {
+        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+    }
+
+    [AfterScenario("restore.default.fullname")]
+    public void UpdateFullName()
+    {
+        string payload = $"{{ \"FullName\": \"{_userFullName}\" }}";
+        Authenticate();
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
+    }
+
+    [AfterScenario("restore.default.timezone")]
+    public void UpdateTimeZone()
+    {
+        string payload = $"{{ \"TimeZoneId\": \"{_userTimeZone}\" }}";
+        Authenticate();
+        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
+    }
+
+    private void CreateProject(string tag)
+    {
+        string payload = $"{{ \"Content\": \"{tag}\" }}";
+        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
+        _projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+        _scenarioContext[tag] = tag;
+        _scenarioContext[tag + "Model"] = _projectModel;
+    }
+
+    [BeforeScenario(Order = 1)]
+    public void CreateProject()
+    {
+        var scenarioTags = _scenarioContext.ScenarioInfo.Tags.ToList();
+        scenarioTags = scenarioTags
+            .Where(tag => tag.StartsWith("create.project."))
+            .Select(tag => tag.Replace("create.project.", ""))
+            .ToList();
+
+        if (scenarioTags.Count.Equals(0))
+        {
+            return;
+        }
+
+        foreach (string tag in scenarioTags)
+        {
+            CreateProject(tag);
+        }
+    }
+
     [BeforeTestRun]
     public static void BeforeTest()
     {
@@ -85,7 +136,11 @@ public class Hooks
         if (context.TestError != null)
         {
             byte[] content = GetScreenshot();
-            AllureLifecycle.Instance.AddAttachment("Failed test screenshot", "application/png", content);
+            AllureLifecycle.Instance.AddAttachment(
+                "Failed test screenshot",
+                "application/png",
+                content
+            );
         }
     }
 
@@ -106,80 +161,25 @@ public class Hooks
         APIScripts.RemoveAllProjects();
     }
 
-    [BeforeScenario(Order = 1)]
-    public void CreateProject()
+    [AfterScenario]
+    public void CaptureScreenshot()
     {
-        var scenarioTags = _scenarioContext.ScenarioInfo.Tags.ToList();
-
-        scenarioTags = scenarioTags
-            .Where(tag => tag.StartsWith("create.project."))
-            .Select(tag => tag.Replace("create.project.", ""))
-            .ToList();
-
-        if (scenarioTags.Count.Equals(0))
+        if (_scenarioContext.TestError == null)
         {
             return;
         }
 
-        foreach (string tag in scenarioTags)
-        {
-            string payload = $"{{ \"Content\": \"{tag}\" }}";
+        var image = ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot();
+        var scenarioTitle = _scenarioContext.ScenarioInfo.Title;
+        var path = $"../../../Assets/{scenarioTitle}";
+        path = string.Concat(path.Split().Select(w => $"{char.ToUpper(w[0])}{w.Substring(1)}"));
 
-            _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        Directory.CreateDirectory(path);
 
-            RestResponse response = _client.DoRequest(Method.Post, _urlProject, payload);
-            _projectModel = JsonSerializer.Deserialize<ProjectModel>(response.Content!);
+        var fileName = DateTime.Now.ToString("yyyyMMddTHHmmss");
+        var filePath = Path.Combine(path, $"{fileName}.png");
 
-            _scenarioContext[tag] = tag;
-            _scenarioContext[tag + "Model"] = _projectModel;
-        }
-    }
-
-    [AfterScenario("restore.default.fullname")]
-    public void UpdateFullName()
-    {
-        string payload = $"{{ \"FullName\": \"{_userFullName}\" }}";
-
-        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
-        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
-    }
-
-    [AfterScenario("restore.default.timezone")]
-    public void UpdateTimeZone()
-    {
-        string payload = $"{{ \"TimeZoneId\": \"{_userTimeZone}\" }}";
-
-        _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
-        _client.DoRequest(Method.Put, _urlUserPutUri, payload);
-    }
-
-    [AfterScenario]
-    public void CaptureScreenshot()
-    {
-        if (_scenarioContext.TestError != null)
-        {
-            Screenshot image = ((ITakesScreenshot)GenericWebDriver.Instance).GetScreenshot();
-            string path = $"../../../Assets/{_scenarioContext.ScenarioInfo.Title}";
-            path = string.Join(
-                    " ",
-                    path.Split().Select(word => char.ToUpper(word[0]) + word.Substring(1))
-                )
-                .Replace(" ", "");
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            string fileName = new string(
-                DateTime.Now
-                    .ToString()
-                    .Where(c => !char.IsWhiteSpace(c) && c != '/' && c != ':')
-                    .ToArray()
-            );
-
-            image.SaveAsFile($"{path}/{fileName}.png", ScreenshotImageFormat.Png);
-        }
+        image.SaveAsFile(filePath, ScreenshotImageFormat.Png);
 
         GenericWebDriver.Dispose();
     }
