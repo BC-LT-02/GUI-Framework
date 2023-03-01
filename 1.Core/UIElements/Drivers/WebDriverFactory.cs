@@ -30,15 +30,6 @@ public class WebDriverFactory
         }
     }
 
-    // public static IWebDriver BasicConfigs(IWebDriver driver)
-    // {
-    //     driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(
-    //         ConfigModel.DriverImplicitTimeout
-    //     );
-    //     driver.Manage().Window.Maximize();
-    //     return driver;
-    // }
-
     public static ChromeOptions AddChromeOptions()
     {
         var chromeOptions = new ChromeOptions();
