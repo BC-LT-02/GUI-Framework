@@ -41,6 +41,13 @@ public class ItemsComponent
         "//div[contains(@id, 'MainContentArea')]//tbody//td[following-sibling::td/div[contains(text(), '{0}')]]//input"
     )]
     public Button? ItemCheckBox { get; }
+    //AQUI!
+    [Element("Checked Item Checkbox", ElementType.Button)]
+    [Locator(
+        LocatorType.XPath,
+        "//div[contains(@id, 'DoneItemsDiv')]//tbody//td[following-sibling::td/div[contains(text(), '{0}')]]//input"
+    )]
+    public Button? CheckedItemCheckBox { get; }
 
     [Element("Checked Item", ElementType.Button)]
     [Locator(
@@ -111,6 +118,12 @@ public class ItemsComponent
     )]
     public Button? GetItemDueDateTd { get; }
 
+    [Element("Checked Item See All", ElementType.Button)]
+    [Locator(
+        LocatorType.Id,
+        "DoneItemsShowLink"
+    )]
+    public Button? SeeAllCheckedItems { get; }
     [Element("More Option", ElementType.Button)]
     [Locator(
         LocatorType.XPath,
