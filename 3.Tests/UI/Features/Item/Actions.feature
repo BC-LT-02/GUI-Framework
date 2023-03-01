@@ -4,7 +4,7 @@ Feature: Items actions operations
     Background:
         Given the user is logged in
 
-    @create.project.Cleaning @UI_View_More
+    @create.project.Cleaning @UI_View_More @collapse.item.options
     Scenario: View More Options Successfully
         When the user clicks on 'Project Button' <Cleaning> at 'Project Component'
         And clicks on 'More Option' at 'Items Component'
