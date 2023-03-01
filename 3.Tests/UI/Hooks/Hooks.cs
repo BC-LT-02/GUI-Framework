@@ -9,8 +9,8 @@ using RestSharp;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
-using Todoly.Views.WebAppPages;
 using Todoly.Views.Models;
+using Todoly.Views.WebAppPages;
 
 namespace SeleniumTest.Tests.Hooks;
 
