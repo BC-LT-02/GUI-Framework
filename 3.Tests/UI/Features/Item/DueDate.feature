@@ -41,7 +41,7 @@ Feature: Item Due Date
             | 1 month  | 20 Jul 12:00 PM |
             | 2 months | 20 Aug 12:00 PM |
 
-    @Smoke @Regression @create.project.Errands @delete.projects @create.item.GoToGym @Due_Date_Item
+    @Smoke @Regression @create.project.Errands @delete.projects @create.item.GoToGym @Due_Date_Item @jorge
     Scenario Outline: Check if item appear on given section
         When the user clicks on 'Project Button' <Errands> at 'Project Component'
             And the user hovers on "Get Item" <GoToGym> at 'Items Component'
