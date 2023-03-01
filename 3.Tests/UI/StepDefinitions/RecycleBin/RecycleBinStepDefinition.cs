@@ -1,20 +1,16 @@
-﻿using SeleniumExtras.WaitHelpers;
-using TechTalk.SpecFlow;
-using Todoly.Core.UIElements.Drivers;
-using Todoly.Core.UIElements.WebActions;
+﻿using TechTalk.SpecFlow;
 using Todoly.Tests.UI.Steps.Commons;
 using Todoly.Views.WebAppPages;
 
 namespace Todoly.Tests.UI.Steps.RecycleBin;
 
 [Binding]
-[Scope(Feature = "Empty recycle bin")]
-public class DeleteAllStepDefinitions : CommonSteps
+[Scope(Feature = "Recycle Bin")]
+public class RecycleBinStepDefinitions : CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
 
-    public DeleteAllStepDefinitions(ScenarioContext scenarioContext)
-        : base(scenarioContext)
+    public RecycleBinStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
     {
         _scenarioContext = scenarioContext;
     }
