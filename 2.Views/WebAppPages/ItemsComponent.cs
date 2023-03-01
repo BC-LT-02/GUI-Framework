@@ -118,6 +118,12 @@ public class ItemsComponent
     )]
     public Button? GetItemDueDateTd { get; }
 
+    [Element("Checked Item See All", ElementType.Button)]
+    [Locator(
+        LocatorType.Id,
+        "DoneItemsShowLink"
+    )]
+    public Button? SeeAllCheckedItems { get; }
     [Element("More Option", ElementType.Button)]
     [Locator(
         LocatorType.XPath,
@@ -145,10 +151,4 @@ public class ItemsComponent
         "//div[@id='AddItemAdvPanel' and contains(@style, 'none')]"
     )]
     public Button? LessOptionsPanel { get; }
-    [Element("Checked Item See All", ElementType.Button)]
-    [Locator(
-        LocatorType.Id,
-        "DoneItemsShowLink"
-    )]
-    public Button? SeeAllCheckedItems { get; }
 }
