@@ -40,9 +40,43 @@ public class Hooks
     }
 
     [BeforeTestRun]
-    public static void BeforeTestRun()
+    public static void BeforeTest()
     {
+        string logsDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Logs");
+
+        if (Directory.Exists(logsDirectory))
+        {
+            foreach (string filePath in Directory.GetFiles(logsDirectory))
+            {
+                string fileName = Path.GetFileName(filePath);
+                if (Regex.IsMatch(fileName, @"Latest.*\.txt"))
+                {
+                    File.Delete(filePath);
+                }
+            }
+        }
+
         AllureLifecycle.Instance.CleanupResultDirectory();
+    }
+
+    [BeforeFeature]
+    public static void BeforeFeature(FeatureContext context)
+    {
+        ConfigLogger.Information($"Initializing {context.FeatureInfo.Title} feature");
+    }
+
+    [AfterFeature]
+    public static void AfterFeature(FeatureContext context)
+    {
+        ConfigLogger.Information($"Ending {context.FeatureInfo.Title} feature");
+        ConfigLogger.Information("Disposing driver.");
+        ConfigLogger.Instance = null!;
+    }
+
+    [BeforeScenario]
+    public static void BeforeScenario(ScenarioContext context)
+    {
+        ConfigLogger.Information($"Initializing {context.ScenarioInfo.Title} scenario");
     }
 
     [AfterStep]
@@ -195,7 +229,7 @@ public class Hooks
     }
 
     [BeforeScenario(Order = 2)]
-    public void CreateAnItem()
+    public void CreateItems()
     {
         var itemNameTags = _scenarioContext.ScenarioInfo.Tags.ToList();
 
@@ -209,10 +243,13 @@ public class Hooks
             return;
         }
 
-        foreach (var itemName in itemNameTags)
+        foreach (string itemName in itemNameTags)
         {
-            string payload =
-                $"{{ \"Content\": \"{itemName}\", \"ProjectId\": {_projectModel!.Id} }}";
+            bool isChecked = itemName.Contains("checked.");
+
+            string payload = isChecked
+                ? $"{{ \"Content\": \"{itemName.Replace("checked.", "")}\", \"ProjectId\": {_projectModel!.Id}, \"Checked\": \"true\" }}"
+                : $"{{ \"Content\": \"{itemName}\", \"ProjectId\": {_projectModel!.Id} }}";
 
             _client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
 
@@ -225,8 +262,10 @@ public class Hooks
     }
 
     [AfterScenario]
-    public void SessionDisposal()
+    public void SessionDisposal(ScenarioContext context)
     {
+        ConfigLogger.Information($"Ending {context.ScenarioInfo.Title} scenario");
+
         GenericWebDriver.Dispose();
     }
 }
