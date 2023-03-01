@@ -4,13 +4,13 @@ Feature: Items actions operations
     Background:
         Given the user is logged in
 
-    @create.project.Cleaning @UI_View_More @collapse.item.options
+    @create.project.Cleaning @delete.projects @UI_View_More @collapse.item.options
     Scenario: View More Options Successfully
         When the user clicks on 'Project Button' <Cleaning> at 'Project Component'
         And clicks on 'More Option' at 'Items Component'
         Then the 'More Options Panel' should be displayed
 
-    @create.project.Construction @UI_View_Less
+    @create.project.Construction @delete.projects @UI_View_Less
     Scenario: View Less Options Successfully
         When the user clicks on 'Project Button' <Construction> at 'Project Component'
         And clicks on 'More Option' at 'Items Component'
