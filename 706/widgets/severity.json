@@ -1,1 +1,1 @@
-[{"uid":"552a68c5f97b437","name":"Logout off the site succesfully","time":{"start":1677696365377,"stop":1677696375784,"duration":10407},"status":"passed","severity":"normal"}]
+[{"uid":"a75b3ff5cea98af6","name":"Logout off the site succesfully","time":{"start":1677696772540,"stop":1677696772824,"duration":284},"status":"broken","severity":"normal"}]
