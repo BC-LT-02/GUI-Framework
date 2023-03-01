@@ -70,7 +70,7 @@ public class DueDateStepDefinitions : CommonSteps
         UIElementFactory.GetElement("Section Name", "Home Page", sectionName).Click();
         GenericWebDriver.Wait.Until(
             ExpectedConditions.ElementIsVisible(
-                UIElementFactory.GetElement("Item Tag", "Items Component", projectName).Locator.GetBy()
+                UIElementFactory.GetElement("Item Handle", "Items Component", projectName).Locator.GetBy()
             )
         );
         Assert.True(UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement.Displayed);

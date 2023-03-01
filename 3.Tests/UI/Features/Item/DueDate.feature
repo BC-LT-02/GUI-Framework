@@ -19,7 +19,7 @@ Feature: Item Due Date
             | Today                | Today           |
             | Tomorrow             | Tomorrow        |
 
-    @Smoke @Regression @create.project.NotImportant @delete.projects @create.item.Clean @Due_Date_Item
+    @Smoke @Regression @delete.projects @create.project.NotImportant @delete.projects @create.item.Clean @Due_Date_Item
     Scenario Outline: Postpone the Due Date of an item succesfully
         When the user clicks on 'Project Button' <NotImportant> at 'Project Component'
             And the user hovers on "Get Item" <Clean> at 'Items Component'
