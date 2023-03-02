@@ -1,18 +1,19 @@
 ﻿using NUnit.Framework;
 using Serilog;
+using TechTalk.SpecFlow;
 
 namespace Todoly.Core.Helpers;
 public static class ConfigLogger
 {
     private static Loggers? _logger;
-
+    private static ScenarioContext? _context;
     public static Loggers Instance
     {
         get
         {
             if (_logger == null)
             {
-                _logger = CreateLoggersForTest(TestContext.CurrentContext.Test.Name);
+                _logger = CreateLoggersForTest(_context!.ScenarioInfo.Title);
             }
 
             return _logger;
@@ -26,21 +27,22 @@ public static class ConfigLogger
 
         return new Loggers
         {
-            TestLogger = ConfigureLogger(logFilesName, RollingInterval.Minute, 1),
-            GeneralLogger = ConfigureLogger(generalLogFileName, RollingInterval.Hour, 1)
+            TestLogger = ConfigureLogger(logFilesName, 1),
+            GeneralLogger = ConfigureLogger(generalLogFileName, 1)
         };
     }
 
-    public static ILogger ConfigureLogger(string fileName, RollingInterval interval, int retainedLimit)
+    public static ILogger ConfigureLogger(string fileName, int retainedLimit)
     {
         return new LoggerConfiguration()
             .MinimumLevel.Debug()
-            .WriteTo.File(fileName, outputTemplate: "{Timestamp:yyy-MM-dd HH:mm:ss.fff} | {Level:u3} | {Message} {NewLine}", rollingInterval: interval, retainedFileCountLimit: retainedLimit)
+            .WriteTo.File(fileName, outputTemplate: "{Timestamp:yyy-MM-dd HH:mm:ss.fff} | {Level:u3} | {Message} {NewLine}", retainedFileCountLimit: retainedLimit)
             .CreateLogger();
     }
 
-    public static void Information(string message)
+    public static void Information(string message, ScenarioContext context)
     {
+        _context = context;
         Instance.TestLogger!.Information(message);
         Instance.GeneralLogger!.Information(message);
     }

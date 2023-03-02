@@ -43,41 +43,33 @@ public class Hooks
     [BeforeTestRun]
     public static void BeforeTest()
     {
-        string logsDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Logs");
+        DeleteFile("Logs", @"Latest.*\.txt");
+        AllureLifecycle.Instance.CleanupResultDirectory();
+    }
 
-        if (Directory.Exists(logsDirectory))
+    public static void DeleteFile(string directoryPath, string path)
+    {
+        _ = Path.Combine(TestContext.CurrentContext.TestDirectory, directoryPath);
+
+        if (Directory.Exists(directoryPath))
         {
-            foreach (string filePath in Directory.GetFiles(logsDirectory))
+            foreach (string filePath in Directory.GetFiles(directoryPath))
             {
                 string fileName = Path.GetFileName(filePath);
-                if (Regex.IsMatch(fileName, @"Latest.*\.txt"))
+
+                if (Regex.IsMatch(fileName, path))
                 {
                     File.Delete(filePath);
                 }
             }
         }
-
-        AllureLifecycle.Instance.CleanupResultDirectory();
-    }
-
-    [BeforeFeature]
-    public static void BeforeFeature(FeatureContext context)
-    {
-        ConfigLogger.Information($"Initializing {context.FeatureInfo.Title} feature");
-    }
-
-    [AfterFeature]
-    public static void AfterFeature(FeatureContext context)
-    {
-        ConfigLogger.Information($"Ending {context.FeatureInfo.Title} feature");
-        ConfigLogger.Information("Disposing driver.");
-        ConfigLogger.Instance = null!;
     }
 
     [BeforeScenario]
     public static void BeforeScenario(ScenarioContext context)
     {
-        ConfigLogger.Information($"Initializing {context.ScenarioInfo.Title} scenario");
+        DeleteFile("Logs/Tests", @$".*log-{context.ScenarioInfo.Title}.*\.txt");
+        ConfigLogger.Information($"Initializing {context.ScenarioInfo.Title} scenario", context);
     }
 
     [AfterStep]
@@ -271,8 +263,38 @@ public class Hooks
     [AfterScenario]
     public void SessionDisposal(ScenarioContext context)
     {
-        ConfigLogger.Information($"Ending {context.ScenarioInfo.Title} scenario");
+        ConfigLogger.Information($"Ending {context.ScenarioInfo.Title} scenario", context);
+        ConfigLogger.Information($"Disposing driver", context);
+        ConfigLogger.Instance = null!;
 
         GenericWebDriver.Dispose();
+    }
+
+    [AfterScenario]
+    public void TestLogs(ScenarioContext context)
+    {
+        if (context.TestError != null)
+        {
+
+            string logsDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Logs/Tests");
+
+            if (Directory.Exists(logsDirectory))
+            {
+                foreach (string filePath in Directory.GetFiles(logsDirectory))
+                {
+                    string fileName = Path.GetFileName(filePath);
+
+                    if (Regex.IsMatch(fileName, @$".*log-{context.ScenarioInfo.Title}.*\.txt"))
+                    {
+                        byte[] content = File.ReadAllBytes(filePath);
+                        AllureLifecycle.Instance.AddAttachment(
+                            "Failed test log",
+                            "text/plain",
+                            content
+                        );
+                    }
+                }
+            }
+        }
     }
 }

@@ -15,6 +15,9 @@
 # Test screenshots
 3.Tests/UI/Assets/
 
+# Allure reports
+3.Tests/UI/allure-report
+
 #Livingdoc reports
 ReportOutputs/
 LivingDoc.html
