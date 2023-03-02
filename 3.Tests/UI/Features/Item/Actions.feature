@@ -4,17 +4,12 @@ Feature: Items actions operations
     Background:
         Given the user is logged in
 
-    @create.project.Cleaning @delete.projects @UI_View_More @collapse.item.options
-    Scenario: View More Options Successfully
+    @create.project.Cleaning @delete.projects @UI_View_More_Less
+    Scenario: View More and Less Options Successfully
         When the user clicks on 'Project Button' <Cleaning> at 'Project Component'
         And clicks on 'More Option' at 'Items Component'
         Then the 'More Options Panel' should be displayed
-
-    @create.project.Construction @delete.projects @UI_View_Less
-    Scenario: View Less Options Successfully
-        When the user clicks on 'Project Button' <Construction> at 'Project Component'
-        And clicks on 'More Option' at 'Items Component'
-        And clicks on 'Less Option'
+        When clicks on 'Less Option'
         Then the 'Less Options Panel' should not be displayed
 
     @Regression @create.project.HouseChores @create.item.WashDishes @create.item.SweepFloor @delete.projects @retrieve.projects
