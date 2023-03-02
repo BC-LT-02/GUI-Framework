@@ -10,6 +10,7 @@ using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Views.Models;
+using Todoly.Views.WebAppPages;
 
 namespace SeleniumTest.Tests.Hooks;
 
@@ -108,6 +109,12 @@ public class Hooks
     public static void RemoveProjects()
     {
         APIScripts.RemoveAllProjects();
+    }
+
+    [AfterScenario("collapse.item.options")]
+    public static void CollapseItemOptions()
+    {
+        UIElementFactory.GetElement("Less Option", "Items Component").Click();
     }
 
     [BeforeScenario(Order = 1)]
