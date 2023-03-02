@@ -41,8 +41,6 @@ public class DueDateStepDefinitions : CommonSteps
                 break;
         }
 
-        System.Console.WriteLine(dueDate);
-
         GenericWebDriver.Wait.Until(
             ExpectedConditions.ElementIsVisible(
                 UIElementFactory.GetElement("DueDate TextField", "Items Component").Locator.GetBy()
