@@ -115,15 +115,24 @@ public class CommonSteps
         UIElementFactory.GetElement("Project Context Button", CurrentView, locatorArgument).Click();
     }
 
-    [When(@"the user drags and drop '([\w ]+)' '([\w ]+)' (above|on top of) '([\w ]+)'(?: at '([a-zA-Z ]+)')?$")]
-    public void DragAndDrop(string locatorArgument1, string elementName, string placeToDrop, string locatorArgument2, string viewName)
+    [When(
+        @"the user drags and drop '([\w ]+)' '([\w ]+)' (above|on top of) '([\w ]+)'(?: at '([a-zA-Z ]+)')?$"
+    )]
+    public void DragAndDrop(
+        string locatorArgument1,
+        string elementName,
+        string placeToDrop,
+        string locatorArgument2,
+        string viewName
+    )
     {
         if (viewName != null)
         {
             CurrentView = viewName;
         }
 
-        int x = 0, y = 0;
+        int x = 0,
+            y = 0;
         if (placeToDrop == "above")
         {
             y = -1;
@@ -134,8 +143,12 @@ public class CommonSteps
             y = 1;
         }
 
-        var source = UIElementFactory.GetElement(elementName, CurrentView, locatorArgument1).WebElement;
-        var target = UIElementFactory.GetElement(elementName, CurrentView, locatorArgument2).WebElement;
+        var source = UIElementFactory
+            .GetElement(elementName, CurrentView, locatorArgument1)
+            .WebElement;
+        var target = UIElementFactory
+            .GetElement(elementName, CurrentView, locatorArgument2)
+            .WebElement;
 
         WebActions.DragAndDrop(source, target, x, y);
     }
@@ -267,13 +280,41 @@ public class CommonSteps
     {
         string[] projectNames = APIScripts.RetrieveProjectNames();
 
-        Assert.That(Array.IndexOf(projectNames, project1), Is.LessThan(Array.IndexOf(projectNames, project2)));
+        Assert.That(
+            Array.IndexOf(projectNames, project1),
+            Is.LessThan(Array.IndexOf(projectNames, project2))
+        );
     }
 
-    [When(@"(?:the user )?enters the item [\x22\x27]([\w ]+)[\x22\x27] on [\x22\x27]([\w ]+)[\x22\x27] input$")]
+    [When(
+        @"(?:the user )?enters the item [\x22\x27]([\w ]+)[\x22\x27] on [\x22\x27]([\w ]+)[\x22\x27] input$"
+    )]
     public void TypeOnElement(string input, string elementName)
     {
         UIElementFactory.GetElement(elementName, "Items Component").Type(input);
         UIElementFactory.GetElement(elementName, "Items Component").Type(Keys.Enter);
+    }
+
+    [When(@"introduces his credentials")]
+    public void IntroduceCredentials()
+    {
+        _loginPage!.EmailTextField.Clear();
+        try
+        {
+            _loginPage.EmailTextField.Type(_scenarioContext.Get<string>("Email"));
+        }
+        catch
+        {
+            _loginPage.EmailTextField.Type(_loginPage.EmailCredentials);
+        }
+
+        _loginPage.PasswordTextField.Clear();
+        _loginPage.PasswordTextField.Type(_loginPage.PassCredentials);
+    }
+
+    [When(@"(?:the user )?accepts the alert")]
+    public void AcceptAlert()
+    {
+        GenericWebDriver.AcceptAlert();
     }
 }

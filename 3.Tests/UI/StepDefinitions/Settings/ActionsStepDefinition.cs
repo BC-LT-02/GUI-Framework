@@ -13,34 +13,10 @@ namespace SeleniumTest.Tests.Steps.Items;
 public class SettingsStepDefinitions : CommonSteps
 {
     private readonly ScenarioContext _scenarioContext;
-    private readonly LoginPage _loginPage = new LoginPage();
 
     public SettingsStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
     {
         _scenarioContext = scenarioContext;
-    }
-
-    [When(@"(?:the user )?accepts the alert")]
-    public void AcceptAlert()
-    {
-        GenericWebDriver.AcceptAlert();
-    }
-
-    [When(@"introduces his credentials")]
-    public void IntroduceCredentials()
-    {
-        _loginPage!.EmailTextField.Clear();
-        try
-        {
-            _loginPage.EmailTextField.Type(_scenarioContext.Get<string>("Email"));
-        }
-        catch
-        {
-            _loginPage.EmailTextField.Type(_loginPage.EmailCredentials);
-        }
-
-        _loginPage.PasswordTextField.Clear();
-        _loginPage.PasswordTextField.Type(_loginPage.PassCredentials);
     }
 
     [When(@"the '(.*)' is selected at '(.*)'")]
