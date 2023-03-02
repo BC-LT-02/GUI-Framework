@@ -25,9 +25,30 @@ public class GenericWebDriver
     public static IWebDriver LoadDriver()
     {
         var key = ConfigBuilder.Instance.GetString("ui", "DriverLocation");
-        return key.Equals("Local")
-            ? WebDriverFactory.GetDriver(ConfigModel.DriverType)
-            : RemoteWebDriverFactory.GetDriver(ConfigModel.DriverType);
+        IWebDriver driver;
+        switch (key)
+        {
+            case "Local":
+                driver = WebDriverFactory.GetDriver(ConfigModel.DriverType);
+                break;
+            case "BrowserStack":
+                driver = BrowserstackWebDriverFactory.GetDriver(ConfigModel.DriverType);
+                break;
+            default:
+                driver = RemoteWebDriverFactory.GetDriver(ConfigModel.DriverType);
+                break;
+        }
+
+        return BasicConfigs(driver);
+    }
+
+    public static IWebDriver BasicConfigs(IWebDriver driver)
+    {
+        driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(
+            ConfigModel.DriverImplicitTimeout
+        );
+        driver.Manage().Window.Maximize();
+        return driver;
     }
 
     public static void AcceptAlert()

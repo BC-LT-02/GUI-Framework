@@ -4,8 +4,8 @@ on:
   schedule:
     - cron: "0 */3 * * *" 
 
-jobs:   
+jobs:
   Call-UI-Tests:
     name: Call UI tests workflow
     uses: ./.github/workflows/UITests.yml
-    secrets: inherit
+    secrets: inherit 

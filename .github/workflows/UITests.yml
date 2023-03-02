@@ -5,7 +5,7 @@ on:
 
 jobs:
   Run-UI-Tests:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
     - name: Setup dotnet
@@ -13,20 +13,22 @@ jobs:
       with:
         dotnet-version: '6.0.x'
     - name: Install tools
-      run: dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
+      run: dotnet tool update --global SpecFlow.Plus.LivingDoc.CLI
     - name: Setup Secrets
       run: |
         echo "TODO-LY-EMAIL=${{secrets.TODO_LY_EMAIL}}" >> $GITHUB_ENV
         echo "TODO-LY-PASS=${{secrets.TODO_LY_PASS}}" >> $GITHUB_ENV
+        echo "BROWSERSTACK-USERNAME=${{secrets.BROWSERSTACK_USERNAME}}" >> $GITHUB_ENV
+        echo "BROWSERSTACK-ACCESSKEY=${{secrets.BROWSERSTACK_ACCESSKEY}}" >> $GITHUB_ENV
         echo "DriverType=Chrome" >> $GITHUB_ENV
         echo "DriverLocation=Remote" >> $GITHUB_ENV
         echo "DriverMode=Headless" >> $GITHUB_ENV
-    - name: Build
-      run: dotnet build TodoFramework.sln
     - name: Selenium docker grid setup
       run: |
         docker-compose -f 1.Core/Docker/hub.yml up -d
         docker-compose -f 1.Core/Docker/${DriverType}.yml up -d
+    - name: Build
+      run: dotnet build TodoFramework.sln
     - name: Run UI Tests
       run: dotnet test 3.Tests/UI --no-build --no-restore
     - name: End docker sessions
@@ -34,7 +36,7 @@ jobs:
       run: |
         docker-compose -f 1.Core/Docker/hub.yml stop
         docker-compose -f 1.Core/Docker/${DriverType}.yml down --remove-orphans
-        docker container prune -f
+        docker container prune
     - name: Get Allure history
       uses: actions/checkout@v3
       if: always()
