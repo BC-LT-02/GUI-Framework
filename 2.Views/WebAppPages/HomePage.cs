@@ -28,19 +28,6 @@ public class HomePage
     )]
     public Button? SettingsButton { get; }
 
-    [Element("Account", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//ul[@id='settings_tabs']/li/a[text()='Account']")]
-    public Button AccountTabButton =>
-        new Button(
-            "",
-            new Locator(LocatorType.XPath, "//ul[@id='settings_tabs']/li/a[text()='Account']")
-        );
-
-    [Element("Delete Account", ElementType.Button)]
-    [Locator(LocatorType.Id, "DeleteAccountBtn")]
-    public Button DeleteAccountButton =>
-        new Button("", new Locator(LocatorType.Id, "DeleteAccountBtn"));
-
     [Element("Add New Project", ElementType.Button)]
     [Locator(LocatorType.XPath, "//td[@class='ProjItemContent' and text()='Add New Project']")]
     public Button AddNewProjectButton =>
