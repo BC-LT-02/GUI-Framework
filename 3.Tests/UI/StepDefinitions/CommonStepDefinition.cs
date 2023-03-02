@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
@@ -94,6 +95,13 @@ public class CommonSteps
 
             UIElementFactory.GetElement(elementName, CurrentView).Type(input);
         }
+    }
+
+    [When(@"enters the item ""(.*)"" on ""(.*)"" input")]
+    public void Whentheuserclicks(string itemName, string elementName)
+    {
+        UIElementFactory.GetElement(elementName, "Items Component").Type(itemName);
+        UIElementFactory.GetElement(elementName, "Items Component").Type(Keys.Enter);
     }
 
     [When(

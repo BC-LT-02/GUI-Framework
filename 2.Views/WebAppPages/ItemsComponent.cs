@@ -21,6 +21,10 @@ public class ItemsComponent
     [Locator(LocatorType.XPath, "//div[@id='ItemListPlaceHolder']//div[text()='{0}']/ancestor::tr/td/img[contains(@class, 'handle')]")]
     public IClickable? ItemHandle { get; }
 
+    [Element("Item Tag", ElementType.Button)]
+    [Locator(LocatorType.XPath, "//div[@id='FilterItemProjectDiv' and text()='{0}']")]
+    public IClickable? ItemTag { get; }
+
     [Element("Child Item", ElementType.Button)]
     [Locator(LocatorType.XPath, "//ul[@class='list ItemsList' and contains(@style, 'padding-left: 20px;')]//div[text()='{0}']")]
     public IClickable? ChildItem { get; }

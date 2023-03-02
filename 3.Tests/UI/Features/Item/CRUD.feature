@@ -10,7 +10,7 @@ Feature: Items CRUD operations
             And enters the item "new katas for monday" on "Add New Todo" input
         Then the 'Get Item' <new katas for monday> should be displayed at 'Items Component'
 
-    @Smoke @Regression @create.project.Exercise @delete.projects @create.item.Math @UI_Update_Item @jorge
+    @Smoke @Regression @create.project.Exercise @delete.projects @create.item.Math @UI_Update_Item
     Scenario: Update a name of an item succesfully
         When the user clicks on 'Project Button' <Exercise> at 'Project Component'
             And the user hovers on "Get Item" <Math> at 'Items Component'
