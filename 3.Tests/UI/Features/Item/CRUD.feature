@@ -24,9 +24,3 @@ Feature: Items CRUD operations
             And the user hovers on "Get Item" <Bananas> at 'Items Component'
             And the user clicks on "Item Contextmenu" <Bananas> on "Delete" option at "Items Component"
         Then the 'Get Item' <Bananas> should not be displayed at 'Items Component'
-
-    # @create.project.NewProject @UI_Create_Item
-    # Scenario: Create an Item Due Tomorrow Successfully
-    #     When the user clicks on 'Project Button' <NewProject> at 'Project Component'
-    #     And enters the item "new katas for monday" on "Add New Todo" input
-    #     Then the 'Get Item' <new katas for monday> should be displayed at 'Items Component'
