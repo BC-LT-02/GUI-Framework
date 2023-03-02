@@ -1,1 +1,1 @@
-{"reportName":"Allure Report","testRuns":[],"statistic":{"failed":3,"broken":5,"skipped":0,"passed":40,"unknown":0,"total":48},"time":{"start":1677724425100,"stop":1677724952301,"duration":527201,"minDuration":5572,"maxDuration":40087,"sumDuration":453872}}
+{"reportName":"Allure Report","testRuns":[],"statistic":{"failed":1,"broken":3,"skipped":0,"passed":13,"unknown":0,"total":17},"time":{"start":1677725390097,"stop":1677725571604,"duration":181507,"minDuration":6,"maxDuration":40168,"sumDuration":150266}}
