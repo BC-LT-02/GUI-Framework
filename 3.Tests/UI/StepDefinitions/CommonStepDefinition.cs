@@ -321,11 +321,19 @@ public class CommonSteps
         );
     }
 
-    [Then(@"the project '([\w ]+)' should appear before '([\w ]+)'")]
-    public void VerifyProjectsOrder(string project1, string project2)
+    [Then(@"the (project|item) '([\w ]+)' should appear before '([\w ]+)'")]
+    public void VerifyElementOrder(string elementType, string argument1, string argument2)
     {
-        string[] projectNames = APIScripts.RetrieveProjectNames();
+        string[] names = new string[] { };
+        if (elementType == "project")
+        {
+            names = APIScripts.RetrieveProjectNames();
+        }
+        else if (elementType == "item")
+        {
+            names = APIScripts.RetrieveItemNames();
+        }
 
-        Assert.That(Array.IndexOf(projectNames, project1), Is.LessThan(Array.IndexOf(projectNames, project2)));
+        Assert.That(Array.IndexOf(names, argument1), Is.LessThan(Array.IndexOf(names, argument2)));
     }
 }

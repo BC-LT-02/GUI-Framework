@@ -88,7 +88,7 @@ public class Hooks
             byte[] content = GetScreenshot();
             AllureLifecycle.Instance.AddAttachment(
                 "Failed test screenshot",
-                "application/png",
+                "image/png",
                 content
             );
         }

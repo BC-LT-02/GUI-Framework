@@ -33,4 +33,14 @@ public class APIScripts
 
         return projectNames.Select(each => each.Content).ToArray()!;
     }
+
+    public static string[] RetrieveItemNames()
+    {
+        RestHelper client = new RestHelper(ConfigModel.ApiHostUrl);
+        client.AddAuthenticator(ConfigModel.TODO_LY_EMAIL, ConfigModel.TODO_LY_PASS);
+        RestResponse response = client.DoRequest(Method.Get, ConfigModel.ItemUri, null);
+        ItemModel[] itemNames = JsonSerializer.Deserialize<ItemModel[]>(response.Content!)!;
+
+        return itemNames.Select(each => each.Content).ToArray()!;
+    }
 }
