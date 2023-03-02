@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
@@ -327,5 +328,12 @@ public class CommonSteps
         string[] projectNames = APIScripts.RetrieveProjectNames();
 
         Assert.That(Array.IndexOf(projectNames, project1), Is.LessThan(Array.IndexOf(projectNames, project2)));
+    }
+
+    [When(@"(?:the user )?enters the item [\x22\x27]([\w ]+)[\x22\x27] on [\x22\x27]([\w ]+)[\x22\x27] input$")]
+    public void TypeOnElement(string input, string elementName) 
+    {
+        UIElementFactory.GetElement(elementName, "Items Component").Type(input);
+        UIElementFactory.GetElement(elementName, "Items Component").Type(Keys.Enter);
     }
 }
