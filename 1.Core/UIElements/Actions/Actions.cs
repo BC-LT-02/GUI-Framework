@@ -12,10 +12,10 @@ public class WebActions
         actions.MoveToElement(element).Perform();
     }
 
-    public static void DragAndDrop(IWebElement source, IWebElement target)
+    public static void DragAndDrop(IWebElement source, IWebElement target, int offsetX, int offsetY)
     {
         Actions actions = new Actions(GenericWebDriver.Instance);
-        actions.DragAndDrop(source, target).Perform();
+        actions.ClickAndHold(source).MoveToElement(target, offsetX, offsetY).Release().Perform();
     }
 
     public static void NavigateTo(string url)
