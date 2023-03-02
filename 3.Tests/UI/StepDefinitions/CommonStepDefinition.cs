@@ -262,66 +262,6 @@ public class CommonSteps
         );
     }
 
-    [Then(@"an alert should appear with the message ""(.*)""")]
-    public void VerifyAlertMessage(string message)
-    {
-        var alert = GenericWebDriver.Wait.Until(ExpectedConditions.AlertIsPresent());
-        Assert.That(message, Is.EqualTo(alert.Text));
-    }
-
-    [When(@"(?:the user )?accepts the alert")]
-    public void AcceptAlert()
-    {
-        GenericWebDriver.AcceptAlert();
-    }
-
-    [When(@"introduces his credentials")]
-    public void IntroduceCredentials()
-    {
-        _loginPage!.EmailTextField.Clear();
-        try
-        {
-            _loginPage.EmailTextField.Type(_scenarioContext.Get<string>("Email"));
-        }
-        catch
-        {
-            _loginPage.EmailTextField.Type(_loginPage.EmailCredentials);
-        }
-
-        _loginPage.PasswordTextField.Clear();
-        _loginPage.PasswordTextField.Type(_loginPage.PassCredentials);
-    }
-
-    [Then(@"the '(.*)' value is updated with '(.*)' at '(.*)'")]
-    public void VerifyElementValueUpdate(string elementName, string newValue, string viewName)
-    {
-        if (viewName != null)
-        {
-            CurrentView = viewName;
-        }
-
-        Assert.That(
-            UIElementFactory.GetElement(elementName, CurrentView).WebElement.GetAttribute("value"),
-            Is.EqualTo(newValue)
-        );
-    }
-
-    [When(@"the '(.*)' is selected at '(.*)'")]
-    public void VerifyElementIsSelected(string elementName, string viewName)
-    {
-        if (viewName != null)
-        {
-            CurrentView = viewName;
-        }
-
-        Assert.That(
-            UIElementFactory
-                .GetElement(elementName, CurrentView)
-                .WebElement.GetAttribute("selected"),
-            Is.EqualTo("true")
-        );
-    }
-
     [Then(@"the project '([\w ]+)' should appear before '([\w ]+)'")]
     public void VerifyProjectsOrder(string project1, string project2)
     {
@@ -331,7 +271,7 @@ public class CommonSteps
     }
 
     [When(@"(?:the user )?enters the item [\x22\x27]([\w ]+)[\x22\x27] on [\x22\x27]([\w ]+)[\x22\x27] input$")]
-    public void TypeOnElement(string input, string elementName) 
+    public void TypeOnElement(string input, string elementName)
     {
         UIElementFactory.GetElement(elementName, "Items Component").Type(input);
         UIElementFactory.GetElement(elementName, "Items Component").Type(Keys.Enter);

@@ -1,4 +1,4 @@
-Feature: Settings account view
+Feature: Settings actions operations
     As a logged in user, the user should be able to empty the recible bin
     Background:
         Given the user is logged in
