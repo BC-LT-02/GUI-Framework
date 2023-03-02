@@ -28,19 +28,6 @@ public class HomePage
     )]
     public Button? SettingsButton { get; }
 
-    [Element("Account", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//ul[@id='settings_tabs']/li/a[text()='Account']")]
-    public Button AccountTabButton =>
-        new Button(
-            "",
-            new Locator(LocatorType.XPath, "//ul[@id='settings_tabs']/li/a[text()='Account']")
-        );
-
-    [Element("Delete Account", ElementType.Button)]
-    [Locator(LocatorType.Id, "DeleteAccountBtn")]
-    public Button DeleteAccountButton =>
-        new Button("", new Locator(LocatorType.Id, "DeleteAccountBtn"));
-
     [Element("Add New Project", ElementType.Button)]
     [Locator(LocatorType.XPath, "//td[@class='ProjItemContent' and text()='Add New Project']")]
     public Button AddNewProjectButton =>
@@ -95,6 +82,6 @@ public class HomePage
     public Button InfoMessageText => new Button("", new Locator(LocatorType.Id, "InfoMessageText"));
 
     [Element("Section Name", ElementType.Button)]
-    [Locator(LocatorType.XPath, "//ul[@id='mainFilterList']//*[text()='{0}']")]
+    [Locator(LocatorType.XPath, "//td[@class='FilterItemContent' and text()='{0}']")]
     public Button? SectionName { get; }
 }

@@ -10,6 +10,7 @@ using TechTalk.SpecFlow;
 using Todoly.Core.Helpers;
 using Todoly.Core.UIElements.Drivers;
 using Todoly.Views.Models;
+using Todoly.Views.WebAppPages;
 
 namespace SeleniumTest.Tests.Hooks;
 
@@ -138,7 +139,7 @@ public class Hooks
             byte[] content = GetScreenshot();
             AllureLifecycle.Instance.AddAttachment(
                 "Failed test screenshot",
-                "application/png",
+                "image/png",
                 content
             );
         }

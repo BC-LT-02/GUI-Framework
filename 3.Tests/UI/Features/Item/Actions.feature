@@ -4,18 +4,25 @@ Feature: Items actions operations
     Background:
         Given the user is logged in
 
-    @create.project.Cleaning  @delete.projects @UI_View_More
-    Scenario: View More Options Successfully
+    @create.project.Cleaning @delete.projects @UI_View_More_Less
+    Scenario: View More and Less Options Successfully
         When the user clicks on 'Project Button' <Cleaning> at 'Project Component'
         And clicks on 'More Option' at 'Items Component'
         Then the 'More Options Panel' should be displayed
-
-    @create.project.Construction @delete.projects @UI_View_Less
-    Scenario: View Less Options Successfully
-        When the user clicks on 'Project Button' <Construction> at 'Project Component'
-        And clicks on 'More Option' at 'Items Component'
-        And clicks on 'Less Option'
+        When clicks on 'Less Option'
         Then the 'Less Options Panel' should not be displayed
+
+    @Regression @create.project.HouseChores @create.item.WashDishes @create.item.SweepFloor @delete.projects @retrieve.projects
+    Scenario: Drag and drop above another item
+        When the user clicks on 'Project Button' <HouseChores> at 'Project Component'
+        When the user drags and drop 'SweepFloor' 'Item Handle' above 'WashDishes' at 'Items Component'
+        Then the item 'SweepFloor' should appear before 'WashDishes'
+
+    @Regression @create.project.MarketList @create.item.Eggs @create.item.Flour @delete.projects
+    Scenario: Drang and drop inside another item
+        When the user clicks on 'Project Button' <MarketList> at 'Project Component'
+        When the user drags and drop 'Flour' 'Item Handle' on top of 'Eggs' at 'Items Component'
+        Then the 'Child Item' <Flour> should be displayed
 
     @Smoke @Regression @create.project.Kids @create.item.EatLunch @delete.projects @UI_Priority_Item
     Scenario Outline: Place item priority

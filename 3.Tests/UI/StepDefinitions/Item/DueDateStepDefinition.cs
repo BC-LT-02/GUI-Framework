@@ -64,11 +64,16 @@ public class DueDateStepDefinitions : CommonSteps
         UIElementFactory.GetElement("Postpone Button", "Items Component").Click();
     }
 
-    [Then(@"the ""(.*)"" should be displayed in ""(.*)"" section")]
-    public void DisplayedInSection(string itemName, string sectionName)
+    [Then(@"the ""(.*)"" in ""(.*)"" should be displayed in ""(.*)"" section")]
+    public void DisplayedInSection(string itemName, string projectName, string sectionName)
     {
         UIElementFactory.GetElement("Section Name", "Home Page", sectionName).Click();
-        Assert.True(UIElementFactory.GetElement("Get Item", CurrentView, itemName).WebElement.Displayed);
+        GenericWebDriver.Wait.Until(
+            ExpectedConditions.ElementIsVisible(
+                UIElementFactory.GetElement("Item Tag", "Items Component", projectName).Locator.GetBy()
+            )
+        );
+        Assert.True(UIElementFactory.GetElement("Get Item", "Items Component", itemName).WebElement.Displayed);
     }
 
     [Then(@"the ""(.*)"" date-tag should be displayed as ""(.*)""")]
