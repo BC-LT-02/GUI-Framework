@@ -32,6 +32,6 @@ Feature: Items actions operations
         Then the project 'MyProject2' should appear before 'MyProject1'
 
     @Regression @create.project.MyProject1 @create.project.MyProject2 @delete.projects
-    Scenario: Drang and drop inside another project
+    Scenario: Drag and drop inside another project
         When the user drags and drop 'MyProject2' 'Project Handle' on top of 'MyProject1' at 'Project Component'
         Then the 'Child Project' <MyProject2> should be displayed
